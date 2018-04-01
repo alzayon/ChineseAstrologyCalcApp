@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Chinese Astrology Calculator</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="action_calculate_bday">Calculate Birthday</string>
+    <string name="action_show_monthly_flying_stars">Show Monthly Flying Stars</string>
+    <string name="action_show_yearly_flying_stars">Show Yearly Flying Stars</string>
+    <string name="action_determine_current_position">Determine Current Position</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+</resources>
