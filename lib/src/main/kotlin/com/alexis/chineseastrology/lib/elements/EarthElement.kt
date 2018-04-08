@@ -3,6 +3,6 @@ package com.alexis.chineseastrology.lib.elements
 /**
  * Created by alzayon on 3/28/2018.
  */
-class WaterElement: IElement {
+data class EarthElement(public override val name: String = "earth") : IElement {
 
 }

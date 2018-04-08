@@ -1,8 +1,7 @@
-package com.alexis.chineseastrology.lib.elements
+package com.alexis.chineseastrology.lib
 
-import com.alexis.chineseastrology.lib.Gender
-import com.alexis.chineseastrology.lib.IBdayCalculator
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
+import com.alexis.chineseastrology.lib.elements.*
 import com.alexis.chineseastrology.lib.util.AnimalSignBaseYear
 import com.alexis.chineseastrology.lib.util.DateUtil
 import java.util.*
@@ -18,7 +17,7 @@ class BdayCalculator: IBdayCalculator {
         val gender = Gender.getYearGender(date)
         var baseYears = AnimalSignBaseYear.getMaleBaseYears()
         if (gender == Gender.FEMALE) {
-            AnimalSignBaseYear.getFemaleBaseYears()
+            baseYears = AnimalSignBaseYear.getFemaleBaseYears()
         }
         val animalSign = findAnimalFromList(year, baseYears)
         return animalSign.copyWithElement(element)
@@ -27,7 +26,7 @@ class BdayCalculator: IBdayCalculator {
     override fun determineElement(date: Date): IElement {
         val year = DateUtil.getYearFromDate(date)
         val yearAsString = year.toString()
-        val lastNumber = yearAsString.last().toInt()
+        val lastNumber = (yearAsString.substring(3)).toInt()
 
         //TODO
         //Consider first month
