@@ -12,6 +12,8 @@ data class Rooster(public override val element: IElement = MetalElement()): IAni
         get() = Gender.FEMALE
     override val baseElement: IElement
         get() = MetalElement()
+    override val position: Int
+        get() = 10
 
     override fun copyWithElement(element: IElement): IAnimalSign {
         return this.copy(element = element)

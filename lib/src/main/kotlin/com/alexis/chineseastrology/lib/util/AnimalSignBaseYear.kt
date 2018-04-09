@@ -20,6 +20,15 @@ sealed class AnimalSignBaseYear(public val year: Int,
                     DragonSignBaseYear(), HorseSignBaseYear(),
                     MonkeySignBaseYear(), DogSignBaseYear())
         }
+
+        public fun getAllBaseYears(): List<AnimalSignBaseYear> {
+            return listOf(RatSignBaseYear(), OxSignBaseYear(),
+                    TigerSignBaseYear(), RabbitSignBaseYear(),
+                    DragonSignBaseYear(), SnakeSignBaseYear(),
+                    HorseSignBaseYear(), SheepSignBaseYear(),
+                    MonkeySignBaseYear(), RoosterSignBaseYear(),
+                    DogSignBaseYear(), BoarSignBaseYear())
+        }
     }
 }
 

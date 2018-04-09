@@ -12,6 +12,8 @@ data class Rat(public override val element: IElement = WaterElement()): IAnimalS
         get() = Gender.MALE
     override val baseElement: IElement
         get() = WaterElement()
+    override val position: Int
+        get() = 1
 
     override fun copyWithElement(element: IElement): IAnimalSign {
         return this.copy(element = element)

@@ -5,4 +5,16 @@ package com.alexis.chineseastrology.lib.elements
  */
 interface IElement {
     val name: String
+    val position: Int
+
+    public fun getPreviousElement(): IElement {
+        when (this) {
+            MetalElement() -> return EarthElement()
+            WaterElement() -> return MetalElement()
+            WoodElement()  -> return WaterElement()
+            FireElement()  -> return WoodElement()
+            EarthElement() -> return FireElement()
+        }
+        return EarthElement()
+    }
 }

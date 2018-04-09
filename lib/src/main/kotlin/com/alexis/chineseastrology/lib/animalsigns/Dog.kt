@@ -12,6 +12,8 @@ data class Dog(public override val element: IElement = MetalElement()): IAnimalS
         get() = Gender.MALE
     override val baseElement: IElement
         get() = MetalElement()
+    override val position: Int
+        get() = 11
 
     override fun copyWithElement(element: IElement): IAnimalSign {
         return this.copy(element = element)

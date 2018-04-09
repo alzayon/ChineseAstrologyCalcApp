@@ -4,6 +4,8 @@ import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import com.alexis.chineseastrology.lib.elements.*
 import com.alexis.chineseastrology.lib.util.AnimalSignBaseYear
 import com.alexis.chineseastrology.lib.util.DateUtil
+import com.alexis.chineseastrology.lib.util.Month1
+import com.alexis.chineseastrology.lib.util.MonthlyBoundary
 import java.util.*
 
 
@@ -19,8 +21,13 @@ class BdayCalculator: IBdayCalculator {
         if (gender == Gender.FEMALE) {
             baseYears = AnimalSignBaseYear.getFemaleBaseYears()
         }
-        val animalSign = findAnimalFromList(year, baseYears)
-        return animalSign.copyWithElement(element)
+
+        var animalSign = findAnimalFromList(year, baseYears)
+        animalSign = animalSign.copyWithElement(element)
+        if (isBeforeFirstMonth(date)) {
+            animalSign = adjustAnimalSignForFirstMonth(animalSign)
+        }
+        return animalSign
     }
 
     override fun determineElement(date: Date): IElement {
@@ -41,8 +48,6 @@ class BdayCalculator: IBdayCalculator {
     }
 
     private fun findAnimalFromList(year: Int, list: List<AnimalSignBaseYear>): IAnimalSign {
-        //TODO
-        //Consider first month
         return list.filter {
             var r = it.year % year
             if (it.year < year) {
@@ -54,6 +59,25 @@ class BdayCalculator: IBdayCalculator {
         }.map {
             it.animalSign
         }.first()
+    }
 
+    private fun isBeforeFirstMonth(date: Date): Boolean {
+        val year = DateUtil.getYearFromDate(date)
+        val month1 = Month1()
+        val month1DatePair = MonthlyBoundary.convertToDate(year, month1)
+        val month1StartDate = month1DatePair.first
+        val dateTimestamp = date.time
+        val month1DateTimestamp = month1StartDate.time
+
+        return if (dateTimestamp < month1DateTimestamp) true else false
+    }
+
+    private fun adjustAnimalSignForFirstMonth(animalSign: IAnimalSign): IAnimalSign {
+        var element = animalSign.element
+        if (animalSign.gender == Gender.MALE) {
+            element = element.getPreviousElement()
+        }
+        val adjustedAnimal = animalSign.getPreviousAnimalSign()
+        return adjustedAnimal.copyWithElement(element)
     }
 }

@@ -12,6 +12,8 @@ data class Boar(public override val element: IElement = WaterElement()): IAnimal
         get() = Gender.FEMALE
     override val baseElement: IElement
         get() = WaterElement()
+    override val position: Int
+        get() = 12
 
     override fun copyWithElement(element: IElement): IAnimalSign {
         return this.copy(element = element)

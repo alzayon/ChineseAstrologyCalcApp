@@ -133,4 +133,26 @@ class BdayCalculatorTest {
         val expected = Boar(FireElement())
         Assert.assertEquals(expected, sign)
     }
+
+    @Test
+    fun `calculate find rat sign adjusted for first month`() {
+        //Jan 5, 1961
+        val date = Date(-283680000000)
+
+        val sign = calculator.calculate(date)
+
+        val expected = Rat(MetalElement())
+        Assert.assertEquals(expected, sign)
+    }
+
+    @Test
+    fun `calculate find ox sign adjusted for first month`() {
+        //Jan 5, 2046
+        val date = Date(2398694400000)
+
+        val sign = calculator.calculate(date)
+
+        val expected = Ox(WoodElement())
+        Assert.assertEquals(expected, sign)
+    }
 }

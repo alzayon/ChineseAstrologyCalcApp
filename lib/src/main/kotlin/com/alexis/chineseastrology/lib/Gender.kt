@@ -15,7 +15,7 @@ enum class Gender {
             //TODO
             //Consider first month
             val year = DateUtil.getYearFromDate(date)
-            return if(year % 2 == 0) MALE else FEMALE
+            return if (year % 2 == 0) MALE else FEMALE
         }
     }
 

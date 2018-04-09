@@ -12,6 +12,8 @@ data class Sheep(public override val element: IElement = FireElement()): IAnimal
         get() = Gender.FEMALE
     override val baseElement: IElement
         get() = FireElement()
+    override val position: Int
+        get() = 8
 
     override fun copyWithElement(element: IElement): IAnimalSign {
         return this.copy(element = element)
