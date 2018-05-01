@@ -2,7 +2,8 @@ package com.alexis.chineseastrology.lib
 
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import com.alexis.chineseastrology.lib.elements.*
-import com.alexis.chineseastrology.lib.util.AnimalSignBaseYear
+import com.alexis.chineseastrology.lib.animalsigns.AnimalSignBaseYear
+import com.alexis.chineseastrology.lib.general.Gender
 import com.alexis.chineseastrology.lib.util.DateUtil
 import com.alexis.chineseastrology.lib.util.Month1
 import com.alexis.chineseastrology.lib.util.MonthlyBoundary

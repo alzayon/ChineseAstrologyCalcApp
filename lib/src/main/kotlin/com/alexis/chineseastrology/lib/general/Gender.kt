@@ -1,4 +1,4 @@
-package com.alexis.chineseastrology.lib
+package com.alexis.chineseastrology.lib.general
 
 import com.alexis.chineseastrology.lib.animalsigns.*
 import com.alexis.chineseastrology.lib.util.DateUtil

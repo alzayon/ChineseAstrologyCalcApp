@@ -1,6 +1,6 @@
 package com.alexis.chineseastrology.lib.animalsigns
 
-import com.alexis.chineseastrology.lib.Gender
+import com.alexis.chineseastrology.lib.general.Gender
 import com.alexis.chineseastrology.lib.elements.IElement
 import com.alexis.chineseastrology.lib.elements.WoodElement
 

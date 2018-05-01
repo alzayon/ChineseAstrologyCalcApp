@@ -1,6 +1,5 @@
-package com.alexis.chineseastrology.lib.util
+package com.alexis.chineseastrology.lib.animalsigns
 
-import com.alexis.chineseastrology.lib.animalsigns.*
 import com.alexis.chineseastrology.lib.elements.*
 
 /**
@@ -9,19 +8,19 @@ import com.alexis.chineseastrology.lib.elements.*
 sealed class AnimalSignBaseYear(public val year: Int,
                                 public val animalSign: IAnimalSign) {
     companion object {
-        public fun getFemaleBaseYears(): List<AnimalSignBaseYear> {
+        fun getFemaleBaseYears(): List<AnimalSignBaseYear> {
             return listOf(OxSignBaseYear(), RabbitSignBaseYear(),
                     SnakeSignBaseYear(), SheepSignBaseYear(),
                     RoosterSignBaseYear(), BoarSignBaseYear())
         }
 
-        public fun getMaleBaseYears(): List<AnimalSignBaseYear> {
+        fun getMaleBaseYears(): List<AnimalSignBaseYear> {
             return listOf(RatSignBaseYear(), TigerSignBaseYear(),
                     DragonSignBaseYear(), HorseSignBaseYear(),
                     MonkeySignBaseYear(), DogSignBaseYear())
         }
 
-        public fun getAllBaseYears(): List<AnimalSignBaseYear> {
+        fun getAllBaseYears(): List<AnimalSignBaseYear> {
             return listOf(RatSignBaseYear(), OxSignBaseYear(),
                     TigerSignBaseYear(), RabbitSignBaseYear(),
                     DragonSignBaseYear(), SnakeSignBaseYear(),
