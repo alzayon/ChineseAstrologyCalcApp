@@ -17,7 +17,7 @@ interface IFlyingStar {
                     MisfortuneStar(),
                     HeavenStar(),
                     BurglaryStar(),
-                    ProsperityStar(),
+                    WealthStar(),
                     FutureProsperityStar())
         }
 
@@ -25,9 +25,27 @@ interface IFlyingStar {
             if (steps < 1) {
                 throw IllegalArgumentException("Invalid steps specified.")
             }
-            var newFlyingStar: IFlyingStar? = null
+            var newFlyingStar: IFlyingStar? = flyingStar
             for (i in 1..steps) {
-                newFlyingStar = flyingStar.next()
+                //IMPORTANT
+                //Flying stars move forward by moving backwards in number
+                //and vice versa...
+                newFlyingStar = newFlyingStar?.previous()
+            }
+            return newFlyingStar!!
+        }
+
+        fun rewindByPosition(steps: Int, flyingStar: IFlyingStar): IFlyingStar {
+            if (steps < 1) {
+                throw IllegalArgumentException("Invalid steps specified.")
+            }
+            var stepsToUse = - Math.abs(steps)
+            var newFlyingStar: IFlyingStar? = flyingStar
+            for (i in -1 downTo stepsToUse) {
+                //IMPORTANT
+                //Flying stars move forward by moving backwards in number
+                //and vice versa...
+                newFlyingStar = newFlyingStar?.next()
             }
             return newFlyingStar!!
         }

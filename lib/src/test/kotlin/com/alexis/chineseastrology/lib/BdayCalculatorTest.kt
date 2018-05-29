@@ -3,9 +3,7 @@ package com.alexis.chineseastrology.lib
 import com.alexis.chineseastrology.lib.animalsigns.*
 import com.alexis.chineseastrology.lib.elements.*
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
-import java.lang.annotation.ElementType
 import java.util.*
 
 

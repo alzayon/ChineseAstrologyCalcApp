@@ -13,7 +13,7 @@ class YearlyStarBaseYear {
         init {
             if (yearlyFlyingStarGroup != null) {
                 val northStar = YearlyFlyingStar(2013, StarPosition(CompassDirection.NORTH, VictoryStar()))
-                val northEastStar = YearlyFlyingStar(2013, StarPosition(CompassDirection.NORTHEAST, ProsperityStar()))
+                val northEastStar = YearlyFlyingStar(2013, StarPosition(CompassDirection.NORTHEAST, WealthStar()))
                 val eastStar = YearlyFlyingStar(2013, StarPosition(CompassDirection.EAST, QuarrelsomeStar()))
                 val southEastStar = YearlyFlyingStar(2013, StarPosition(CompassDirection.SOUTHEAST, PeachBlossomStar()))
                 val southStar = YearlyFlyingStar(2013, StarPosition(CompassDirection.SOUTH, FutureProsperityStar()))

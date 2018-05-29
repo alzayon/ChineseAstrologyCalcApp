@@ -9,8 +9,9 @@ import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
 class StarCalculator : IStarCalculator {
     override fun calculateYearlyFlyingStars(year: Int): YearlyFlyingStarGroup {
         val steps = determineNumberToAdd(year)
-        return YearlyStarBaseYear.getYearlyFlyingStarsGroupForBaseYear()
-                    .advanceFlyingStarsByStepsWithYear(steps, year)
+        val flyingStarGroup = YearlyStarBaseYear.getYearlyFlyingStarsGroupForBaseYear()
+                    .giveAdvancedFlyingStarGroup(steps, year)
+        return flyingStarGroup as YearlyFlyingStarGroup
     }
 
     override fun calculateMonthlyFlyingStars(month: Int, year: Int): MonthlyFlyingStarGroup {

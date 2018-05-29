@@ -1,6 +1,15 @@
 package com.alexis.chineseastrology.lib.flyingstars.time
 
 interface IFlyingStarGroup {
-    fun advanceFlyingStarsByStepsWithYear(steps: Int, yearOrMonthToUse: Int): YearlyFlyingStarGroup
-    fun advanceFlyingStarsBySteps(steps: Int, yearOrMonthToUse: Int): Set<YearlyFlyingStar>
+    fun setOfFlyingStars(): Set<ITimeFlyingStar>
+
+    fun giveNorthStar(): ITimeFlyingStar
+    fun giveNorthEastStar(): ITimeFlyingStar
+    fun giveEastStar(): ITimeFlyingStar
+    fun giveSouthEastStar(): ITimeFlyingStar
+    fun giveSouthStar(): ITimeFlyingStar
+    fun giveSouthWestStar(): ITimeFlyingStar
+    fun giveWestStar(): ITimeFlyingStar
+    fun giveNorthWestStar(): ITimeFlyingStar
+    fun giveCenterStar(): ITimeFlyingStar
 }

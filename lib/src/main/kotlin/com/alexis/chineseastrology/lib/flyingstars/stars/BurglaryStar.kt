@@ -9,7 +9,7 @@ data class BurglaryStar(public override val element: IElement = MetalElement(),
                         public override val charge: Charge = Charge.NEGATIVE): IFlyingStar {
 
     override fun next(): IFlyingStar {
-        return ProsperityStar()
+        return WealthStar()
     }
 
     override fun previous(): IFlyingStar {

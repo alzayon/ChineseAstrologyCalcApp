@@ -1,83 +1,54 @@
 package com.alexis.chineseastrology.lib.flyingstars.time
 
 import com.alexis.chineseastrology.lib.flyingstars.stars.IFlyingStar
-import com.alexis.chineseastrology.lib.general.CompassDirection
 
-class YearlyFlyingStarGroup: IFlyingStarGroup {
-    lateinit var northStar: YearlyFlyingStar
-        private set
-    lateinit var southStar: YearlyFlyingStar
-        private set
-    lateinit var eastStar: YearlyFlyingStar
-        private set
-    lateinit var westStar: YearlyFlyingStar
-        private set
-    lateinit var northEastStar: YearlyFlyingStar
-        private set
-    lateinit var southEastStar: YearlyFlyingStar
-        private set
-    lateinit var southWestStar: YearlyFlyingStar
-        private set
-    lateinit var northWestStar: YearlyFlyingStar
-        private set
-    lateinit var centerStar: YearlyFlyingStar
-        private set
-
+class YearlyFlyingStarGroup: BaseFlyingStarGroup {
     var year: Int = 0
 
     constructor(yearlyFlyingStars: Set<YearlyFlyingStar>) {
-        if (yearlyFlyingStars.size != 9) {
-            throw IllegalArgumentException("Incomplete yearly flying stars supplied to constructor.")
-        }
-
-        val distinctStars = yearlyFlyingStars.distinctBy { it.starPosition.compassDirection }
-        if (distinctStars.size != 9) {
-            throw IllegalArgumentException("Duplicate yearly flying stars supplied to constructor.")
-        }
-
+        doBasicStarValidation("year", yearlyFlyingStars)
         val distinctYear = yearlyFlyingStars.distinctBy { it.year }
         if (distinctYear.size > 1) {
-            throw IllegalArgumentException("Please supply flying stars that are for the same year.")
+            throw IllegalArgumentException("Please supply year stars that are for the same year.")
         }
+
         year = distinctYear.get(0).year
-        setupFlyingStars(distinctStars)
+        setupFlyingStars(yearlyFlyingStars.toList())
     }
 
-    override fun advanceFlyingStarsBySteps(steps: Int, yearOrMonthToUse: Int): Set<YearlyFlyingStar> {
+    fun giveAdvancedFlyingStarGroup(steps: Int, yearToUse: Int):
+            IFlyingStarGroup {
+        val yearlyFlyingStars = advanceFlyingStarsBySteps(steps, yearToUse)
+        return YearlyFlyingStarGroup(yearlyFlyingStars)
+    }
+
+    fun giveRewoundFlyingStarGroup(steps: Int, yearToUse: Int):
+            IFlyingStarGroup {
+        val yearlyFlyingStars = rewindFlyingStarsBySteps(steps, yearToUse)
+        return YearlyFlyingStarGroup(yearlyFlyingStars)
+    }
+
+    private fun advanceFlyingStarsBySteps(steps: Int, yearToUse: Int):
+            Set<YearlyFlyingStar> {
         val setOfStars = setOfFlyingStars()
         val newSetOfStars = setOfStars.map {
-            val newFlyingStar = IFlyingStar.advanceByPosition(steps, it.starPosition.flyingStar)
-            val newStarPosition = it.starPosition.copy(flyingStar = newFlyingStar)
-            return@map it.copy(starPosition = newStarPosition, year = yearOrMonthToUse)
+            val newFlyingStar = IFlyingStar.advanceByPosition(steps, it.giveStarPosition().flyingStar)
+            val newStarPosition = it.giveStarPosition().copy(flyingStar = newFlyingStar)
+            val yearlyFlyingStar = it as YearlyFlyingStar
+            return@map yearlyFlyingStar.copy(starPosition = newStarPosition, year = yearToUse)
         }.toSet()
         return newSetOfStars
     }
 
-    override fun advanceFlyingStarsByStepsWithYear(steps: Int, yearOrMonthToUse: Int): YearlyFlyingStarGroup {
-        val yearlyFlyingStars = advanceFlyingStarsBySteps(steps, yearOrMonthToUse)
-        return YearlyFlyingStarGroup(yearlyFlyingStars)
-    }
-
-    fun setOfFlyingStars(): Set<YearlyFlyingStar> {
-        return setOf(northStar, northEastStar, eastStar, southEastStar,
-                southStar, southWestStar, westStar, northWestStar,
-                centerStar)
-    }
-
-    private fun setupFlyingStars(distinctStars: List<YearlyFlyingStar>) {
-        northStar = findStarForPosition(distinctStars, CompassDirection.NORTH)
-        northEastStar = findStarForPosition(distinctStars, CompassDirection.NORTHEAST)
-        eastStar = findStarForPosition(distinctStars, CompassDirection.EAST)
-        southEastStar = findStarForPosition(distinctStars, CompassDirection.SOUTHEAST)
-        southStar = findStarForPosition(distinctStars, CompassDirection.SOUTH)
-        southWestStar = findStarForPosition(distinctStars, CompassDirection.SOUTHWEST)
-        westStar = findStarForPosition(distinctStars, CompassDirection.WEST)
-        northWestStar = findStarForPosition(distinctStars, CompassDirection.NORTHWEST)
-        centerStar = findStarForPosition(distinctStars, CompassDirection.CENTER)
-    }
-
-    private fun findStarForPosition(distinctStars: List<YearlyFlyingStar>,
-                                    compassDirection: CompassDirection): YearlyFlyingStar {
-        return distinctStars.find { it.starPosition.compassDirection == compassDirection }!!
+    private fun rewindFlyingStarsBySteps(steps: Int, yearToUse: Int):
+            Set<YearlyFlyingStar> {
+        val setOfStars = setOfFlyingStars()
+        val newSetOfStars = setOfStars.map {
+            val newFlyingStar = IFlyingStar.rewindByPosition(steps, it.giveStarPosition().flyingStar)
+            val newStarPosition = it.giveStarPosition().copy(flyingStar = newFlyingStar)
+            val yearlyFlyingStar = it as YearlyFlyingStar
+            return@map yearlyFlyingStar.copy(starPosition = newStarPosition, year = yearToUse)
+        }.toSet()
+        return newSetOfStars
     }
 }
