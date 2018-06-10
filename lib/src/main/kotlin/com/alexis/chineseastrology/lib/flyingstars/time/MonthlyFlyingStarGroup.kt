@@ -26,10 +26,10 @@ data class MonthlyFlyingStarGroup(val monthlyFlyingStars: Set<MonthlyFlyingStar>
         var monthToUse = month + steps
         var yearToUse = year
         if (monthToUse > 12) {
-            monthToUse = month + ((steps % 12).toInt())
+            monthToUse = (monthToUse % 12).toInt()
         }
 
-        val yearsMore: Int = steps / 12
+        val yearsMore: Int = (month + steps) / 12
         yearToUse += yearsMore
 
         val monthlyFlyingStars = advanceFlyingStarsBySteps(steps, monthToUse, yearToUse)
@@ -38,23 +38,31 @@ data class MonthlyFlyingStarGroup(val monthlyFlyingStars: Set<MonthlyFlyingStar>
 
     fun giveRewoundFlyingStarGroup(steps: Int):
             IFlyingStarGroup {
-        var monthToUse = month - steps
+        var monthToUse = month - steps //month is within the same year
         var yearToUse = year
 
+        //Month is in the previous years, how many?
+        //Let's calculate
         if (monthToUse < 0) {
-            yearToUse--
+            val remainder = steps % 12
+            if (remainder == 0) {
+                monthToUse = month
+                yearToUse = year - Math.ceil(steps.toDouble() / 12).toInt()
+            } else if (monthToUse < -12) {
+                val excessOfTwelve = steps % 12
+                monthToUse = 12 - excessOfTwelve
+                if (month != 12) {
+                    monthToUse += month
+                    yearToUse = year - Math.ceil(steps.toDouble() / 12).toInt()
+                } else {
+                    yearToUse = year - (steps / 12)
+                }
 
-            //There is a -1 below because we need to exclude zero in the calculation
-            //ie if month is 1, and step is -1, month + step should be = -1, NOT zero
-            if (monthToUse < -12) {
-                monthToUse = month + (Math.abs((steps % 12).toInt()))
-            } else if (monthToUse < 0) {
+            } else if (monthToUse < 0) { //The month is within the previous year only
                 monthToUse = (12 - Math.abs(monthToUse))
+                yearToUse--
             }
         }
-
-        val yearsLess: Int = steps / 12
-        yearToUse -= yearsLess
 
         val monthlyFlyingStars = rewindFlyingStarsBySteps(steps, monthToUse, yearToUse)
         return MonthlyFlyingStarGroup(monthlyFlyingStars)
