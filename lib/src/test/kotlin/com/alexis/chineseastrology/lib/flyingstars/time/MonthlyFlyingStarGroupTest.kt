@@ -9,7 +9,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 
-class MonthlyFlyingGroupTest {
+class MonthlyFlyingStarGroupTest {
 
     private var monthlyFlyingStarGroup:MonthlyFlyingStarGroup? = null
 
