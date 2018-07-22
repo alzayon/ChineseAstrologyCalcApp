@@ -8,12 +8,18 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.alexis.chineseastrology.lib.IBdayCalculator
 import com.alexis.chineseastrology.screens.CalculateBirthdayScreen
+import dagger.android.support.DaggerAppCompatActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var bdayCalculator: IBdayCalculator
 
     private var mDrawerLayout: DrawerLayout? = null
 
