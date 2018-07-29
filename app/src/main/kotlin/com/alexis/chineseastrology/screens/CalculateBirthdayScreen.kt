@@ -6,12 +6,22 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
+import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
+import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
+import com.alexis.chineseastrology.lib.IBdayCalculator
+import com.alexis.chineseastrology.views.ICalculateBirthdayScreenView
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.calculate_birthday_screen.view.*
+import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
 
 
-class CalculateBirthdayScreen : LinearLayout, DatePickerDialog.OnDateSetListener {
+class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
+        LinearLayout,
+        IViewWithActivity,
+        DatePickerDialog.OnDateSetListener {
+
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)  {
@@ -19,6 +29,9 @@ class CalculateBirthdayScreen : LinearLayout, DatePickerDialog.OnDateSetListener
     }
 
     var date: Date? = null
+
+    @Inject
+    lateinit var bdayCalculator: IBdayCalculator
 
     private fun init() {
         View.inflate(context, R.layout.calculate_birthday_screen, this)
@@ -36,6 +49,13 @@ class CalculateBirthdayScreen : LinearLayout, DatePickerDialog.OnDateSetListener
                 dpd.showYearPickerFirst(true)
                 dpd.show(fragmentManager, "Datepickerdialog")
             }
+        }
+
+        ViewInjection.inject(this)
+
+        calculateButton.setOnClickListener {
+            val result = bdayCalculator.calculate(Date())
+            Timber.d("Calcuate Result %s", result)
         }
     }
 
