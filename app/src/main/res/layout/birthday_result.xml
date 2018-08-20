@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView android:text="Rooster"
-                android:id="@+id/animalSign"
+                android:id="@+id/txtAnimalSign"
                 android:layout_marginStart="@dimen/half_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView android:text="Metal"
-                android:id="@+id/elementSign"
+                android:id="@+id/txtElementSign"
                 android:layout_marginStart="@dimen/half_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

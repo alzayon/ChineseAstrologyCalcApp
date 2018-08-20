@@ -14,6 +14,8 @@ data class Monkey(public override val element: IElement = MetalElement()): IAnim
         get() = MetalElement()
     override val position: Int
         get() = 9
+    override val name: String
+        get() = "Monkey"
 
     override fun copyWithElement(element: IElement): IAnimalSign {
         return this.copy(element = element)

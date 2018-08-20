@@ -14,6 +14,8 @@ data class Dragon(public override val element: IElement = WoodElement()): IAnima
         get() = WoodElement()
     override val position: Int
         get() = 5
+    override val name: String
+        get() = "Dragon"
 
     override fun copyWithElement(element: IElement): IAnimalSign {
         return this.copy(element = element)

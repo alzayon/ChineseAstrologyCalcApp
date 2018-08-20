@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
-import com.alexis.chineseastrology.lib.IBdayCalculator
+import com.alexis.chineseastrology.presenter.ICalculateBirthdayPresenter
 import com.alexis.chineseastrology.views.ICalculateBirthdayScreenView
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.calculate_birthday_screen.view.*
@@ -28,34 +28,39 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
         init()
     }
 
-    var date: Date? = null
+    var date: Date? = Date()
 
     @Inject
-    lateinit var bdayCalculator: IBdayCalculator
+    lateinit var calculateBirthdayPresenter: ICalculateBirthdayPresenter
 
     private fun init() {
         View.inflate(context, R.layout.calculate_birthday_screen, this)
-        birthdayTextView.setOnClickListener {
+        txtBirthdate.setOnClickListener {
             val activity = (context as? Activity)
             activity?.let {
-                val now = Calendar.getInstance()
+                val calendar = Calendar.getInstance()
+                calendar.time = date
                 val dpd = DatePickerDialog.newInstance(
                         this,
-                        now.get(Calendar.YEAR),
-                        now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)
                 )
                 val fragmentManager = it.fragmentManager
                 dpd.showYearPickerFirst(true)
+
                 dpd.show(fragmentManager, "Datepickerdialog")
             }
         }
 
         ViewInjection.inject(this)
 
-        calculateButton.setOnClickListener {
-            val result = bdayCalculator.calculate(Date())
-            Timber.d("Calcuate Result %s", result)
+        btnCalculate.setOnClickListener {
+            date?.let {
+                val result = calculateBirthdayPresenter.calculateBirthday(it)
+                viewBirthdayResult.value = result
+                Timber.d("Calcuate Result %s", result)
+            }
         }
     }
 
@@ -64,6 +69,6 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
         val c = Calendar.getInstance()
         c.set(year, monthOfYear, dayOfMonth, 0, 0)
         date = c.time
-        birthdayTextView.setText(dateString)
+        txtBirthdate.setText(dateString)
     }
 }

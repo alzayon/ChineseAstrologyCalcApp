@@ -14,6 +14,8 @@ data class Snake(public override val element: IElement = FireElement()): IAnimal
         get() = FireElement()
     override val position: Int
         get() = 6
+    override val name: String
+        get() = "Snake"
 
     override fun copyWithElement(element: IElement): IAnimalSign {
         return this.copy(element = element)

@@ -1,0 +1,3 @@
+package com.alexis.chineseastrology.presenter
+
+interface IDetermineCurrentPositionPresenter

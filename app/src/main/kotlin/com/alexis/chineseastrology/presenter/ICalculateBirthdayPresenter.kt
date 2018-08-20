@@ -1,5 +1,8 @@
 package com.alexis.chineseastrology.presenter
 
-internal interface ICalculateBirthdayPresenter {
+import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
+import java.util.*
 
+interface ICalculateBirthdayPresenter {
+    fun calculateBirthday(date: Date): IAnimalSign
 }

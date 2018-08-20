@@ -12,6 +12,10 @@ interface IAnimalSign {
     val element: IElement
     val position: Int
 
+    //TODO
+    //Use string resource files
+    val name: String
+
     fun copyWithElement(element: IElement): IAnimalSign
 
     fun getPreviousAnimalSign(): IAnimalSign {
