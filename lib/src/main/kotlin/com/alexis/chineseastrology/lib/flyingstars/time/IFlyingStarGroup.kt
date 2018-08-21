@@ -1,5 +1,7 @@
 package com.alexis.chineseastrology.lib.flyingstars.time
 
+import com.alexis.chineseastrology.lib.flyingstars.stars.IFlyingStar
+
 interface IFlyingStarGroup {
     fun setOfFlyingStars(): Set<ITimeFlyingStar>
 
@@ -12,4 +14,18 @@ interface IFlyingStarGroup {
     fun giveWestStar(): ITimeFlyingStar
     fun giveNorthWestStar(): ITimeFlyingStar
     fun giveCenterStar(): ITimeFlyingStar
+
+    fun getStarByOrder(orderNumber: Int): ITimeFlyingStar {
+        return when (orderNumber) {
+            0 -> giveNorthStar()
+            1 -> giveNorthEastStar()
+            2 -> giveEastStar()
+            3 -> giveSouthEastStar()
+            4 -> giveSouthStar()
+            5 -> giveSouthWestStar()
+            6 -> giveWestStar()
+            7 -> giveNorthWestStar()
+            else -> giveCenterStar()
+        }
+    }
 }

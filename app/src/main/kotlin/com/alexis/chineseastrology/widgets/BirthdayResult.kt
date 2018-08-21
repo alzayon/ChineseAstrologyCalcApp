@@ -8,7 +8,7 @@ import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import kotlinx.android.synthetic.main.birthday_result.view.*
 
-class BirthdayResult : LinearLayout {
+internal class BirthdayResult : LinearLayout {
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)  {

@@ -22,5 +22,4 @@ internal abstract class ShowYearlyFlyingStarsScreenBuilder {
     @IntoMap
     @ViewKey(ShowYearlyFlyingStarsScreen::class)
     abstract fun bindShowYearlyFlyingStarsScreen(builder: ShowYearlyFlyingStarScreenSubcomponent.Builder): AndroidInjector.Factory<out View>
-
 }

@@ -6,6 +6,9 @@ import android.view.View
 import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
+import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
+import com.alexis.chineseastrology.presenter.IShowYearlyFlyingStarsPresenter
+import javax.inject.Inject
 
 class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     constructor(context: Context?) : super(context)
@@ -14,7 +17,16 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
         init()
     }
 
+    @Inject
+    lateinit var presenter: IShowYearlyFlyingStarsPresenter
+
+    var yearlyFlyingStarGroup: YearlyFlyingStarGroup? = null
+
     private fun init() {
         View.inflate(context, R.layout.show_yearly_flying_stars_screen, this)
+    }
+
+    fun setup(year: Int) {
+        yearlyFlyingStarGroup = presenter.calculateYearlyFlyingStarGroup(year)
     }
 }
