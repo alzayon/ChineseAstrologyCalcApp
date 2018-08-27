@@ -17,13 +17,16 @@
             android:layout_margin="@dimen/half_margin"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="1">
             <TextView
+                android:layout_weight="0.5"
                 android:text="@string/animal_sign_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView android:text="Rooster"
+            <TextView android:text="-"
                 android:id="@+id/txtAnimalSign"
+                android:layout_weight="0.5"
                 android:layout_marginStart="@dimen/half_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -32,13 +35,16 @@
             android:layout_margin="@dimen/half_margin"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="1">
             <TextView
+                android:layout_weight="0.5"
                 android:text="@string/element_sign_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView android:text="Metal"
+            <TextView android:text="-"
                 android:id="@+id/txtElementSign"
+                android:layout_weight="0.5"
                 android:layout_marginStart="@dimen/half_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

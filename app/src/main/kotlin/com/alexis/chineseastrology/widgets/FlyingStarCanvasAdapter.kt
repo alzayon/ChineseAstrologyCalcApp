@@ -5,8 +5,15 @@ import android.view.ViewGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.IFlyingStarGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.ITimeFlyingStar
 
-internal class FlyingStarCanvasAdapter(private val flyingStarGroup: IFlyingStarGroup) :
+internal class FlyingStarCanvasAdapter() :
         RecyclerView.Adapter<FlyingStarBoxViewHolder>() {
+
+    public var flyingStarGroup: IFlyingStarGroup? = null
+        get() = field
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlyingStarBoxViewHolder {
         val flyingStarBox = FlyingStarBox(parent.context)
@@ -14,12 +21,17 @@ internal class FlyingStarCanvasAdapter(private val flyingStarGroup: IFlyingStarG
     }
 
     override fun getItemCount(): Int {
-        return flyingStarGroup.setOfFlyingStars().size
+        flyingStarGroup?.let {
+            return it.setOfFlyingStars().size
+        }
+        return 0
     }
 
     override fun onBindViewHolder(holder: FlyingStarBoxViewHolder, position: Int) {
-        val timeFlyingStar = flyingStarGroup.getStarByOrder(position)
-        holder.populate(timeFlyingStar)
+        flyingStarGroup?.let {
+            val timeFlyingStar = it.getStarByOrder(position)
+            holder.populate(timeFlyingStar)
+        }
     }
 }
 

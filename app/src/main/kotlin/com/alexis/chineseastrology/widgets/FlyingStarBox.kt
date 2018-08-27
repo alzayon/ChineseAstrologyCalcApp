@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.lib.flyingstars.time.ITimeFlyingStar
+import kotlinx.android.synthetic.main.flying_star_box.view.*
 
 internal class FlyingStarBox : LinearLayout {
 
@@ -23,7 +24,6 @@ internal class FlyingStarBox : LinearLayout {
 
     fun populate(timeFlyingStar: ITimeFlyingStar) {
         this.timeFlyingStar = timeFlyingStar
-        //TODO
-        //populate views
+        txtNumber.text = timeFlyingStar.giveStarPosition().flyingStar.number.toString()
     }
 }

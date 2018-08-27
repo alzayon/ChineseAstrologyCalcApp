@@ -8,7 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.alexis.chineseastrology.dagger.general.BaseDaggerActivity
 import com.alexis.chineseastrology.screens.CalculateBirthdayScreen
-import dagger.android.support.DaggerAppCompatActivity
+import com.alexis.chineseastrology.screens.ShowYearlyFlyingStarsScreen
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -61,7 +61,7 @@ internal class MainActivity : BaseDaggerActivity() {
             when (menuItem.itemId) {
                 R.id.action_calcuate_bday -> showCalculateBirthdayScreen()
                 R.id.action_show_monthly_flying_stars -> true
-                R.id.action_show_yearly_flying_stars -> true
+                R.id.action_show_yearly_flying_stars -> showYearlyFlyingStarsScreen()
                 R.id.action_determine_current_position -> true
                 else -> true //TODO
             }
@@ -72,6 +72,12 @@ internal class MainActivity : BaseDaggerActivity() {
     private fun showCalculateBirthdayScreen() {
         viewContainer.removeAllViews()
         viewContainer.addView(CalculateBirthdayScreen(this))
+        closeNavigationDrawer()
+    }
+
+    private fun showYearlyFlyingStarsScreen() {
+        viewContainer.removeAllViews()
+        viewContainer.addView(ShowYearlyFlyingStarsScreen(this))
         closeNavigationDrawer()
     }
 
