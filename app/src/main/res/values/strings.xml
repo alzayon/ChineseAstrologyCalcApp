@@ -7,6 +7,8 @@
     <string name="action_show_yearly_flying_stars">Show Yearly Flying Stars</string>
     <string name="action_determine_current_position">Determine Current Position</string>
 
+    <string name="btn_action_Calculate">Calculate</string>
+
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
@@ -14,4 +16,14 @@
     <string name="animal_sign_label">Animal Sign:</string>
     <string name="element_sign_label">Element:</string>
 
+    <string name="enter_year">Enter the year</string>
+
+    <string name="compass_direction_south_east">SE</string>
+    <string name="compass_direction_south">S</string>
+    <string name="compass_direction_south_west">SW</string>
+    <string name="compass_direction_west">W</string>
+    <string name="compass_direction_north_west">NW</string>
+    <string name="compass_direction_north">N</string>
+    <string name="compass_direction_north_east">NE</string>
+    <string name="compass_direction_east">E</string>
 </resources>

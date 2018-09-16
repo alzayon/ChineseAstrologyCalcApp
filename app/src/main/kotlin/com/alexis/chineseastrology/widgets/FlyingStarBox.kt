@@ -26,4 +26,8 @@ internal class FlyingStarBox : LinearLayout {
         this.timeFlyingStar = timeFlyingStar
         txtNumber.text = timeFlyingStar.giveStarPosition().flyingStar.number.toString()
     }
+
+    public override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec) // This is the key that will make the height equivalent to its width
+    }
 }

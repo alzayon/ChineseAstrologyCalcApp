@@ -1,9 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcvFlyingStars"
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:weightSum="3"
+        android:layout_weight="0.1">
+        <TextView
+            android:text="@string/compass_direction_south_east"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/compass_direction_south"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/compass_direction_south_west"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_weight="0.8"
+        android:weightSum="100"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <TextView
+            android:layout_weight="10"
+            android:gravity="center_vertical|left"
+            android:layout_alignParentStart="true"
+            android:text="@string/compass_direction_east"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcvFlyingStars"
+            android:layout_weight="80"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            android:layout_width="250dp"
+            android:layout_height="250dp"/>
+        <TextView
+            android:layout_weight="10"
+            android:gravity="center_vertical|right"
+            android:layout_alignParentEnd="true"
+            android:text="@string/compass_direction_west"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_weight="0.1"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <TextView
+            android:text="@string/compass_direction_north_east"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="@string/compass_direction_north"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="@string/compass_direction_north_west"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 </LinearLayout>

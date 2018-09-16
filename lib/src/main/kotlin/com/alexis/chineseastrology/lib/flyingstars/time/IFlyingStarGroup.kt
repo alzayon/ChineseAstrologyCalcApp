@@ -1,7 +1,5 @@
 package com.alexis.chineseastrology.lib.flyingstars.time
 
-import com.alexis.chineseastrology.lib.flyingstars.stars.IFlyingStar
-
 interface IFlyingStarGroup {
     fun setOfFlyingStars(): Set<ITimeFlyingStar>
 

@@ -82,9 +82,9 @@ class YearlyFlyingStarGroupSet {
             val westStar = YearlyFlyingStar( 2013, StarPosition(CompassDirection.WEST, BurglaryStar()))
             val centerStar = YearlyFlyingStar( 2013, StarPosition(CompassDirection.CENTER, MisfortuneStar()))
 
-            val list: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
+            val set: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
-            return YearlyFlyingStarGroup(list)
+            return YearlyFlyingStarGroup(set)
         }
 
         private fun giveYearlyFlyingStarMonthSet2(): YearlyFlyingStarGroup {
@@ -100,9 +100,9 @@ class YearlyFlyingStarGroupSet {
             val westStar = YearlyFlyingStar( 2014, StarPosition(CompassDirection.WEST, HeavenStar()))
             val centerStar = YearlyFlyingStar( 2014, StarPosition(CompassDirection.CENTER, PeachBlossomStar()))
 
-            val list: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
+            val set: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
-            return YearlyFlyingStarGroup(list)
+            return YearlyFlyingStarGroup(set)
         }
 
         private fun giveYearlyFlyingStarMonthSet3(): YearlyFlyingStarGroup {
@@ -118,9 +118,9 @@ class YearlyFlyingStarGroupSet {
             val westStar = YearlyFlyingStar( 2015, StarPosition(CompassDirection.WEST, MisfortuneStar()))
             val centerStar = YearlyFlyingStar( 2015, StarPosition(CompassDirection.CENTER, QuarrelsomeStar()))
 
-            val list: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
+            val set: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
-            return YearlyFlyingStarGroup(list)
+            return YearlyFlyingStarGroup(set)
         }
 
         private fun giveYearlyFlyingStarMonthSet4(): YearlyFlyingStarGroup {
@@ -136,9 +136,9 @@ class YearlyFlyingStarGroupSet {
             val westStar = YearlyFlyingStar( 2016, StarPosition(CompassDirection.WEST, PeachBlossomStar()))
             val centerStar = YearlyFlyingStar( 2016, StarPosition(CompassDirection.CENTER, IllnessStar()))
 
-            val list: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
+            val set: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
-            return YearlyFlyingStarGroup(list)
+            return YearlyFlyingStarGroup(set)
         }
 
         private fun giveYearlyFlyingStarMonthSet5(): YearlyFlyingStarGroup {
@@ -154,9 +154,9 @@ class YearlyFlyingStarGroupSet {
             val westStar = YearlyFlyingStar( 2017, StarPosition(CompassDirection.WEST, QuarrelsomeStar()))
             val centerStar = YearlyFlyingStar( 2017, StarPosition(CompassDirection.CENTER, VictoryStar()))
 
-            val list: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
+            val set: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
-            return YearlyFlyingStarGroup(list)
+            return YearlyFlyingStarGroup(set)
         }
 
         private fun giveYearlyFlyingStarMonthSet6(): YearlyFlyingStarGroup {
@@ -172,9 +172,9 @@ class YearlyFlyingStarGroupSet {
             val westStar = YearlyFlyingStar( 2018, StarPosition(CompassDirection.WEST, IllnessStar()))
             val centerStar = YearlyFlyingStar( 2018, StarPosition(CompassDirection.CENTER, FutureProsperityStar()))
 
-            val list: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
+            val set: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
-            return YearlyFlyingStarGroup(list)
+            return YearlyFlyingStarGroup(set)
         }
 
         private fun giveYearlyFlyingStarMonthSet7(): YearlyFlyingStarGroup {
@@ -190,9 +190,9 @@ class YearlyFlyingStarGroupSet {
             val westStar = YearlyFlyingStar( 2019, StarPosition(CompassDirection.WEST, VictoryStar()))
             val centerStar = YearlyFlyingStar( 2019, StarPosition(CompassDirection.CENTER, WealthStar()))
 
-            val list: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
+            val set: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
-            return YearlyFlyingStarGroup(list)
+            return YearlyFlyingStarGroup(set)
         }
 
         private fun giveYearlyFlyingStarMonthSet8(): YearlyFlyingStarGroup {
@@ -208,9 +208,9 @@ class YearlyFlyingStarGroupSet {
             val westStar = YearlyFlyingStar( 2020, StarPosition(CompassDirection.WEST, FutureProsperityStar()))
             val centerStar = YearlyFlyingStar( 2020, StarPosition(CompassDirection.CENTER, BurglaryStar()))
 
-            val list: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
+            val set: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
-            return YearlyFlyingStarGroup(list)
+            return YearlyFlyingStarGroup(set)
         }
 
         private fun giveYearlyFlyingStarMonthSet9(): YearlyFlyingStarGroup {
@@ -226,9 +226,9 @@ class YearlyFlyingStarGroupSet {
             val westStar = YearlyFlyingStar( 2021, StarPosition(CompassDirection.WEST, WealthStar()))
             val centerStar = YearlyFlyingStar( 2021, StarPosition(CompassDirection.CENTER, HeavenStar()))
 
-            val list: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
+            val set: Set<YearlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
-            return YearlyFlyingStarGroup(list)
+            return YearlyFlyingStarGroup(set)
         }
     }
 }

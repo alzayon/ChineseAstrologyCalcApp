@@ -22,13 +22,12 @@
             <TextView
                 android:layout_weight="0.5"
                 android:text="@string/animal_sign_label"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <TextView android:text="-"
                 android:id="@+id/txtAnimalSign"
                 android:layout_weight="0.5"
-                android:layout_marginStart="@dimen/half_margin"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
@@ -40,13 +39,12 @@
             <TextView
                 android:layout_weight="0.5"
                 android:text="@string/element_sign_label"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <TextView android:text="-"
                 android:id="@+id/txtElementSign"
                 android:layout_weight="0.5"
-                android:layout_marginStart="@dimen/half_margin"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>

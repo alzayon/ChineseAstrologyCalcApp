@@ -8,7 +8,7 @@ import com.alexis.chineseastrology.lib.flyingstars.time.ITimeFlyingStar
 internal class FlyingStarCanvasAdapter() :
         RecyclerView.Adapter<FlyingStarBoxViewHolder>() {
 
-    public var flyingStarGroup: IFlyingStarGroup? = null
+    var flyingStars: List<ITimeFlyingStar>? = null
         get() = field
         set(value) {
             field = value
@@ -21,15 +21,15 @@ internal class FlyingStarCanvasAdapter() :
     }
 
     override fun getItemCount(): Int {
-        flyingStarGroup?.let {
-            return it.setOfFlyingStars().size
+        flyingStars?.let {
+            return it.size
         }
         return 0
     }
 
     override fun onBindViewHolder(holder: FlyingStarBoxViewHolder, position: Int) {
-        flyingStarGroup?.let {
-            val timeFlyingStar = it.getStarByOrder(position)
+        flyingStars?.let {
+            val timeFlyingStar = it.get(position)
             holder.populate(timeFlyingStar)
         }
     }

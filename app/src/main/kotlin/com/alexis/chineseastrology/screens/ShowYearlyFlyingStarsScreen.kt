@@ -3,6 +3,8 @@ package com.alexis.chineseastrology.screens
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
@@ -29,12 +31,15 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
 
     private fun init() {
         View.inflate(context, R.layout.show_yearly_flying_stars_screen, this)
+        val lp = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+        layoutParams = lp
+        orientation = VERTICAL
         ViewInjection.inject(this)
         setup()
     }
 
     fun setup() {
         yearlyFlyingStarGroup = presenter.calculateYearlyFlyingStarGroup(year)
-        viewFlyingStarCanvas.yearlyFlyingStarGroup = yearlyFlyingStarGroup
+        viewFlyingStarCanvas.flyingStarGroup = yearlyFlyingStarGroup
     }
 }

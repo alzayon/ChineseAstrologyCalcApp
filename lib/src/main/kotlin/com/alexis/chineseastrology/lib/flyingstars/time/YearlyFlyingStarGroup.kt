@@ -11,7 +11,6 @@ class YearlyFlyingStarGroup: BaseFlyingStarGroup {
         if (distinctYear.size > 1) {
             throw IllegalArgumentException("Please supply year stars that are for the same year.")
         }
-
         year = distinctYear.get(0).year
         setupFlyingStars(yearlyFlyingStars.toList())
     }
