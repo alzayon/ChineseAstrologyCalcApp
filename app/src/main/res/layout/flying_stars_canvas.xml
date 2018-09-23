@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:weightSum="3"
+        android:gravity="top"
         android:layout_weight="0.1">
         <TextView
             android:text="@string/compass_direction_south_east"
@@ -64,6 +65,7 @@
     <LinearLayout
         android:layout_weight="0.1"
         android:weightSum="3"
+        android:gravity="bottom"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp">
