@@ -16,8 +16,6 @@ import javax.inject.Inject
 
 internal class MainActivity : BaseDaggerActivity(), IChastroActivity {
 
-    private var mDrawerLayout: DrawerLayout? = null
-
     @Inject
     override lateinit var viewModelFactory: ViewModelFactory
 
@@ -29,15 +27,13 @@ internal class MainActivity : BaseDaggerActivity(), IChastroActivity {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        mDrawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-
         val drawerToggle = ActionBarDrawerToggle(this,
-                mDrawerLayout,
+                drawerLayout,
                 toolbar,
                 R.string.drawer_open,
                 R.string.drawer_close)
 
-        mDrawerLayout?.addDrawerListener(drawerToggle)
+        drawerLayout?.addDrawerListener(drawerToggle)
         drawerToggle.syncState();
 
         setupNavigationView()
@@ -85,7 +81,6 @@ internal class MainActivity : BaseDaggerActivity(), IChastroActivity {
     }
 
     private fun closeNavigationDrawer() {
-        val mDrawerLayout = drawer_layout;
-        mDrawerLayout.closeDrawers();
+        drawerLayout.closeDrawers();
     }
 }

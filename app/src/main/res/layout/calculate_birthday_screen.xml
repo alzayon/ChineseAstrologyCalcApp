@@ -1,59 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        style="@style/HeaderText"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/action_calculate_bday"
-        android:layout_marginTop="@dimen/half_margin"
-        android:layout_marginBottom="@dimen/half_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.alexis.chineseastrology.viewmodel.ICalculateBirthdayViewModel" />
+    </data>
     <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="@dimen/default_margin"
+        android:orientation="vertical"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <TextView
-            android:text="@string/enter_birthdate"
-            android:layout_weight="0.5"
+            style="@style/HeaderText"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/action_calculate_bday"
+            android:layout_marginTop="@dimen/half_margin"
+            android:layout_marginBottom="@dimen/half_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/txtBirthdate"
-            android:layout_weight="0.5"
-            android:clickable="true"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="@dimen/default_margin"
+            android:gravity="center"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/enter_birthdate"
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtBirthdate"
+                android:layout_weight="0.5"
+                android:clickable="true"
+                calculateBirthdayInput="@{viewModel.date}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/textview_padding"
+                android:background="@drawable/border_gray"/>
+        </LinearLayout>
+
+        <Button android:id="@+id/btnCalculate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/textview_padding"
-            android:background="@drawable/border_gray"/>
-    </LinearLayout>
+            android:layout_gravity="center"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_marginTop="@dimen/big_margin"
+            android:text="@string/btn_action_Calculate"></Button>
 
-    <Button android:id="@+id/btnCalculate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_marginTop="@dimen/big_margin"
-        android:text="@string/btn_action_Calculate"></Button>
-
-    <LinearLayout
-        android:id="@+id/resultContainer"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.alexis.chineseastrology.widgets.BirthdayResult
-            android:id="@+id/viewBirthdayResult"
+        <LinearLayout
+            android:id="@+id/resultContainer"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/default_margin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="wrap_content">
+            <com.alexis.chineseastrology.widgets.BirthdayResult
+                android:id="@+id/viewBirthdayResult"
+                calculateBirthdayResult="@{viewModel.animalSign}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

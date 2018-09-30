@@ -1,8 +1,11 @@
 package com.alexis.chineseastrology.viewmodel
 
+import android.databinding.ObservableField
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import java.util.*
 
 interface ICalculateBirthdayViewModel {
-    fun calculateBirthday(date: Date): IAnimalSign
+    var date: ObservableField<Date>
+    var animalSign: ObservableField<IAnimalSign>
+    fun calculateBirthday(): IAnimalSign
 }

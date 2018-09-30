@@ -24,6 +24,9 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
+    dataBinding {
+        enabled true
+    }
 
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
@@ -39,6 +42,7 @@ ext {
     rxandroid_version = "2.0.1"
     dagger_version = "2.16"
     junit_version = "4.12"
+    data_binding_compiler_version = gradle_version // Always need to be the same.
 }
 
 dependencies {
@@ -73,6 +77,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     kapt "android.arch.lifecycle:compiler:$lifecycle_version" // use kapt for Kotlin
+
+    kapt "com.android.databinding:compiler:$data_binding_compiler_version"
 
     // optional - ReactiveStreams support for LiveData
     implementation "android.arch.lifecycle:reactivestreams:$lifecycle_version"

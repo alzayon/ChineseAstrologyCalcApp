@@ -2,16 +2,21 @@ package com.alexis.chineseastrology.screens
 
 import android.app.Activity
 import android.content.Context
+import android.databinding.BindingAdapter
+import android.databinding.DataBindingUtil
 import android.util.AttributeSet
-import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
+import com.alexis.chineseastrology.databinding.CalculateBirthdayScreenBinding
 import com.alexis.chineseastrology.general.extensions.getViewModel
+import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import com.alexis.chineseastrology.viewmodel.CalculateBirthdayViewModel
 import com.alexis.chineseastrology.viewmodel.ICalculateBirthdayViewModel
 import com.alexis.chineseastrology.views.ICalculateBirthdayScreenView
+import com.alexis.chineseastrology.widgets.BirthdayResult
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.calculate_birthday_screen.view.*
 import timber.log.Timber
@@ -29,18 +34,25 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
         init()
     }
 
-    var date: Date? = Date()
-
     lateinit var viewModel: ICalculateBirthdayViewModel
 
     private fun init() {
-        View.inflate(context, R.layout.calculate_birthday_screen, this)
         viewModel = activity.getViewModel<CalculateBirthdayViewModel>()
+
+        val binding = DataBindingUtil.inflate<CalculateBirthdayScreenBinding>(
+                activity.fragmentActivity.layoutInflater,
+                R.layout.calculate_birthday_screen,
+                this,
+                true
+        )
+        binding.viewModel = viewModel
+
+
         txtBirthdate.setOnClickListener {
             val activity = (context as? Activity)
             activity?.let {
                 val calendar = Calendar.getInstance()
-                calendar.time = date
+                calendar.time = viewModel.date.get()
                 val dpd = DatePickerDialog.newInstance(
                         this,
                         calendar.get(Calendar.YEAR),
@@ -57,19 +69,31 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
         ViewInjection.inject(this)
 
         btnCalculate.setOnClickListener {
-            date?.let {
-                val result = viewModel.calculateBirthday(it)
-                viewBirthdayResult.value = result
-                Timber.d("Calcuate Result %s", result)
-            }
+            val result = viewModel.calculateBirthday()
+            viewBirthdayResult.value = result
+            Timber.d("Calcuate Result %s", result)
         }
     }
 
     override fun onDateSet(view: DatePickerDialog, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-        val dateString = "" + year + "-" + (monthOfYear + 1) + "-" + dayOfMonth
         val c = Calendar.getInstance()
         c.set(year, monthOfYear, dayOfMonth, 0, 0)
-        date = c.time
-        txtBirthdate.setText(dateString)
+        viewModel.date.set(c.time)
+    }
+}
+
+object CalculateBirthdayBinders {
+    @BindingAdapter("calculateBirthdayResult")
+    @JvmStatic
+    fun calculateBirthdayResultBinding(birthdayResult: BirthdayResult, animalSign: IAnimalSign?) {
+        birthdayResult.value = animalSign
+    }
+
+    @BindingAdapter("calculateBirthdayInput")
+    @JvmStatic
+    fun calculateBirthdayInputBinding(textView: TextView, date: Date) {
+        val context = textView.context
+        val format = android.text.format.DateFormat.getDateFormat(context);
+        textView.text = format.format(date)
     }
 }
