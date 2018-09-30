@@ -1,10 +1,11 @@
-package com.alexis.chineseastrology.presenter
+package com.alexis.chineseastrology.viewmodel
 
-import com.alexis.chineseastrology.lib.IStarCalculator
+import android.arch.lifecycle.ViewModel
 import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroupSet
+import javax.inject.Inject
 
-internal class ShowYearlyFlyingStarsPresenter(val starCalculator: IStarCalculator) : IShowYearlyFlyingStarsPresenter {
+class ShowYearlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShowYearlyFlyingStarsViewModel {
     override fun calculateYearlyFlyingStarGroup(year: Int): YearlyFlyingStarGroup {
         return YearlyFlyingStarGroupSet.determineYearSetForYear(year).getFlyingStarsGroup()
     }

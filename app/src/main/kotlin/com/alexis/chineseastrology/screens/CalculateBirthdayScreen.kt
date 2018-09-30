@@ -8,13 +8,14 @@ import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
-import com.alexis.chineseastrology.presenter.ICalculateBirthdayPresenter
+import com.alexis.chineseastrology.general.extensions.getViewModel
+import com.alexis.chineseastrology.viewmodel.CalculateBirthdayViewModel
+import com.alexis.chineseastrology.viewmodel.ICalculateBirthdayViewModel
 import com.alexis.chineseastrology.views.ICalculateBirthdayScreenView
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.calculate_birthday_screen.view.*
 import timber.log.Timber
 import java.util.*
-import javax.inject.Inject
 
 
 class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
@@ -30,11 +31,11 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
 
     var date: Date? = Date()
 
-    @Inject
-    lateinit var calculateBirthdayPresenter: ICalculateBirthdayPresenter
+    lateinit var viewModel: ICalculateBirthdayViewModel
 
     private fun init() {
         View.inflate(context, R.layout.calculate_birthday_screen, this)
+        viewModel = activity.getViewModel<CalculateBirthdayViewModel>()
         txtBirthdate.setOnClickListener {
             val activity = (context as? Activity)
             activity?.let {
@@ -57,7 +58,7 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
 
         btnCalculate.setOnClickListener {
             date?.let {
-                val result = calculateBirthdayPresenter.calculateBirthday(it)
+                val result = viewModel.calculateBirthday(it)
                 viewBirthdayResult.value = result
                 Timber.d("Calcuate Result %s", result)
             }

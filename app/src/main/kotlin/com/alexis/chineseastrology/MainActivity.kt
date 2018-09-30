@@ -1,20 +1,28 @@
 package com.alexis.chineseastrology
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.support.v4.app.FragmentActivity
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
 import com.alexis.chineseastrology.dagger.general.BaseDaggerActivity
+import com.alexis.chineseastrology.general.ViewModelFactory
 import com.alexis.chineseastrology.screens.CalculateBirthdayScreen
 import com.alexis.chineseastrology.screens.ShowYearlyFlyingStarsScreen
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import javax.inject.Inject
 
-internal class MainActivity : BaseDaggerActivity() {
+internal class MainActivity : BaseDaggerActivity(), IChastroActivity {
 
     private var mDrawerLayout: DrawerLayout? = null
+
+    @Inject
+    override lateinit var viewModelFactory: ViewModelFactory
+
+    override val fragmentActivity: FragmentActivity
+        get() = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
