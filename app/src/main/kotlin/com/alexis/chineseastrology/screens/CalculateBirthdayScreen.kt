@@ -47,7 +47,6 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
         )
         binding.viewModel = viewModel
 
-
         txtBirthdate.setOnClickListener {
             val activity = (context as? Activity)
             activity?.let {
