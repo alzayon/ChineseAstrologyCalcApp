@@ -4,6 +4,7 @@ import android.app.Application
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjectorModule
 import com.alexis.chineseastrology.dagger.modules.AppModule
 import com.alexis.chineseastrology.dagger.modules.CalculatorModule
+import com.alexis.chineseastrology.dagger.modules.ViewModelModule
 import com.alexis.chineseastrology.dagger.modules.builders.MainActivityBuilder
 import com.alexis.chineseastrology.dagger.modules.builders.screens.CalculateBirthdayScreenBuilder
 import com.alexis.chineseastrology.dagger.modules.builders.screens.DetermineCurrentPositionScreenBuilder
@@ -20,6 +21,7 @@ import dagger.android.support.DaggerApplication
     ViewInjectorModule::class,
     CalculatorModule::class,
     AppModule::class,
+    ViewModelModule::class,
     MainActivityBuilder::class,
     CalculateBirthdayScreenBuilder::class,
     ShowMonthlyFlyingStarScreenBuilder::class,
