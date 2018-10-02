@@ -4,6 +4,7 @@ import android.content.Context
 import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil.inflate
 import android.databinding.InverseBindingAdapter
+import android.databinding.ObservableField
 import android.util.AttributeSet
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.EditText
@@ -27,8 +28,6 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     }
     lateinit var viewModel: IShowYearlyFlyingStarsViewModel
 
-    private var yearlyFlyingStarGroup: YearlyFlyingStarGroup? = null
-
     private var year: Int = Calendar.getInstance().get(Calendar.YEAR)
 
     private fun init() {
@@ -50,8 +49,7 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     }
 
     fun setup() {
-        yearlyFlyingStarGroup = viewModel.calculateYearlyFlyingStarGroup(year)
-        viewFlyingStarCanvas.flyingStarGroup = yearlyFlyingStarGroup
+        viewModel.calculateYearlyFlyingStarGroup()
     }
 
     override fun onAttachedToWindow() {
@@ -62,22 +60,5 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         viewModel.reset()
-    }
-}
-
-object ShowYearlyFlyingStarsScreenBinders {
-    @BindingAdapter("showYearlyFlyingStarsYearToCalculate")
-    @JvmStatic
-    fun EditText.showYearlyFlyingStarsYearToCalculateBinding(year: Int) {
-        this.setText(year.toString())
-    }
-
-    @InverseBindingAdapter(
-        attribute = "showYearlyFlyingStarsYearToCalculate",
-        event = "android:textAttrChanged"
-    )
-    @JvmStatic
-    fun showYearlyFlyingStarsYearToCalculateBinding(editText: EditText): Int {
-        return Integer.parseInt(editText.text.toString())
     }
 }

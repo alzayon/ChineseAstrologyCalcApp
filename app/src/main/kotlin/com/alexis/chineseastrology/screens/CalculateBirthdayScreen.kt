@@ -5,9 +5,7 @@ import android.content.Context
 import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
 import android.util.AttributeSet
-import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
@@ -21,7 +19,6 @@ import com.alexis.chineseastrology.widgets.BirthdayResult
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.calculate_birthday_screen.view.*
 import java.util.*
-
 
 class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
         LinearLayout,
@@ -90,21 +87,5 @@ object CalculateBirthdayBinders {
     @JvmStatic
     fun BirthdayResult.calculateBirthdayResultBinding(animalSign: IAnimalSign?) {
         this.value = animalSign
-    }
-
-    @BindingAdapter("calculateBirthdayInput")
-    @JvmStatic
-    fun TextView.calculateBirthdayInputBinding(date: Date) {
-        val context = this.context
-        val format = android.text.format.DateFormat.getDateFormat(context);
-        this.text = format.format(date)
-    }
-
-    @BindingAdapter("calculateBirthdayTrigger")
-    @JvmStatic
-    fun Button.calculateBirthdayTriggerBinding(callback: () -> IAnimalSign) {
-        this.setOnClickListener {
-            callback.invoke()
-        }
     }
 }

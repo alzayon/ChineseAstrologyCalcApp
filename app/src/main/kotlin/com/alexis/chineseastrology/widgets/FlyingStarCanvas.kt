@@ -11,7 +11,7 @@ import com.alexis.chineseastrology.lib.flyingstars.time.IFlyingStarGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.ITimeFlyingStar
 import kotlinx.android.synthetic.main.flying_stars_canvas.view.*
 
-internal class FlyingStarCanvas : LinearLayout {
+class FlyingStarCanvas : LinearLayout {
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)  {
@@ -34,7 +34,7 @@ internal class FlyingStarCanvas : LinearLayout {
         }
     }
 
-    var adapter = FlyingStarCanvasAdapter()
+    private var adapter = FlyingStarCanvasAdapter()
 
     var flyingStarGroup: IFlyingStarGroup? = null
         get() = field
@@ -55,6 +55,6 @@ internal class FlyingStarCanvas : LinearLayout {
     private fun populate() {
         flyingStarGroup?.let {
             adapter.flyingStars = arrangeStarsForView(it)
-        }
+        }?: adapter.clear()
     }
 }

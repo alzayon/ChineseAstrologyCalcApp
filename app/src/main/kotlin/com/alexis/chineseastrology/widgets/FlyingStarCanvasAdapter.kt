@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.IFlyingStarGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.ITimeFlyingStar
 
-internal class FlyingStarCanvasAdapter() :
+class FlyingStarCanvasAdapter() :
         RecyclerView.Adapter<FlyingStarBoxViewHolder>() {
 
     var flyingStars: List<ITimeFlyingStar>? = null
@@ -33,9 +33,14 @@ internal class FlyingStarCanvasAdapter() :
             holder.populate(timeFlyingStar)
         }
     }
+
+    fun clear() {
+        flyingStars = listOf()
+        notifyDataSetChanged()
+    }
 }
 
-internal class FlyingStarBoxViewHolder(private val flyingStarBox: FlyingStarBox) : RecyclerView.ViewHolder(flyingStarBox) {
+class FlyingStarBoxViewHolder(private val flyingStarBox: FlyingStarBox) : RecyclerView.ViewHolder(flyingStarBox) {
     fun populate(timeFlyingStar: ITimeFlyingStar) {
         flyingStarBox.populate(timeFlyingStar)
     }

@@ -38,7 +38,7 @@
                 android:id="@+id/txtBirthdate"
                 android:layout_weight="0.5"
                 android:clickable="true"
-                calculateBirthdayInput="@{viewModel.date}"
+                android:text="@{viewModel.date}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/textview_padding"
@@ -51,7 +51,7 @@
             android:layout_gravity="center"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_marginTop="@dimen/big_margin"
-            calculateBirthdayTrigger="@{() -> viewModel.calculateBirthday()}"
+            android:onClick="@{() -> viewModel.calculateBirthday()}"
             android:text="@string/btn_action_Calculate"></Button>
 
         <LinearLayout

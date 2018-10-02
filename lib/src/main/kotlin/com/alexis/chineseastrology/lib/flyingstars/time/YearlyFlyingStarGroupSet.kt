@@ -36,6 +36,9 @@ class YearlyFlyingStarGroupSet {
     companion object {
 
         fun determineYearSetForYear(year: Int): YearSet {
+            if (year == 0) {
+                throw IllegalArgumentException("Year must be greater than zero.")
+            }
             val startYear = 2012
             var numberToUse = 0
             var remainder = 0

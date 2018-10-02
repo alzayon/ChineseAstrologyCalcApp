@@ -30,10 +30,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <EditText
-                showYearlyFlyingStarsYearToCalculate="@={viewModel.yearToCalculate}"
+                android:text="@={viewModel.yearToCalculate}"
                 android:inputType="number"
+                android:gravity="center"
                 android:hint="@string/enter_year"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <Button
                 android:id="@+id/btnCalculateYearlyStar"
@@ -41,10 +42,12 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_marginStart="@dimen/default_margin"
                 android:layout_marginEnd="@dimen/default_margin"
+                android:onClick="@{() -> viewModel.calculateYearlyFlyingStarGroup()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <com.alexis.chineseastrology.widgets.FlyingStarCanvas
+            flyingStarGroup="@{viewModel.yearlyFlyingStarGroup}"
             android:id="@+id/viewFlyingStarCanvas"
             android:layout_weight="0.7"
             android:layout_width="match_parent"

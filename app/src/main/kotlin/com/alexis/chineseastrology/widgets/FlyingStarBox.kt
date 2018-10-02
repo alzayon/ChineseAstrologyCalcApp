@@ -8,7 +8,7 @@ import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.lib.flyingstars.time.ITimeFlyingStar
 import kotlinx.android.synthetic.main.flying_star_box.view.*
 
-internal class FlyingStarBox : LinearLayout {
+class FlyingStarBox : LinearLayout {
 
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
