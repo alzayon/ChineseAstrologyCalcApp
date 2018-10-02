@@ -5,6 +5,7 @@ import android.content.Context
 import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
 import android.util.AttributeSet
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.alexis.chineseastrology.R
@@ -19,7 +20,6 @@ import com.alexis.chineseastrology.views.ICalculateBirthdayScreenView
 import com.alexis.chineseastrology.widgets.BirthdayResult
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.calculate_birthday_screen.view.*
-import timber.log.Timber
 import java.util.*
 
 
@@ -66,12 +66,6 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
         }
 
         ViewInjection.inject(this)
-
-        btnCalculate.setOnClickListener {
-            val result = viewModel.calculateBirthday()
-            viewBirthdayResult.value = result
-            Timber.d("Calcuate Result %s", result)
-        }
     }
 
     override fun onDateSet(view: DatePickerDialog, year: Int, monthOfYear: Int, dayOfMonth: Int) {
@@ -79,20 +73,38 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
         c.set(year, monthOfYear, dayOfMonth, 0, 0)
         viewModel.date.set(c.time)
     }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        viewModel.reset()
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        viewModel.reset()
+    }
 }
 
 object CalculateBirthdayBinders {
     @BindingAdapter("calculateBirthdayResult")
     @JvmStatic
-    fun calculateBirthdayResultBinding(birthdayResult: BirthdayResult, animalSign: IAnimalSign?) {
-        birthdayResult.value = animalSign
+    fun BirthdayResult.calculateBirthdayResultBinding(animalSign: IAnimalSign?) {
+        this.value = animalSign
     }
 
     @BindingAdapter("calculateBirthdayInput")
     @JvmStatic
-    fun calculateBirthdayInputBinding(textView: TextView, date: Date) {
-        val context = textView.context
+    fun TextView.calculateBirthdayInputBinding(date: Date) {
+        val context = this.context
         val format = android.text.format.DateFormat.getDateFormat(context);
-        textView.text = format.format(date)
+        this.text = format.format(date)
+    }
+
+    @BindingAdapter("calculateBirthdayTrigger")
+    @JvmStatic
+    fun Button.calculateBirthdayTriggerBinding(callback: () -> IAnimalSign) {
+        this.setOnClickListener {
+            callback.invoke()
+        }
     }
 }

@@ -8,4 +8,5 @@ interface ICalculateBirthdayViewModel {
     var date: ObservableField<Date>
     var animalSign: ObservableField<IAnimalSign>
     fun calculateBirthday(): IAnimalSign
+    fun reset()
 }
