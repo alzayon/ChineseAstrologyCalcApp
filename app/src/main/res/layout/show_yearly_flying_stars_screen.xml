@@ -36,15 +36,6 @@
                 android:hint="@string/enter_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/btnCalculateYearlyStar"
-                android:text="@string/btn_action_Calculate"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_marginStart="@dimen/default_margin"
-                android:layout_marginEnd="@dimen/default_margin"
-                android:onClick="@{() -> viewModel.calculateYearlyFlyingStarGroup()}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
         <android.support.v4.view.ViewPager
             android:id="@+id/flyingStarViewPager"

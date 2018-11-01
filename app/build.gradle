@@ -77,7 +77,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     kapt "android.arch.lifecycle:compiler:$lifecycle_version" // use kapt for Kotlin
-
     kapt "com.android.databinding:compiler:$data_binding_compiler_version"
 
     // optional - ReactiveStreams support for LiveData

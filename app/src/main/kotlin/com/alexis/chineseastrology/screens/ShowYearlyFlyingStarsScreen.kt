@@ -1,21 +1,16 @@
 package com.alexis.chineseastrology.screens
 
 import android.content.Context
-import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil.inflate
-import android.databinding.InverseBindingAdapter
-import android.databinding.ObservableField
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.EditText
 import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
 import com.alexis.chineseastrology.databinding.ShowYearlyFlyingStarsScreenBinding
 import com.alexis.chineseastrology.general.extensions.getViewModel
-import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
 import com.alexis.chineseastrology.screens.viewpager.CustomPagerAdapter
 import com.alexis.chineseastrology.viewmodel.IShowYearlyFlyingStarsViewModel
 import com.alexis.chineseastrology.viewmodel.ShowYearlyFlyingStarsViewModel
@@ -31,13 +26,11 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     }
 
     private lateinit var viewModel: IShowYearlyFlyingStarsViewModel
-
-    private var year: Int = Calendar.getInstance().get(Calendar.YEAR)
-
     private lateinit var pagerAdapter: CustomPagerAdapter
 
     private fun init() {
         viewModel = activity.getViewModel<ShowYearlyFlyingStarsViewModel>()
+        viewModel.setup()
 
         val binding = inflate<ShowYearlyFlyingStarsScreenBinding>(
                 activity.fragmentActivity.layoutInflater,
@@ -55,18 +48,21 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     }
 
     fun setup() {
-        viewModel.calculateYearlyFlyingStarGroup()
         pagerAdapter = CustomPagerAdapter(activity.fragmentActivity,
                 activity.fragmentActivity.layoutInflater,
-                viewModel,
-                year)
+                viewModel)
         flyingStarViewPager.adapter = pagerAdapter
 
         flyingStarViewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    pagerAdapter.update()
-                    flyingStarViewPager.setCurrentItem(1, false);
+                    val item = flyingStarViewPager.currentItem
+                    if (item < 1) {
+                        viewModel.moveYearToCalculate(-1)
+                    } else {
+                        viewModel.moveYearToCalculate(1)
+                    }
+                    flyingStarViewPager.setCurrentItem(1, false)
                 }
             }
 
@@ -83,7 +79,6 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        pagerAdapter.update()
         viewModel.reset()
     }
 
