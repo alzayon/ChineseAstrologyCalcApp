@@ -15,19 +15,19 @@ class YearlyFlyingStarGroup: BaseFlyingStarGroup {
         setupFlyingStars(yearlyFlyingStars.toList())
     }
 
-    fun giveAdvancedFlyingStarGroup(steps: Int, yearToUse: Int):
+    fun giveAdvancedFlyingStarGroup(steps: Int, yearToUse: Int = year):
             IFlyingStarGroup {
         val yearlyFlyingStars = advanceFlyingStarsBySteps(steps, yearToUse)
         return YearlyFlyingStarGroup(yearlyFlyingStars)
     }
 
-    fun giveRewoundFlyingStarGroup(steps: Int, yearToUse: Int):
+    fun giveRewoundFlyingStarGroup(steps: Int, yearToUse: Int = year):
             IFlyingStarGroup {
         val yearlyFlyingStars = rewindFlyingStarsBySteps(steps, yearToUse)
         return YearlyFlyingStarGroup(yearlyFlyingStars)
     }
 
-    private fun advanceFlyingStarsBySteps(steps: Int, yearToUse: Int):
+    private fun advanceFlyingStarsBySteps(steps: Int, yearToUse: Int = year):
             Set<YearlyFlyingStar> {
         val setOfStars = setOfFlyingStars()
         val newSetOfStars = setOfStars.map {
@@ -39,7 +39,7 @@ class YearlyFlyingStarGroup: BaseFlyingStarGroup {
         return newSetOfStars
     }
 
-    private fun rewindFlyingStarsBySteps(steps: Int, yearToUse: Int):
+    private fun rewindFlyingStarsBySteps(steps: Int, yearToUse: Int = year):
             Set<YearlyFlyingStar> {
         val setOfStars = setOfFlyingStars()
         val newSetOfStars = setOfStars.map {

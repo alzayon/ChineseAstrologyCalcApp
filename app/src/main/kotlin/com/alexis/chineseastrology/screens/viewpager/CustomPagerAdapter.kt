@@ -27,12 +27,20 @@ class CustomPagerAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = FlyingStarCanvas(context)
-        view.flyingStarGroup = viewModel.yearlyFlyingStarGroup.get()
         viewModel.yearlyFlyingStarGroup.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                view.flyingStarGroup = viewModel.yearlyFlyingStarGroup.get()
+                if (position == 0) {
+                    view.flyingStarGroup = viewModel.yearlyFlyingStarGroup.get()?.giveRewoundFlyingStarGroup(1)
+                } else if (position == 2) {
+                    view.flyingStarGroup = viewModel.yearlyFlyingStarGroup.get()?.giveAdvancedFlyingStarGroup(1)
+
+                } else {
+                    view.flyingStarGroup = viewModel.yearlyFlyingStarGroup.get()
+                }
+
             }
         })
+        viewModel.yearlyFlyingStarGroup.notifyChange()
         container.addView(view)
         return view
     }
