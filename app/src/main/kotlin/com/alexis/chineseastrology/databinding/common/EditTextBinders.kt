@@ -14,8 +14,8 @@ object EditTextBinders {
     }
 
     @InverseBindingAdapter(
-            attribute = "android:text",
-            event = "android:textAttrChanged"
+        attribute = "android:text",
+        event = "android:textAttrChanged"
     )
     @JvmStatic
     fun EditText.androidTextBindingInverse_Int(): Int {

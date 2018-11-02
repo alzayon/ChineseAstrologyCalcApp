@@ -17,6 +17,7 @@ class ShowYearlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShowY
     override var yearlyFlyingStarGroup: ObservableField<YearlyFlyingStarGroup?> = ObservableField()
 
     override fun setup() {
+        calculateYearlyFlyingStarGroup()
         yearToCalculate.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 calculateYearlyFlyingStarGroup()

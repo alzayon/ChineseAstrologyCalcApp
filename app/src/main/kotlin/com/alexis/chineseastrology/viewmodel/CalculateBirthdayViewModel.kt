@@ -14,7 +14,7 @@ class CalculateBirthdayViewModel @Inject constructor(private val bdayCalculator:
     override var animalSign: ObservableField<IAnimalSign> = ObservableField()
 
     override fun calculateBirthday(): IAnimalSign {
-        val result = bdayCalculator.calculate(date.get())
+        val result = bdayCalculator.calculate(date.get()!!)
         Timber.d("Calcuate Result %s", result)
         animalSign.set(result)
         return result

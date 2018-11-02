@@ -16,7 +16,6 @@ import com.alexis.chineseastrology.viewmodel.IShowYearlyFlyingStarsViewModel
 import com.alexis.chineseastrology.viewmodel.ShowYearlyFlyingStarsViewModel
 import kotlinx.android.synthetic.main.show_yearly_flying_stars_screen.view.*
 import timber.log.Timber
-import java.util.*
 
 class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     constructor(context: Context?) : this(context, null, 0)
@@ -52,6 +51,7 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
                 activity.fragmentActivity.layoutInflater,
                 viewModel)
         flyingStarViewPager.adapter = pagerAdapter
+        flyingStarViewPager.setCurrentItem(1, false)
 
         flyingStarViewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
