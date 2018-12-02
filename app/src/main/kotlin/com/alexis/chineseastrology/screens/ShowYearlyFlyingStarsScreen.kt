@@ -1,7 +1,8 @@
 package com.alexis.chineseastrology.screens
 
 import android.content.Context
-import android.databinding.DataBindingUtil.inflate
+import android.databinding.DataBindingUtil
+//import android.databinding.DataBindingUtil.inflate
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -31,7 +32,7 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
         viewModel = activity.getViewModel<ShowYearlyFlyingStarsViewModel>()
         viewModel.setup()
 
-        val binding = inflate<ShowYearlyFlyingStarsScreenBinding>(
+        val binding = DataBindingUtil.inflate<ShowYearlyFlyingStarsScreenBinding>(
                 activity.fragmentActivity.layoutInflater,
                 R.layout.show_yearly_flying_stars_screen,
                 this,

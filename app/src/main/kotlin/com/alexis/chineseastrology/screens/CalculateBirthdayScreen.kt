@@ -1,6 +1,7 @@
 package com.alexis.chineseastrology.screens
 
 import android.app.Activity
+import android.arch.lifecycle.ViewModel
 import android.content.Context
 import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
@@ -43,12 +44,13 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
                 true
         )
         binding.viewModel = viewModel
+        binding.setLifecycleOwner(activity.fragmentActivity)
 
         txtBirthdate.setOnClickListener {
             val activity = (context as? Activity)
             activity?.let {
                 val calendar = Calendar.getInstance()
-                calendar.time = viewModel.date.get()
+                calendar.time = viewModel.getDate()
                 val dpd = DatePickerDialog.newInstance(
                         this,
                         calendar.get(Calendar.YEAR),
@@ -68,7 +70,7 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
     override fun onDateSet(view: DatePickerDialog, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         val c = Calendar.getInstance()
         c.set(year, monthOfYear, dayOfMonth, 0, 0)
-        viewModel.date.set(c.time)
+        viewModel.setDate(c.time)
     }
 
     override fun onAttachedToWindow() {

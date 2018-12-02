@@ -1,29 +1,40 @@
 package com.alexis.chineseastrology.viewmodel
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 
 import android.databinding.ObservableField
+import com.alexis.chineseastrology.general.extensions.nonNull
 import com.alexis.chineseastrology.lib.IBdayCalculator
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
-class CalculateBirthdayViewModel @Inject constructor(private val bdayCalculator: IBdayCalculator): ViewModel(), ICalculateBirthdayViewModel {
-    override var date: ObservableField<Date> = ObservableField(Date())
-    override var animalSign: ObservableField<IAnimalSign> = ObservableField()
+class CalculateBirthdayViewModel @Inject constructor(private val bdayCalculator: IBdayCalculator) : ViewModel(), ICalculateBirthdayViewModel {
+    override var date: MutableLiveData<Date?> = MutableLiveData()
+    override var animalSign: MutableLiveData<IAnimalSign> = MutableLiveData()
 
     override fun calculateBirthday(): IAnimalSign {
-        val result = bdayCalculator.calculate(date.get()!!)
+        val result = bdayCalculator.calculate(date.value!!)
         Timber.d("Calcuate Result %s", result)
-        animalSign.set(result)
+        animalSign.postValue(result)
         return result
     }
 
     override fun reset() {
-        date.set(Date())
-        animalSign.set(null)
+        date.postValue(Date())
+        animalSign.postValue(null)
     }
 
+    override fun setDate(newDate: Date?) {
+        date.postValue(newDate)
+    }
+
+    override fun getDate(): Date? {
+        return date.value
+    }
 
 }

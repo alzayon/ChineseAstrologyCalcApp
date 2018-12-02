@@ -3,6 +3,9 @@ package com.alexis.chineseastrology.databinding.common
 import android.databinding.BindingAdapter
 import android.databinding.InverseBindingAdapter
 import android.widget.EditText
+import com.alexis.chineseastrology.databinding.common.EditTextBinders.androidTextBinding
+import com.alexis.chineseastrology.databinding.common.TextViewBinders.androidTextBinding
+import java.util.*
 
 object EditTextBinders {
     @BindingAdapter("android:text")
