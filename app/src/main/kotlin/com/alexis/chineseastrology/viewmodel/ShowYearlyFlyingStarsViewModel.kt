@@ -12,8 +12,6 @@ import java.util.*
 import javax.inject.Inject
 
 class ShowYearlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShowYearlyFlyingStarsViewModel {
-
-
     override var yearToCalculate =  MutableLiveData<String>()
 
     override var yearlyFlyingStarGroup = MutableLiveData<YearlyFlyingStarGroup?>()
@@ -35,7 +33,13 @@ class ShowYearlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShowY
         val year = yearToCalculate.value
         var group: YearlyFlyingStarGroup? = null
         year?.let {
-            val yearInt = it.toInt()
+            var yearInt = 0
+            if (it.trim().isEmpty()) {
+                reset()
+            } else {
+                yearInt = year.toInt()
+            }
+
             if (yearInt > 0) {
                 group = YearlyFlyingStarGroupSet.determineYearSetForYear(yearInt).getFlyingStarsGroup()
             }
@@ -47,7 +51,13 @@ class ShowYearlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShowY
     override fun moveYearToCalculate(direction: Int) {
         val year = yearToCalculate.value
         year?.let {
-            val yearInt = it.toInt()
+            var yearInt = 0
+            if (it.trim().isEmpty()) {
+                reset()
+            } else {
+                yearInt = year.toInt()
+            }
+
             if (direction == 1) {
                 val year = yearInt.inc()
                 yearToCalculate.postValue(year.toString())
@@ -56,6 +66,5 @@ class ShowYearlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShowY
                 yearToCalculate.postValue(year.toString())
             }
         }
-
     }
 }
