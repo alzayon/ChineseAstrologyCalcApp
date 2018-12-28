@@ -52,7 +52,7 @@ class YearlyFlyingStarGroupSet {
                 remainder = remainder % 9
             }
 
-            if (remainder == 0) {
+            if (remainder == 0 || remainder == 9) {
                 numberToUse = 9
             } else {
                 numberToUse = remainder
@@ -65,7 +65,7 @@ class YearlyFlyingStarGroupSet {
 
         fun findYearSetByNum(number: Int): YearSet {
             if (number > 9 || number < 1) {
-                throw RuntimeException(IllegalArgumentException("Specify only numbers 1 to 9"))
+                throw RuntimeException(IllegalArgumentException("Specify only numbers 1 to 9, you gave: " + number))
             }
             return YearSet.values().filter {
                 it.number == number

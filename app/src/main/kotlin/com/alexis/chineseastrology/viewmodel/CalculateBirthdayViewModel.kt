@@ -1,20 +1,18 @@
 package com.alexis.chineseastrology.viewmodel
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-
-import android.databinding.ObservableField
-import com.alexis.chineseastrology.general.extensions.nonNull
 import com.alexis.chineseastrology.lib.IBdayCalculator
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
-class CalculateBirthdayViewModel @Inject constructor(private val bdayCalculator: IBdayCalculator) : ViewModel(), ICalculateBirthdayViewModel {
+class CalculateBirthdayViewModel @Inject constructor(private val bdayCalculator: IBdayCalculator) :
+        ViewModel(), ICalculateBirthdayViewModel {
+
     override var date: MutableLiveData<Date?> = MutableLiveData()
+
     override var animalSign: MutableLiveData<IAnimalSign> = MutableLiveData()
 
     override fun calculateBirthday(): IAnimalSign {

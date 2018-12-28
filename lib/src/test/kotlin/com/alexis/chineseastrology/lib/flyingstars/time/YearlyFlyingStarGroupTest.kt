@@ -101,6 +101,13 @@ class YearlyFlyingStarGroupTest {
         assertTrue(actual == expected)
     }
 
+    @Test
+    fun `test determineYearSetForYear 2003`() {
+        val expected = YearlyFlyingStarGroupSet.YearSet.YEARSET9
+        val actual = YearlyFlyingStarGroupSet.determineYearSetForYear(2003)
+        assertTrue(actual == expected)
+    }
+
     @Test(expected = IllegalArgumentException::class)
     fun `test determineYearSetForYear 0`() {
         YearlyFlyingStarGroupSet.determineYearSetForYear(0)

@@ -1,11 +1,13 @@
 package com.alexis.chineseastrology.screens.viewpager
 
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.Observer
 import android.content.Context
-import android.databinding.Observable
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
 import com.alexis.chineseastrology.viewmodel.IShowYearlyFlyingStarsViewModel
 import com.alexis.chineseastrology.widgets.FlyingStarCanvas
 
@@ -15,7 +17,7 @@ class CustomPagerAdapter(
     private val viewModel: IShowYearlyFlyingStarsViewModel
 ) : PagerAdapter() {
 
-    private val onPropertyChangeCallbacks = mutableMapOf<Int, Observable.OnPropertyChangedCallback>()
+    private val observers = mutableMapOf<Int, Observer<YearlyFlyingStarGroup?>>()
 
     override fun isViewFromObject(view: View, obj: Any): Boolean {
         val objView = (obj as View)
@@ -29,12 +31,10 @@ class CustomPagerAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = FlyingStarCanvas(context)
-        if (!onPropertyChangeCallbacks.containsKey(position)) {
-            onPropertyChangeCallbacks[position] = FlyingStarChangeCallback(position, viewModel, view)
-        }
-        onPropertyChangeCallbacks[position]?.let {
-            viewModel.yearlyFlyingStarGroup.addOnPropertyChangedCallback(it)
-            viewModel.yearlyFlyingStarGroup.notifyChange()
+        if (!observers.containsKey(position)) {
+            val observer = FlyingStarChangeCallback(position, view)
+            observers[position] = observer
+            viewModel.yearlyFlyingStarGroup.observe(context as LifecycleOwner, observer)
         }
         container.addView(view)
         return view
@@ -42,23 +42,26 @@ class CustomPagerAdapter(
 
     override fun destroyItem(container: ViewGroup, position: Int, view: Any) {
         container.removeView(view as View)
-        onPropertyChangeCallbacks[position]?.let {
-            viewModel.yearlyFlyingStarGroup.removeOnPropertyChangedCallback(it)
+        observers[position]?.let {
+            viewModel.yearlyFlyingStarGroup.removeObserver(it)
         }
     }
 
     private class FlyingStarChangeCallback(
         private val position: Int,
-        private val viewModel: IShowYearlyFlyingStarsViewModel,
         private val view: FlyingStarCanvas
-    ) : Observable.OnPropertyChangedCallback() {
-        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-            if (position == 1) {
-                view.flyingStarGroup = viewModel.yearlyFlyingStarGroup.get()
-            } else if (position == 2) {
-                view.flyingStarGroup = viewModel.yearlyFlyingStarGroup.get()?.giveAdvancedFlyingStarGroup(1)
-            } else {
-                view.flyingStarGroup = viewModel.yearlyFlyingStarGroup.get()?.giveRewoundFlyingStarGroup(1)
+    ) : Observer<YearlyFlyingStarGroup?> {
+        override fun onChanged(yearlyFlyingStarGroup: YearlyFlyingStarGroup?) {
+            yearlyFlyingStarGroup?.let {
+                it?.let {
+                    if (position == 1) {
+                        view.flyingStarGroup = it
+                    } else if (position == 2) {
+                        view.flyingStarGroup = it.giveAdvancedFlyingStarGroup(1)
+                    } else {
+                        view.flyingStarGroup = it.giveRewoundFlyingStarGroup(1)
+                    }
+                }
             }
         }
     }

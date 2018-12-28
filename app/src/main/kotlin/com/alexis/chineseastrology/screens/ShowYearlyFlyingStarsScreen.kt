@@ -1,5 +1,6 @@
 package com.alexis.chineseastrology.screens
 
+import android.arch.lifecycle.Observer
 import android.content.Context
 import android.databinding.DataBindingUtil
 //import android.databinding.DataBindingUtil.inflate
@@ -12,6 +13,7 @@ import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
 import com.alexis.chineseastrology.databinding.ShowYearlyFlyingStarsScreenBinding
 import com.alexis.chineseastrology.general.extensions.getViewModel
+import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
 import com.alexis.chineseastrology.screens.viewpager.CustomPagerAdapter
 import com.alexis.chineseastrology.viewmodel.IShowYearlyFlyingStarsViewModel
 import com.alexis.chineseastrology.viewmodel.ShowYearlyFlyingStarsViewModel
@@ -39,6 +41,7 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
                 true
         )
         binding.viewModel = viewModel
+        binding.setLifecycleOwner(activity.fragmentActivity)
 
         val lp = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
         layoutParams = lp

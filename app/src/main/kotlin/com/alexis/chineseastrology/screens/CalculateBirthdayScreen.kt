@@ -83,11 +83,3 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
         viewModel.reset()
     }
 }
-
-object CalculateBirthdayBinders {
-    @BindingAdapter("calculateBirthdayResult")
-    @JvmStatic
-    fun BirthdayResult.calculateBirthdayResultBinding(animalSign: IAnimalSign?) {
-        this.value = animalSign
-    }
-}
