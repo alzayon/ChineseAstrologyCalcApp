@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.lib.flyingstars.time.ITimeFlyingStar
-import kotlinx.android.synthetic.main.flying_star_box.view.*
+import kotlinx.android.synthetic.main.flying_star_box_monthly.view.*
 
 class FlyingStarBox : LinearLayout {
 
@@ -17,9 +17,15 @@ class FlyingStarBox : LinearLayout {
     }
 
     var timeFlyingStar: ITimeFlyingStar? = null
+    var monthlyDisplay: Boolean = false
 
     private fun init() {
-        View.inflate(context, R.layout.flying_star_box, this)
+        if (monthlyDisplay) {
+            View.inflate(context, R.layout.flying_star_box_monthly, this)
+        } else {
+            View.inflate(context, R.layout.flying_star_box_yearly, this)
+        }
+
     }
 
     fun populate(timeFlyingStar: ITimeFlyingStar) {
