@@ -12,7 +12,7 @@ import java.util.*
 import javax.inject.Inject
 
 class ShowYearlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShowYearlyFlyingStarsViewModel {
-    override var yearToCalculate =  MutableLiveData<String>()
+    override var yearToCalculate =  MutableLiveData<Int>()
 
     override var yearlyFlyingStarGroup = MutableLiveData<YearlyFlyingStarGroup?>()
 
@@ -26,45 +26,31 @@ class ShowYearlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShowY
     override fun reset() {
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
-        yearToCalculate.postValue(year.toString())
+        yearToCalculate.postValue(year)
+    }
+
+    override fun moveYearToCalculate(direction: Int) {
+        val year = yearToCalculate.value
+        year?.let {
+            if (direction == 1) {
+                val yearComputed = it.inc()
+                yearToCalculate.postValue(yearComputed)
+            } else {
+                val yearComputed = it.dec()
+                yearToCalculate.postValue(yearComputed)
+            }
+        }
     }
 
     private fun calculateYearlyFlyingStarGroup(): IFlyingStarGroup? {
         val year = yearToCalculate.value
         var group: YearlyFlyingStarGroup? = null
         year?.let {
-            var yearInt = 0
-            if (it.trim().isEmpty()) {
-                reset()
-            } else {
-                yearInt = year.toInt()
-            }
-
-            if (yearInt > 0) {
-                group = YearlyFlyingStarGroupSet.determineYearSetForYear(yearInt).getFlyingStarsGroup()
+            if (it > 0) {
+                group = YearlyFlyingStarGroupSet.determineYearSetForYear(it).getFlyingStarsGroup()
             }
             yearlyFlyingStarGroup.postValue(group)
         }
         return group
-    }
-
-    override fun moveYearToCalculate(direction: Int) {
-        val year = yearToCalculate.value
-        year?.let {
-            var yearInt = 0
-            if (it.trim().isEmpty()) {
-                reset()
-            } else {
-                yearInt = year.toInt()
-            }
-
-            if (direction == 1) {
-                val year = yearInt.inc()
-                yearToCalculate.postValue(year.toString())
-            } else {
-                val year = yearInt.dec()
-                yearToCalculate.postValue(year.toString())
-            }
-        }
     }
 }

@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.alexis.chineseastrology.viewmodel.IShowYearlyFlyingStarsViewModel" />
+        <import type="com.alexis.chineseastrology.databinding.converters.StringIntConverter"/>
     </data>
     <LinearLayout
         android:orientation="vertical"
@@ -30,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <EditText
-                android:text="@={viewModel.yearToCalculate}"
+                android:text="@={StringIntConverter.intToString(viewModel.yearToCalculate)}"
                 android:inputType="number"
                 android:gravity="center"
                 android:textSize="40sp"

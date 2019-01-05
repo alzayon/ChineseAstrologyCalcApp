@@ -1,6 +1,5 @@
 package com.alexis.chineseastrology.screens
 
-import android.arch.lifecycle.Observer
 import android.content.Context
 import android.databinding.DataBindingUtil
 //import android.databinding.DataBindingUtil.inflate
@@ -13,8 +12,7 @@ import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
 import com.alexis.chineseastrology.databinding.ShowYearlyFlyingStarsScreenBinding
 import com.alexis.chineseastrology.general.extensions.getViewModel
-import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
-import com.alexis.chineseastrology.screens.viewpager.CustomPagerAdapter
+import com.alexis.chineseastrology.screens.viewpager.YearlyFlyingStarsCustomPagerAdapter
 import com.alexis.chineseastrology.viewmodel.IShowYearlyFlyingStarsViewModel
 import com.alexis.chineseastrology.viewmodel.ShowYearlyFlyingStarsViewModel
 import kotlinx.android.synthetic.main.show_yearly_flying_stars_screen.view.*
@@ -28,7 +26,7 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     }
 
     private lateinit var viewModel: IShowYearlyFlyingStarsViewModel
-    private lateinit var pagerAdapter: CustomPagerAdapter
+    private lateinit var pagerAdapter: YearlyFlyingStarsCustomPagerAdapter
 
     private fun init() {
         viewModel = activity.getViewModel<ShowYearlyFlyingStarsViewModel>()
@@ -51,9 +49,10 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     }
 
     fun setup() {
-        pagerAdapter = CustomPagerAdapter(activity.fragmentActivity,
-                activity.fragmentActivity.layoutInflater,
-                viewModel)
+        pagerAdapter = YearlyFlyingStarsCustomPagerAdapter(
+                activity.fragmentActivity,
+                viewModel
+        )
         flyingStarViewPager.adapter = pagerAdapter
         flyingStarViewPager.setCurrentItem(1, false)
 

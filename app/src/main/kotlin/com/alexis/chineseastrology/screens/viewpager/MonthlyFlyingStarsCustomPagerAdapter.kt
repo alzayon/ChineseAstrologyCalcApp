@@ -4,20 +4,18 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.support.v4.view.PagerAdapter
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
+import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroup
+import com.alexis.chineseastrology.viewmodel.IShowMonthlyFlyingStarsViewModel
 import com.alexis.chineseastrology.viewmodel.IShowYearlyFlyingStarsViewModel
 import com.alexis.chineseastrology.widgets.FlyingStarCanvas
 
-class CustomPagerAdapter(
+class MonthlyFlyingStarsCustomPagerAdapter(
     private val context: Context,
-    private val layoutInflater: LayoutInflater,
-    private val viewModel: IShowYearlyFlyingStarsViewModel
+    private val viewModel: IShowMonthlyFlyingStarsViewModel
 ) : PagerAdapter() {
-
-    private val observers = mutableMapOf<Int, Observer<YearlyFlyingStarGroup?>>()
+    private val observers = mutableMapOf<Int, Observer<MonthlyFlyingStarGroup?>>()
 
     override fun isViewFromObject(view: View, obj: Any): Boolean {
         val objView = (obj as View)
@@ -26,7 +24,7 @@ class CustomPagerAdapter(
     }
 
     override fun getCount(): Int {
-       return 3
+        return 3
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -34,7 +32,7 @@ class CustomPagerAdapter(
         if (!observers.containsKey(position)) {
             val observer = FlyingStarChangeCallback(position, view)
             observers[position] = observer
-            viewModel.yearlyFlyingStarGroup.observe(context as LifecycleOwner, observer)
+            viewModel.monthlyFlyingStarGroup.observe(context as LifecycleOwner, observer)
         }
         container.addView(view)
         return view
@@ -43,16 +41,16 @@ class CustomPagerAdapter(
     override fun destroyItem(container: ViewGroup, position: Int, view: Any) {
         container.removeView(view as View)
         observers[position]?.let {
-            viewModel.yearlyFlyingStarGroup.removeObserver(it)
+            viewModel.monthlyFlyingStarGroup.removeObserver(it)
         }
     }
 
     private class FlyingStarChangeCallback(
-        private val position: Int,
-        private val view: FlyingStarCanvas
-    ) : Observer<YearlyFlyingStarGroup?> {
-        override fun onChanged(yearlyFlyingStarGroup: YearlyFlyingStarGroup?) {
-            yearlyFlyingStarGroup?.let {
+            private val position: Int,
+            private val view: FlyingStarCanvas
+    ) : Observer<MonthlyFlyingStarGroup?> {
+        override fun onChanged(monthlyFlyingStarGroup: MonthlyFlyingStarGroup?) {
+            monthlyFlyingStarGroup?.let {
                 it?.let {
                     if (position == 1) {
                         view.flyingStarGroup = it
