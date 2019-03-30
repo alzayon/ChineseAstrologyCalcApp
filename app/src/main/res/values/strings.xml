@@ -13,6 +13,7 @@
     <string name="drawer_close">Close</string>
 
     <string name="enter_birthdate">Enter the birthdate:</string>
+    <string name="enter_date">Enter the date:</string>
     <string name="animal_sign_label">Animal Sign:</string>
     <string name="element_sign_label">Element:</string>
 

@@ -10,45 +10,33 @@ import java.util.*
 import javax.inject.Inject
 
 class ShowMonthlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShowMonthlyFlyingStarsViewModel {
-    override var monthYearToCalculate =  MutableLiveData<String>()
-
+    override var date = MutableLiveData<Date?>()
     override var monthlyFlyingStarGroup = MutableLiveData<MonthlyFlyingStarGroup?>()
 
     override fun setup() {
         calculateMonthlyFlyingStarGroup()
-        monthYearToCalculate.observeForever {
+        date.observeForever {
             calculateMonthlyFlyingStarGroup()
         }
     }
 
     override fun reset() {
-        val cal = Calendar.getInstance()
-        val year = cal.get(Calendar.YEAR)
-        monthYearToCalculate.postValue(year.toString())
+        date.postValue(Date())
     }
 
     override fun moveMonthToCalculate(direction: Int) {
-        val year = monthYearToCalculate.value
-        year?.let {
-            var yearInt = 0
-            if (it.trim().isEmpty()) {
-                reset()
-            } else {
-                yearInt = year.toInt()
-            }
-
+        date.value?.let {
             if (direction == 1) {
-                val year = yearInt.inc()
-                monthYearToCalculate.postValue(year.toString())
+//                val year = yearInt.inc()
+//                monthYearToCalculate.postValue(year.toString())
             } else {
-                val year = yearInt.dec()
-                monthYearToCalculate.postValue(year.toString())
+//                val year = yearInt.dec()
+//                monthYearToCalculate.postValue(year.toString())
             }
         }
     }
 
     private fun calculateMonthlyFlyingStarGroup(): IFlyingStarGroup? {
-        val (month, year) = splitStringToMonthYear()
         var group: YearlyFlyingStarGroup? = null
 //        year?.let {
 //            var yearInt = 0
@@ -64,10 +52,5 @@ class ShowMonthlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShow
 //            yearlyFlyingStarGroup.postValue(group)
 //        }
         return group
-    }
-
-    private fun splitStringToMonthYear(): Pair<Int, Int> {
-        val value = monthYearToCalculate.value
-        return Pair(1, 2018)
     }
 }

@@ -13,7 +13,6 @@ import javax.inject.Inject
 
 class ShowYearlyFlyingStarsViewModel @Inject constructor() : ViewModel(), IShowYearlyFlyingStarsViewModel {
     override var yearToCalculate =  MutableLiveData<Int>()
-
     override var yearlyFlyingStarGroup = MutableLiveData<YearlyFlyingStarGroup?>()
 
     override fun setup() {

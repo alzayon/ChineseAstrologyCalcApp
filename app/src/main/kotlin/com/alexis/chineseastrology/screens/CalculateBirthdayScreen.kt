@@ -50,7 +50,7 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
             val activity = (context as? Activity)
             activity?.let {
                 val calendar = Calendar.getInstance()
-                calendar.time = viewModel.getDate()
+                calendar.time = viewModel.date.value
                 val dpd = DatePickerDialog.newInstance(
                         this,
                         calendar.get(Calendar.YEAR),

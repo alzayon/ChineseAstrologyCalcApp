@@ -1,10 +1,8 @@
 package com.alexis.chineseastrology.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
-import android.databinding.ObservableField
-import android.databinding.ObservableInt
-import com.alexis.chineseastrology.lib.flyingstars.time.IFlyingStarGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
+import java.util.*
 
 interface IShowYearlyFlyingStarsViewModel {
     var yearToCalculate: MutableLiveData<Int>

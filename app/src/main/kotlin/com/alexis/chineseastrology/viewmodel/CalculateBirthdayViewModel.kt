@@ -30,9 +30,4 @@ class CalculateBirthdayViewModel @Inject constructor(private val bdayCalculator:
     override fun setDate(newDate: Date?) {
         date.postValue(newDate)
     }
-
-    override fun getDate(): Date? {
-        return date.value
-    }
-
 }

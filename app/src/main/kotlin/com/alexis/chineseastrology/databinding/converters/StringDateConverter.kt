@@ -1,7 +1,6 @@
 package com.alexis.chineseastrology.databinding.converters
 
 import android.content.Context
-import android.databinding.InverseMethod
 import java.util.*
 
 object StringDateConverter {

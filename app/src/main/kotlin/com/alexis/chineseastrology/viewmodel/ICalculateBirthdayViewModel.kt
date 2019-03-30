@@ -15,5 +15,4 @@ interface ICalculateBirthdayViewModel {
     fun calculateBirthday(): IAnimalSign
     fun reset()
     fun setDate(newDate: Date?)
-    fun getDate(): Date?
 }
