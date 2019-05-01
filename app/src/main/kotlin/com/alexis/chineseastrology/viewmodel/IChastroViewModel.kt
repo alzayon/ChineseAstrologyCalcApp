@@ -1,3 +1,3 @@
 package com.alexis.chineseastrology.viewmodel
 
-interface IBaseViewModel
+interface IChastroViewModel

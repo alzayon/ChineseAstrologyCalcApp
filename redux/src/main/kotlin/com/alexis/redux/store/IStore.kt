@@ -2,7 +2,7 @@ package com.alexis.redux.store
 
 import com.alexis.redux.action.IAction
 import com.alexis.redux.processor.IProcessor
-import com.alexis.redux.result.INotifier
+import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.state.IGetters
 
 interface IStore {
