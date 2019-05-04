@@ -1,33 +1,31 @@
 package com.alexis.chineseastrology.viewmodel
 
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import com.alexis.chineseastrology.lib.IBdayCalculator
-import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
-import timber.log.Timber
-import java.util.*
+import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayState
+import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayStore
+import com.alexis.chineseastrology.redux.calculatebirthdayscreen.ICalculateBirthdayState
+import com.alexis.chineseastrology.redux.calculatebirthdayscreen.ICalculateBirthdayStore
+import com.alexis.chineseastrology.redux.notifier.LiveDataNotifier
+import com.alexis.redux.notifier.INotifyResult
 import javax.inject.Inject
 
 class CalculateBirthdayViewModel @Inject constructor(private val bdayCalculator: IBdayCalculator) :
-        ViewModel(), ICalculateBirthdayViewModel {
+        BaseViewModel() {
 
-    override var date: MutableLiveData<Date?> = MutableLiveData()
+    private val lv = MutableLiveData<INotifyResult>()
 
-    override var animalSign: MutableLiveData<IAnimalSign> = MutableLiveData()
+    private lateinit var notifier: LiveDataNotifier
+    private lateinit var state: ICalculateBirthdayState
 
-    override fun calculateBirthday(): IAnimalSign {
-        val result = bdayCalculator.calculate(date.value!!)
-        Timber.d("Calcuate BaseNotifyResult %s", result)
-        animalSign.postValue(result)
-        return result
-    }
+    lateinit var store: ICalculateBirthdayStore
+        private set
 
-    override fun reset() {
-        date.postValue(Date())
-        animalSign.postValue(null)
-    }
-
-    override fun setDate(newDate: Date?) {
-        date.postValue(newDate)
+    fun setup(lifecycleOwner: LifecycleOwner) {
+        notifier = LiveDataNotifier()
+        notifier.setup(lifecycleOwner)
+        state = CalculateBirthdayState()
+        store = CalculateBirthdayStore(notifier, state, bdayCalculator)
     }
 }

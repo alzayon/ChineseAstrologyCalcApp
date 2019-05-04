@@ -12,10 +12,4 @@ object CustomBindings {
     fun FlyingStarCanvas.flyingStarGroupBinding(flyingStarGroup: IFlyingStarGroup?) {
         this.flyingStarGroup = flyingStarGroup
     }
-
-    @BindingAdapter("calculateBirthdayResult")
-    @JvmStatic
-    fun BirthdayResult.calculateBirthdayResult(animalSign: IAnimalSign?) {
-        this.value = animalSign
-    }
 }

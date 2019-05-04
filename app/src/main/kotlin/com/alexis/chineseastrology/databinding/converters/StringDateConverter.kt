@@ -16,3 +16,11 @@ object StringDateConverter {
         return format.format(Date())
     }
 }
+
+fun Date.toDefaultFormat(context: Context) : String {
+    val format = android.text.format.DateFormat.getDateFormat(context)
+    this?.let {
+        return format.format(this)
+    }
+    return format.format(Date())
+}

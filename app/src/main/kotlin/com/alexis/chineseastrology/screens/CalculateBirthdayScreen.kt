@@ -1,27 +1,25 @@
 package com.alexis.chineseastrology.screens
 
 import android.app.Activity
-import android.arch.lifecycle.ViewModel
 import android.content.Context
-import android.databinding.BindingAdapter
-import android.databinding.DataBindingUtil
 import android.util.AttributeSet
+import android.view.View
 import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
-import com.alexis.chineseastrology.databinding.CalculateBirthdayScreenBinding
+import com.alexis.chineseastrology.databinding.converters.toDefaultFormat
 import com.alexis.chineseastrology.general.extensions.getViewModel
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
+import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayActions
+import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayNotifyResults
 import com.alexis.chineseastrology.viewmodel.CalculateBirthdayViewModel
-import com.alexis.chineseastrology.viewmodel.ICalculateBirthdayViewModel
-import com.alexis.chineseastrology.views.ICalculateBirthdayScreenView
-import com.alexis.chineseastrology.widgets.BirthdayResult
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.calculate_birthday_screen.view.*
+import timber.log.Timber
 import java.util.*
 
-class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
+class CalculateBirthdayScreen :
         LinearLayout,
         IViewWithActivity,
         DatePickerDialog.OnDateSetListener {
@@ -32,25 +30,19 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
         init()
     }
 
-    lateinit var viewModel: ICalculateBirthdayViewModel
+    lateinit var viewModel: CalculateBirthdayViewModel
 
     private fun init() {
         viewModel = activity.getViewModel<CalculateBirthdayViewModel>()
-
-        val binding = DataBindingUtil.inflate<CalculateBirthdayScreenBinding>(
-                activity.fragmentActivity.layoutInflater,
-                R.layout.calculate_birthday_screen,
-                this,
-                true
-        )
-        binding.viewModel = viewModel
-        binding.setLifecycleOwner(activity.fragmentActivity)
+        View.inflate(context, R.layout.calculate_birthday_screen, this)
 
         txtBirthdate.setOnClickListener {
             val activity = (context as? Activity)
             activity?.let {
                 val calendar = Calendar.getInstance()
-                calendar.time = viewModel.date.value
+                viewModel.store.state.birthdate?.let {
+                    calendar.time = it
+                }
                 val dpd = DatePickerDialog.newInstance(
                         this,
                         calendar.get(Calendar.YEAR),
@@ -61,25 +53,55 @@ class CalculateBirthdayScreen : ICalculateBirthdayScreenView,
                 dpd.showYearPickerFirst(true)
 
                 dpd.show(fragmentManager, "Datepickerdialog")
+                dpd.setOnDateSetListener { dialog, year, month, day ->
+                    calendar.set(year, month, day)
+                    val date = calendar.time
+                    viewModel.store.dispatch(CalculateBirthdayActions.SetBirthdate(date))
+                    Timber.d("Date selected is " + date)
+                }
             }
         }
-
+        btnCalculate.setOnClickListener {
+            viewModel.store.dispatch(CalculateBirthdayActions.Calculate)
+        }
         ViewInjection.inject(this)
     }
 
     override fun onDateSet(view: DatePickerDialog, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         val c = Calendar.getInstance()
         c.set(year, monthOfYear, dayOfMonth, 0, 0)
-        viewModel.setDate(c.time)
+        viewModel.store.dispatch(CalculateBirthdayActions.SetBirthdate(c.time))
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        viewModel.reset()
+        viewModel.setup(this.activity.fragmentActivity)
+        setupObservers()
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        viewModel.reset()
+        viewModel.store.reset()
+    }
+
+    private fun setupObservers() {
+        viewModel.store.listen { result ->
+            when (result) {
+                is CalculateBirthdayNotifyResults.UpdateSelectedDate -> updateSelectedDate ()
+                is CalculateBirthdayNotifyResults.CalculationResult -> showCalculationResult(result.animalSign)
+                else -> throw IllegalArgumentException("A notify result was not handled!")
+            }
+            result.consume()
+        }
+    }
+
+    private fun updateSelectedDate() {
+        this.context?.let {
+            txtBirthdate.text = viewModel.store.state.birthdate?.toDefaultFormat(it)
+        }
+    }
+
+    private fun showCalculationResult(animalSign: IAnimalSign) {
+        viewBirthdayResult.value = animalSign
     }
 }

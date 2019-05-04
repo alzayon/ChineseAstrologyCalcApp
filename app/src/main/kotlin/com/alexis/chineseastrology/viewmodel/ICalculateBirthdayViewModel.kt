@@ -13,6 +13,7 @@ interface ICalculateBirthdayViewModel {
     //TODO
     //Determine why Databinding causes a StackOverflow exception if the return type is void/Unit
     fun calculateBirthday(): IAnimalSign
+    @Deprecated("Use mvvm")
     fun reset()
     fun setDate(newDate: Date?)
 }
