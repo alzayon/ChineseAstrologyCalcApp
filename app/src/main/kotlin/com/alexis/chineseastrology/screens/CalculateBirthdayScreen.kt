@@ -35,7 +35,11 @@ class CalculateBirthdayScreen :
     private fun init() {
         viewModel = activity.getViewModel<CalculateBirthdayViewModel>()
         View.inflate(context, R.layout.calculate_birthday_screen, this)
+        setupEventListeners()
+        ViewInjection.inject(this)
+    }
 
+    private fun setupEventListeners() {
         txtBirthdate.setOnClickListener {
             val activity = (context as? Activity)
             activity?.let {
@@ -64,7 +68,6 @@ class CalculateBirthdayScreen :
         btnCalculate.setOnClickListener {
             viewModel.store.dispatch(CalculateBirthdayActions.Calculate)
         }
-        ViewInjection.inject(this)
     }
 
     override fun onDateSet(view: DatePickerDialog, year: Int, monthOfYear: Int, dayOfMonth: Int) {
@@ -91,7 +94,6 @@ class CalculateBirthdayScreen :
                 is CalculateBirthdayNotifyResults.CalculationResult -> showCalculationResult(result.animalSign)
                 else -> throw IllegalArgumentException("A notify result was not handled!")
             }
-            result.consume()
         }
     }
 

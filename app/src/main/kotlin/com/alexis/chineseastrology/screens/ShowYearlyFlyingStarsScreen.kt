@@ -1,22 +1,27 @@
 package com.alexis.chineseastrology.screens
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-//import android.databinding.DataBindingUtil.inflate
 import android.support.v4.view.ViewPager
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.View
 import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
-import com.alexis.chineseastrology.databinding.ShowYearlyFlyingStarsScreenBinding
 import com.alexis.chineseastrology.general.extensions.getViewModel
+import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
+import com.alexis.chineseastrology.redux.showyearlyflyingstars.ShowYearlyFlyingStarsAction
+import com.alexis.chineseastrology.redux.showyearlyflyingstars.ShowYearlyFlyingStarsNotifyResults
 import com.alexis.chineseastrology.screens.viewpager.YearlyFlyingStarsCustomPagerAdapter
-import com.alexis.chineseastrology.viewmodel.IShowYearlyFlyingStarsViewModel
 import com.alexis.chineseastrology.viewmodel.ShowYearlyFlyingStarsViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.show_yearly_flying_stars_screen.view.*
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
+
 
 class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     constructor(context: Context?) : this(context, null, 0)
@@ -25,33 +30,22 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
         init()
     }
 
-    private lateinit var viewModel: IShowYearlyFlyingStarsViewModel
+    private val TYPING_DEBOUNCE_MS = 500L
+    private val txtYearTypingSubject = PublishSubject.create<String>()
+
+    private lateinit var viewModel: ShowYearlyFlyingStarsViewModel
     private lateinit var pagerAdapter: YearlyFlyingStarsCustomPagerAdapter
 
     private fun init() {
         viewModel = activity.getViewModel<ShowYearlyFlyingStarsViewModel>()
-        viewModel.setup()
-
-        val binding = DataBindingUtil.inflate<ShowYearlyFlyingStarsScreenBinding>(
-                activity.fragmentActivity.layoutInflater,
-                R.layout.show_yearly_flying_stars_screen,
-                this,
-                true
-        )
-        binding.viewModel = viewModel
-        binding.setLifecycleOwner(activity.fragmentActivity)
-
-        val lp = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-        layoutParams = lp
-        orientation = VERTICAL
+        View.inflate(context, R.layout.show_yearly_flying_stars_screen, this)
         ViewInjection.inject(this)
-        setup()
     }
 
-    fun setup() {
+    private fun setupAdapter() {
         pagerAdapter = YearlyFlyingStarsCustomPagerAdapter(
-                activity.fragmentActivity,
-                viewModel
+            activity.fragmentActivity,
+            viewModel.store.state
         )
         flyingStarViewPager.adapter = pagerAdapter
         flyingStarViewPager.setCurrentItem(1, false)
@@ -61,9 +55,9 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
                     val item = flyingStarViewPager.currentItem
                     if (item < 1) {
-                        viewModel.moveYearToCalculate(-1)
+                        viewModel.store.dispatch(ShowYearlyFlyingStarsAction.MoveYearToCalculate(-1))
                     } else {
-                        viewModel.moveYearToCalculate(1)
+                        viewModel.store.dispatch(ShowYearlyFlyingStarsAction.MoveYearToCalculate(1))
                     }
                     flyingStarViewPager.setCurrentItem(1, false)
                 }
@@ -80,13 +74,61 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
         })
     }
 
+    private fun setupListeners() {
+        txtYearTypingSubject
+                .debounce(TYPING_DEBOUNCE_MS, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                .subscribe({
+                    try {
+                        val year = Integer.parseInt(it)
+                        viewModel.store.dispatch(ShowYearlyFlyingStarsAction.CalculateYearlyFlyingStars(year, true))
+                    } catch (ex: NumberFormatException) {}
+                }, {
+                    //swallow error
+                    Timber.e("Error %s", it.message)
+                })
+
+        txtYear.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                txtYearTypingSubject.onNext(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+    }
+
+    private fun setupObservers() {
+        viewModel.store.listen { result ->
+            when (result) {
+                is ShowYearlyFlyingStarsNotifyResults.YearUpdated -> onYearUpdated()
+                is ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated -> onFlyingStarGroupUpdated(result.yearlyFlyingStarsGroup)
+                else -> throw IllegalArgumentException("A notify result was not handled!")
+            }
+        }
+    }
+
+    private fun onYearUpdated() {
+        txtYear.setText(viewModel.store.state.yearToCalculate.toString())
+    }
+
+    private fun onFlyingStarGroupUpdated(yearlyFlyingStarGroup: YearlyFlyingStarGroup?) {
+        pagerAdapter.onFlyingStarGroupUpdated(yearlyFlyingStarGroup)
+    }
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        viewModel.reset()
+        viewModel.setup(this.activity.fragmentActivity)
+        setupObservers()
+        setupAdapter()
+        setupListeners()
+        viewModel.store.dispatch(ShowYearlyFlyingStarsAction.CalculateYearlyFlyingStars())
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        viewModel.reset()
+        viewModel.store.state.reset()
     }
 }

@@ -69,21 +69,21 @@ internal class MainActivity : BaseDaggerActivity(), IChastroActivity {
     }
 
     private fun showCalculateBirthdayScreen() {
+        closeNavigationDrawer()
         viewContainer.removeAllViews()
         viewContainer.addView(CalculateBirthdayScreen(this))
-        closeNavigationDrawer()
     }
 
     private fun showYearlyFlyingStarsScreen() {
+        closeNavigationDrawer()
         viewContainer.removeAllViews()
         viewContainer.addView(ShowYearlyFlyingStarsScreen(this))
-        closeNavigationDrawer()
     }
 
     private fun showMonthlyFlyingStarsScreen() {
+        closeNavigationDrawer()
         viewContainer.removeAllViews()
         viewContainer.addView(ShowMonthlyFlyingStarsScreen(this))
-        closeNavigationDrawer()
     }
 
     private fun closeNavigationDrawer() {

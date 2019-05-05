@@ -16,8 +16,7 @@ class CalculateBirthdayStore(
         notifier: INotifier,
         state: ICalculateBirthdayState,
         private val bdayCalculator: IBdayCalculator
-) :
-        BaseStore<ICalculateBirthdayState>(notifier, state), ICalculateBirthdayStore
+) : BaseStore<ICalculateBirthdayState>(notifier, state), ICalculateBirthdayStore
 {
     override fun resolveProcessor(action: IAction): IProcessor? {
         return when (action) {

@@ -5,7 +5,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.notifier.INotifyResult
-import com.alexis.redux.notifier.INotifyResultListener
 import com.alexis.redux.notifier.NotifyListener
 
 class LiveDataNotifier() : INotifier {
@@ -24,6 +23,9 @@ class LiveDataNotifier() : INotifier {
 
         }
         _liveData.value = notifyResult
+
+        // IMPORTANT
+        notifyResult.consume()
     }
 
     override fun listen(notifyListener: NotifyListener) {
@@ -38,6 +40,7 @@ class LiveDataNotifier() : INotifier {
         _liveData.removeObservers(lifecycleOwner)
     }
 
+    // TODO
     fun consumePendingUiModels() {
         if (unconsumedResultsList.isNotEmpty()) {
             var tmpList = unconsumedResultsList.toList()

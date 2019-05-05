@@ -5,6 +5,6 @@ import com.alexis.redux.processor.BaseProcessor
 
 class ResetStateProcessor : BaseProcessor() {
     override fun process(action: IAction) {
-
+        // TODO
     }
 }

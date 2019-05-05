@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroup
 import com.alexis.chineseastrology.viewmodel.IShowMonthlyFlyingStarsViewModel
-import com.alexis.chineseastrology.viewmodel.IShowYearlyFlyingStarsViewModel
 import com.alexis.chineseastrology.widgets.FlyingStarCanvas
 
 class MonthlyFlyingStarsCustomPagerAdapter(

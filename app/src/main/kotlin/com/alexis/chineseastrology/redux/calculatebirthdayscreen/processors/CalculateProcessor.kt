@@ -9,9 +9,9 @@ import com.alexis.redux.processor.BaseProcessor
 import timber.log.Timber
 
 class CalculateProcessor(
-        private val notifier: INotifier,
-        private val state: ICalculateBirthdayState,
-        private val bdayCalculator: IBdayCalculator
+    private val notifier: INotifier,
+    private val state: ICalculateBirthdayState,
+    private val bdayCalculator: IBdayCalculator
 ) : BaseProcessor() {
     override fun process(action: IAction) {
         state.birthdate?.let {

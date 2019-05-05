@@ -6,7 +6,9 @@ import android.content.ContextWrapper
 import com.alexis.chineseastrology.IChastroActivity
 
 interface IViewWithActivity {
-
+    // TODO
+    // Revert this back to plain Activity
+    // because using activity.fragmentActivity is weird...
     val activity: IChastroActivity
         get() {
             var context = getContext()
