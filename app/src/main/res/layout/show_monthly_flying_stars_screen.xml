@@ -1,29 +1,51 @@
-<layout
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="viewModel"
-            type="com.alexis.chineseastrology.viewmodel.IShowMonthlyFlyingStarsViewModel" />
-        <import type="com.alexis.chineseastrology.databinding.converters.StringDateConverter"/>
-    </data>
-
-    <android.support.constraint.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <TextView
+        style="@style/HeaderText"
+        android:text="@string/action_show_monthly_flying_stars"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/half_margin"
+        android:layout_marginBottom="@dimen/half_margin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            style="@style/HeaderText"
-            android:id="@+id/headerText"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_weight="0.3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <EditText
+            android:id="@+id/txtYear"
+            android:inputType="number"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:hint="@string/enter_year"
+            android:imeOptions="actionDone"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/action_show_monthly_flying_stars"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-</layout>
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/txtMonth"
+            android:inputType="number"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:hint="@string/enter_year"
+            android:imeOptions="actionDone"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/flyingStarViewPager"
+        android:layout_weight="0.7"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+</LinearLayout>

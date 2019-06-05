@@ -8,7 +8,6 @@ import com.alexis.chineseastrology.redux.showyearlyflyingstars.ShowYearlyFlyingS
 import com.alexis.redux.action.IAction
 import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.processor.BaseProcessor
-import timber.log.Timber
 import java.util.*
 
 class CalculateYearlyFlyingStarsProcessor(
@@ -27,7 +26,7 @@ class CalculateYearlyFlyingStarsProcessor(
 
         var group: YearlyFlyingStarGroup? = null
         if (year > 0) {
-            group = YearlyFlyingStarGroupSet.determineYearSetForYear(year).getFlyingStarsGroup()
+            group = YearlyFlyingStarGroupSet.determineYearSet(year).getFlyingStarsGroup()
         }
         state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup(group))
         notifier.notify(ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated(group))

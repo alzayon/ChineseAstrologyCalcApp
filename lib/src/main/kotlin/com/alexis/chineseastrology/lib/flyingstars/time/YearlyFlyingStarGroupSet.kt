@@ -35,7 +35,7 @@ class YearlyFlyingStarGroupSet {
 
     companion object {
 
-        fun determineYearSetForYear(year: Int): YearSet {
+        fun determineYearSet(year: Int): YearSet {
             if (year == 0) {
                 throw IllegalArgumentException("Year must be greater than zero.")
             }

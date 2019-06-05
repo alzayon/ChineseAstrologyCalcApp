@@ -13,9 +13,9 @@ import com.alexis.redux.store.IStore
 interface ICalculateBirthdayStore : IStore<ICalculateBirthdayState>
 
 class CalculateBirthdayStore(
-        notifier: INotifier,
-        state: ICalculateBirthdayState,
-        private val bdayCalculator: IBdayCalculator
+    notifier: INotifier,
+    state: ICalculateBirthdayState,
+    private val bdayCalculator: IBdayCalculator
 ) : BaseStore<ICalculateBirthdayState>(notifier, state), ICalculateBirthdayStore
 {
     override fun resolveProcessor(action: IAction): IProcessor? {
