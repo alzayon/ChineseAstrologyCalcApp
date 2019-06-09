@@ -19,16 +19,16 @@ class CalculateMonthlyFlyingStarsProcessor(
         val year = actionCasted.year ?: Calendar.getInstance().get(Calendar.YEAR)
         val userInitiated = actionCasted.userInitiated
 
-        state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthYear(month, year))
+        //state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthYear(month, year))
         if (!userInitiated) {
-            notifier.notify(ShowMonthlyFlyingStarsNotifyResults.YearUpdated)
+            //notifier.notify(ShowMonthlyFlyingStarsNotifyResults.YearUpdated)
         }
 
         var group: MonthlyFlyingStarGroup? = null
         if (year > 0) {
-            group = MonthlyFlyingStarGroupSet.determineYearSetForYear(year).getFlyingStarsGroup()
+            //group = MonthlyFlyingStarGroupSet.determineYearSetForYear(year).getFlyingStarsGroup()
         }
-        state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup(group))
-        notifier.notify(ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated(group))
+        //state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup(group))
+        //notifier.notify(ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated(group))
     }
 }
