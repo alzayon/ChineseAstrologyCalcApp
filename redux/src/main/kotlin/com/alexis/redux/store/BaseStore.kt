@@ -7,17 +7,21 @@ import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.state.IState
 
 abstract class BaseStore<T: IState>(
-    override val notifier: INotifier,
-    override val state: T
-) : IStore<T>, INotifier by notifier
+    protected val notifier: INotifier,
+    protected val state: T
+) : IStore, INotifier by notifier
 {
     protected val processors: MutableMap<Class<out IAction>, IProcessor> = mutableMapOf()
 
     override fun dispatch(action: IAction) {
+        return dispatchSync<Unit>(action)
+    }
+
+    override fun <T> dispatchSync(action: IAction): T {
         val key = action::class.java
         if (processors.containsKey(key)) {
             processors.get(key)?.let {
-                return it.process(action)
+                return it.process(action) as T
             }
         }
         val processor = resolveProcessor(action)
@@ -25,7 +29,7 @@ abstract class BaseStore<T: IState>(
             if (processor !is ITransient) {
                 processors.put(action::class.java, p)
             }
-            return p.process(action)
+            return p.process(action) as T
         } ?: throw RuntimeException ("No processor found to process the action.")
     }
 

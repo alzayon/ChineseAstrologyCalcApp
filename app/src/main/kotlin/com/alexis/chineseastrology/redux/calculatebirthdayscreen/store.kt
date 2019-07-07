@@ -10,7 +10,7 @@ import com.alexis.redux.processor.IProcessor
 import com.alexis.redux.store.BaseStore
 import com.alexis.redux.store.IStore
 
-interface ICalculateBirthdayStore : IStore<ICalculateBirthdayState>
+interface ICalculateBirthdayStore : IStore
 
 class CalculateBirthdayStore(
     notifier: INotifier,
@@ -25,5 +25,9 @@ class CalculateBirthdayStore(
             is CalculateBirthdayActions.Calculate -> CalculateProcessor(notifier, state, bdayCalculator)
             else -> throw IllegalArgumentException("Action was not handled!")
         }
+    }
+
+    override fun getters(): ICalculateBirthdayStateGetters {
+        return state
     }
 }

@@ -13,8 +13,9 @@ import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
 import com.alexis.chineseastrology.general.extensions.getViewModel
 import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroup
-import com.alexis.chineseastrology.redux.showmonthlyflyingstars.ShowMonthlyFlyingStarsAction
-import com.alexis.chineseastrology.redux.showmonthlyflyingstars.ShowMonthlyFlyingStarsNotifyResults
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.IShowMonthlyFlyingStarsStateGetters
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsAction
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsNotifyResults
 import com.alexis.chineseastrology.screens.viewpager.MonthlyFlyingStarsCustomPagerAdapter
 import com.alexis.chineseastrology.viewmodel.ShowMonthlyFlyingStarsViewModel
 import io.reactivex.Observable
@@ -39,6 +40,10 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
     private lateinit var viewModel: ShowMonthlyFlyingStarsViewModel
     private lateinit var pagerAdapter: MonthlyFlyingStarsCustomPagerAdapter
 
+    private val stateGetters by lazy {
+        viewModel.store.getters() as IShowMonthlyFlyingStarsStateGetters
+    }
+
     private fun init() {
         viewModel = activity.getViewModel<ShowMonthlyFlyingStarsViewModel>()
         View.inflate(context, R.layout.show_monthly_flying_stars_screen, this)
@@ -48,7 +53,7 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
     private fun setupAdapter() {
         pagerAdapter = MonthlyFlyingStarsCustomPagerAdapter(
                 activity.fragmentActivity,
-                viewModel.store.state
+                stateGetters
         )
         flyingStarViewPager.adapter = pagerAdapter
         flyingStarViewPager.setCurrentItem(1, false)
@@ -131,7 +136,7 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
     }
 
     private fun onMonthUpdated() {
-        txtYear.setText(viewModel.store.state.yearToCalculate.toString())
+        txtYear.setText(stateGetters.yearToCalculate.toString())
     }
 
     private fun onFlyingStarGroupUpdated(yearlyFlyingStarGroup: MonthlyFlyingStarGroup?) {
@@ -149,6 +154,6 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        viewModel.store.state.reset()
+        viewModel.store.reset()
     }
 }

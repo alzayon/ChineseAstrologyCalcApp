@@ -13,18 +13,13 @@ import javax.inject.Inject
 
 class CalculateBirthdayViewModel @Inject constructor(private val bdayCalculator: IBdayCalculator) :
         BaseViewModel() {
-
-    private val lv = MutableLiveData<INotifyResult>()
-
-    private lateinit var notifier: LiveDataNotifier
     private lateinit var state: ICalculateBirthdayState
 
     lateinit var store: ICalculateBirthdayStore
         private set
 
-    fun setup(lifecycleOwner: LifecycleOwner) {
-        notifier = LiveDataNotifier()
-        notifier.setup(lifecycleOwner)
+    override fun setup(lifecycleOwner: LifecycleOwner) {
+        super.setup(lifecycleOwner)
         state = CalculateBirthdayState()
         store = CalculateBirthdayStore(notifier, state, bdayCalculator)
     }

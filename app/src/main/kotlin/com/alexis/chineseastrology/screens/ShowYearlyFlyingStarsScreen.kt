@@ -12,8 +12,9 @@ import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
 import com.alexis.chineseastrology.general.extensions.getViewModel
 import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
-import com.alexis.chineseastrology.redux.showyearlyflyingstars.ShowYearlyFlyingStarsAction
-import com.alexis.chineseastrology.redux.showyearlyflyingstars.ShowYearlyFlyingStarsNotifyResults
+import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.IShowYearlyFlyingStarsStateGetters
+import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.ShowYearlyFlyingStarsAction
+import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.ShowYearlyFlyingStarsNotifyResults
 import com.alexis.chineseastrology.screens.viewpager.YearlyFlyingStarsCustomPagerAdapter
 import com.alexis.chineseastrology.viewmodel.ShowYearlyFlyingStarsViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,6 +37,10 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     private lateinit var viewModel: ShowYearlyFlyingStarsViewModel
     private lateinit var pagerAdapter: YearlyFlyingStarsCustomPagerAdapter
 
+    private val stateGetters by lazy {
+        viewModel.store.getters() as IShowYearlyFlyingStarsStateGetters
+    }
+
     private fun init() {
         viewModel = activity.getViewModel<ShowYearlyFlyingStarsViewModel>()
         View.inflate(context, R.layout.show_yearly_flying_stars_screen, this)
@@ -45,7 +50,7 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     private fun setupAdapter() {
         pagerAdapter = YearlyFlyingStarsCustomPagerAdapter(
             activity.fragmentActivity,
-            viewModel.store.state
+            stateGetters
         )
         flyingStarViewPager.adapter = pagerAdapter
         flyingStarViewPager.setCurrentItem(1, false)
@@ -111,7 +116,7 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     }
 
     private fun onYearUpdated() {
-        txtYear.setText(viewModel.store.state.yearToCalculate.toString())
+        txtYear.setText(stateGetters.yearToCalculate.toString())
     }
 
     private fun onFlyingStarGroupUpdated(yearlyFlyingStarGroup: YearlyFlyingStarGroup?) {
@@ -129,6 +134,6 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        viewModel.store.state.reset()
+        viewModel.store.reset()
     }
 }

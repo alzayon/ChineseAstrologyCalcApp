@@ -5,12 +5,13 @@ import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroup
-import com.alexis.chineseastrology.redux.showmonthlyflyingstars.IShowMonthlyFlyingStarsState
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.IShowMonthlyFlyingStarsState
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.IShowMonthlyFlyingStarsStateGetters
 import com.alexis.chineseastrology.widgets.FlyingStarCanvas
 
 class MonthlyFlyingStarsCustomPagerAdapter(
         private val context: Context,
-        private val state: IShowMonthlyFlyingStarsState
+        private val stateGetters: IShowMonthlyFlyingStarsStateGetters
 ) : PagerAdapter() {
 
     private val observers = mutableMapOf<Int, (MonthlyFlyingStarGroup?) -> Unit>()
@@ -30,7 +31,7 @@ class MonthlyFlyingStarsCustomPagerAdapter(
         if (!observers.containsKey(position)) {
             val observer = createObserver(position, view)
             observers[position] = observer
-            observer(state.monthlyFlyingStarGroup)
+            observer(stateGetters.monthlyFlyingStarGroup)
         }
         container.addView(view)
         return view

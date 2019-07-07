@@ -2,14 +2,17 @@ package com.alexis.chineseastrology.redux.calculatebirthdayscreen
 
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import com.alexis.redux.state.BaseState
+import com.alexis.redux.state.IGetters
 import com.alexis.redux.state.IMutateKey
 import com.alexis.redux.state.IState
 import java.util.*
 
-interface ICalculateBirthdayState : IState {
+interface ICalculateBirthdayStateGetters : IGetters {
     val birthdate: Date?
     val animalSign: IAnimalSign?
+}
 
+interface ICalculateBirthdayState : IState, ICalculateBirthdayStateGetters {
     sealed class MutateKeys : IMutateKey {
         class SetBirthdate(val date: Date?) : MutateKeys()
         class SetAnimalSign(val animalSign: IAnimalSign?) : MutateKeys()

@@ -13,6 +13,7 @@ import com.alexis.chineseastrology.general.extensions.getViewModel
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayActions
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayNotifyResults
+import com.alexis.chineseastrology.redux.calculatebirthdayscreen.ICalculateBirthdayStateGetters
 import com.alexis.chineseastrology.viewmodel.CalculateBirthdayViewModel
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.calculate_birthday_screen.view.*
@@ -32,6 +33,10 @@ class CalculateBirthdayScreen :
 
     lateinit var viewModel: CalculateBirthdayViewModel
 
+    private val stateGetters by lazy {
+        viewModel.store.getters() as ICalculateBirthdayStateGetters
+    }
+
     private fun init() {
         viewModel = activity.getViewModel<CalculateBirthdayViewModel>()
         View.inflate(context, R.layout.calculate_birthday_screen, this)
@@ -44,7 +49,7 @@ class CalculateBirthdayScreen :
             val activity = (context as? Activity)
             activity?.let {
                 val calendar = Calendar.getInstance()
-                viewModel.store.state.birthdate?.let {
+                stateGetters.birthdate?.let {
                     calendar.time = it
                 }
                 val dpd = DatePickerDialog.newInstance(
@@ -99,7 +104,7 @@ class CalculateBirthdayScreen :
 
     private fun updateSelectedDate() {
         this.context?.let {
-            txtBirthdate.text = viewModel.store.state.birthdate?.toDefaultFormat(it)
+            txtBirthdate.text = stateGetters.birthdate?.toDefaultFormat(it)
         }
     }
 
