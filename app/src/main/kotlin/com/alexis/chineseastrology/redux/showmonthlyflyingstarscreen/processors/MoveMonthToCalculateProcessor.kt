@@ -8,7 +8,7 @@ import com.alexis.redux.processor.BaseProcessor
 class MoveMonthToCalculateProcessor(
     private val state: IShowMonthlyFlyingStarsState,
     private val notifier: INotifier
-) : BaseProcessor() {
+) : BaseProcessor<Unit>() {
     override fun process(action: IAction) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

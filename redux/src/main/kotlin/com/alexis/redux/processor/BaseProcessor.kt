@@ -1,3 +1,3 @@
 package com.alexis.redux.processor
 
-abstract class BaseProcessor : IProcessor
+abstract class BaseProcessor<Any> : IProcessor<Any>

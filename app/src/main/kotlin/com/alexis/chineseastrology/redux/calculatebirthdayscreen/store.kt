@@ -18,13 +18,13 @@ class CalculateBirthdayStore(
     private val bdayCalculator: IBdayCalculator
 ) : BaseStore<ICalculateBirthdayState>(notifier, state), ICalculateBirthdayStore
 {
-    override fun resolveProcessor(action: IAction): IProcessor? {
+    override fun resolveProcessor(action: IAction): IProcessor<Any> {
         return when (action) {
             is CalculateBirthdayActions.SetBirthdate -> SetBirthdateProcessor(notifier, state)
             is CalculateBirthdayActions.ResetState -> ResetStateProcessor()
             is CalculateBirthdayActions.Calculate -> CalculateProcessor(notifier, state, bdayCalculator)
             else -> throw IllegalArgumentException("Action was not handled!")
-        }
+        } as IProcessor<Any>
     }
 
     override fun getters(): ICalculateBirthdayStateGetters {

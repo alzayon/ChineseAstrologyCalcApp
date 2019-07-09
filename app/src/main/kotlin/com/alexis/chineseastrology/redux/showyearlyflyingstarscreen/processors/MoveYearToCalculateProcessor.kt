@@ -9,7 +9,7 @@ import com.alexis.redux.store.IDispatcher
 class MoveYearToCalculateProcessor(
     private val state: IShowYearlyFlyingStarsState,
     private val dispatcher: IDispatcher
-) : BaseProcessor() {
+) : BaseProcessor<Unit>() {
     override fun process(action: IAction) {
         val actionCasted = action as ShowYearlyFlyingStarsAction.MoveYearToCalculate
         val direction = actionCasted.movement

@@ -12,7 +12,7 @@ class CalculateProcessor(
     private val notifier: INotifier,
     private val state: ICalculateBirthdayState,
     private val bdayCalculator: IBdayCalculator
-) : BaseProcessor() {
+) : BaseProcessor<Unit>() {
     override fun process(action: IAction) {
         state.birthdate?.let {
             val animalSign = bdayCalculator.calculate(it)

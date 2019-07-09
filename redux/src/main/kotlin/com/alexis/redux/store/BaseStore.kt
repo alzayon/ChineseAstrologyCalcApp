@@ -11,25 +11,25 @@ abstract class BaseStore<T: IState>(
     protected val state: T
 ) : IStore, INotifier by notifier
 {
-    protected val processors: MutableMap<Class<out IAction>, IProcessor> = mutableMapOf()
+    protected val processors: MutableMap<Class<out IAction>, IProcessor<Any>> = mutableMapOf()
 
     override fun dispatch(action: IAction) {
         return dispatchSync<Unit>(action)
     }
 
-    override fun <T> dispatchSync(action: IAction): T {
+    override fun <W> dispatchSync(action: IAction): W {
         val key = action::class.java
         if (processors.containsKey(key)) {
             processors.get(key)?.let {
-                return it.process(action) as T
+                return it.process(action) as W
             }
         }
         val processor = resolveProcessor(action)
-        processor?.let { p ->
+        return processor?.let { p ->
             if (processor !is ITransient) {
                 processors.put(action::class.java, p)
             }
-            return p.process(action) as T
+            p.process(action) as W
         } ?: throw RuntimeException ("No processor found to process the action.")
     }
 
