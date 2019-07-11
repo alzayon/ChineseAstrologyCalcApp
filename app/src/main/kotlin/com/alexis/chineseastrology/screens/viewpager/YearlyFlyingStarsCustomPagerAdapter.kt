@@ -4,14 +4,17 @@ import android.content.Context
 import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
+import com.alexis.chineseastrology.lib.flyingstars.time.IFlyingStarGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
-import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.IShowYearlyFlyingStarsState
 import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.IShowYearlyFlyingStarsStateGetters
+import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.ShowYearlyFlyingStarsAction
 import com.alexis.chineseastrology.widgets.FlyingStarCanvas
+import com.alexis.redux.store.IDispatcher
 
 class YearlyFlyingStarsCustomPagerAdapter(
     private val context: Context,
-    private val stateGetters: IShowYearlyFlyingStarsStateGetters
+    private val stateGetters: IShowYearlyFlyingStarsStateGetters,
+    private val dispatcher: IDispatcher
 ) : PagerAdapter() {
 
     private val observers = mutableMapOf<Int, (YearlyFlyingStarGroup?) -> Unit>()
@@ -60,9 +63,9 @@ class YearlyFlyingStarsCustomPagerAdapter(
                     if (position == 1) {
                         view.flyingStarGroup = it
                     } else if (position == 2) {
-                        view.flyingStarGroup = it.giveAdvancedFlyingStarGroup(1)
+                        view.flyingStarGroup = dispatcher.dispatchSync(ShowYearlyFlyingStarsAction.AdvanceYearlyFlyingStar())
                     } else {
-                        view.flyingStarGroup = it.giveRewoundFlyingStarGroup(1)
+                        view.flyingStarGroup = dispatcher.dispatchSync(ShowYearlyFlyingStarsAction.RewindYearlyFlyingStar())
                     }
                 }
             }

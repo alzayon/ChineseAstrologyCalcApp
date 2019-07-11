@@ -1,7 +1,9 @@
 package com.alexis.chineseastrology.redux.showyearlyflyingstarscreen
 
+import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.processors.AdvanceYearlyFlyingStarGroupProcessor
 import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.processors.CalculateYearlyFlyingStarsProcessor
 import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.processors.MoveYearToCalculateProcessor
+import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.processors.RewindYearlyFlyingStarGroupProcessor
 import com.alexis.redux.action.IAction
 import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.processor.BaseProcessor
@@ -21,6 +23,8 @@ class ShowYearlyFlyingStarsStore(
         return when (action) {
             is ShowYearlyFlyingStarsAction.CalculateYearlyFlyingStars -> CalculateYearlyFlyingStarsProcessor(state, notifier)
             is ShowYearlyFlyingStarsAction.MoveYearToCalculate -> MoveYearToCalculateProcessor(state, this)
+            is ShowYearlyFlyingStarsAction.AdvanceYearlyFlyingStar -> AdvanceYearlyFlyingStarGroupProcessor(state, notifier)
+            is ShowYearlyFlyingStarsAction.RewindYearlyFlyingStar -> RewindYearlyFlyingStarGroupProcessor(state, notifier)
             else -> throw IllegalArgumentException("Action was not handled!")
         } as IProcessor<Any>
     }
