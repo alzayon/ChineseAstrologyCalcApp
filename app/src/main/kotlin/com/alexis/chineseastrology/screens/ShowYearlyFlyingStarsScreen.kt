@@ -110,7 +110,7 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
         viewModel.store.listen { result ->
             when (result) {
                 is ShowYearlyFlyingStarsNotifyResults.YearUpdated -> onYearUpdated()
-                is ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated -> onFlyingStarGroupUpdated(result.yearlyFlyingStarsGroup)
+                is ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated -> onFlyingStarGroupUpdated()
                 else -> throw IllegalArgumentException("A notify result was not handled!")
             }
         }
@@ -120,10 +120,11 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
         txtYear.setText(stateGetters.yearToCalculate.toString())
     }
 
-    private fun onFlyingStarGroupUpdated(yearlyFlyingStarGroup: YearlyFlyingStarGroup?) {
-        pagerAdapter.onFlyingStarGroupUpdated(yearlyFlyingStarGroup)
+    private fun onFlyingStarGroupUpdated() {
+        pagerAdapter.onFlyingStarGroupUpdated(stateGetters.yearlyFlyingStarGroup)
     }
 
+    // region: lifecycle overrides
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         viewModel.setup(this.activity.fragmentActivity)
@@ -137,4 +138,5 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
         super.onDetachedFromWindow()
         viewModel.store.reset()
     }
+    // endregion: lifecycle overrides
 }

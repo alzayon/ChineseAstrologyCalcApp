@@ -18,11 +18,13 @@ import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthly
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsNotifyResults
 import com.alexis.chineseastrology.screens.viewpager.MonthlyFlyingStarsCustomPagerAdapter
 import com.alexis.chineseastrology.viewmodel.ShowMonthlyFlyingStarsViewModel
+import com.whiteelephant.monthpicker.MonthPickerDialog
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.show_monthly_flying_stars_screen.view.*
 import timber.log.Timber
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
@@ -52,8 +54,9 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
 
     private fun setupAdapter() {
         pagerAdapter = MonthlyFlyingStarsCustomPagerAdapter(
-                activity.fragmentActivity,
-                stateGetters
+            activity.fragmentActivity,
+            stateGetters,
+            viewModel.store
         )
         flyingStarViewPager.adapter = pagerAdapter
         flyingStarViewPager.setCurrentItem(1, false)
@@ -120,35 +123,71 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
     }
 
     private fun recalculateAfterTyping() {
-        val year = Integer.parseInt(txtYear.text.toString())
         val month = Integer.parseInt(txtYear.text.toString())
-        viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.CalculateMonthlyFlyingStars(year, month, true))
+        val year = Integer.parseInt(txtYear.text.toString())
+        viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.CalculateMonthlyFlyingStars(
+                month,
+                year,
+                true
+            )
+        )
     }
 
     private fun setupObservers() {
         viewModel.store.listen { result ->
             when (result) {
-                is ShowMonthlyFlyingStarsNotifyResults.MonthUpdated -> onMonthUpdated()
-                is ShowMonthlyFlyingStarsNotifyResults.MonthlyFlyingStarGroupUpdated -> onFlyingStarGroupUpdated(result.monthlyFlyingStarsGroup)
+                is ShowMonthlyFlyingStarsNotifyResults.MonthYearUpdated -> onMonthYearUpdated()
+                is ShowMonthlyFlyingStarsNotifyResults.MonthlyFlyingStarGroupUpdated -> onFlyingStarGroupUpdated()
                 else -> throw IllegalArgumentException("A notify result was not handled!")
             }
         }
     }
 
-    private fun onMonthUpdated() {
+    private fun onMonthYearUpdated() {
+        txtMonth.setText(stateGetters.monthToCalculate.toString())
         txtYear.setText(stateGetters.yearToCalculate.toString())
     }
 
-    private fun onFlyingStarGroupUpdated(yearlyFlyingStarGroup: MonthlyFlyingStarGroup?) {
-        pagerAdapter.onFlyingStarGroupUpdated(yearlyFlyingStarGroup)
+    private fun onFlyingStarGroupUpdated() {
+        pagerAdapter.onFlyingStarGroupUpdated(stateGetters.monthlyFlyingStarGroup)
     }
 
+    private fun setupMonthSelector() {
+        val calendar = Calendar.getInstance()
+        val builder = MonthPickerDialog.Builder(context,
+            { month, year ->
+
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH)
+        )
+
+        builder.setActivatedMonth(Calendar.JULY)
+                .setMinYear(1990)
+                .setActivatedYear(2017)
+                .setMaxYear(2030)
+                .setMinMonth(Calendar.FEBRUARY)
+                .setTitle("Select trading month")
+                .setMonthRange(Calendar.FEBRUARY, Calendar.NOVEMBER)
+                // .setMaxMonth(Calendar.OCTOBER)
+                // .setYearRange(1890, 1890)
+                // .setMonthAndYearRange(Calendar.FEBRUARY, Calendar.OCTOBER, 1890, 1890)
+                //.showMonthOnly()
+                // .showYearOnly()
+                .setOnMonthChangedListener {  }
+                .setOnYearChangedListener {  }
+                .build()
+                .show();
+    }
+
+    // region lifecycle overrides
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         viewModel.setup(this.activity.fragmentActivity)
         setupObservers()
         setupAdapter()
         setupListeners()
+        setupMonthSelector()
         viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.CalculateMonthlyFlyingStars())
     }
 
@@ -156,4 +195,5 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
         super.onDetachedFromWindow()
         viewModel.store.reset()
     }
+    // endregion lifecycle overrides
 }

@@ -21,7 +21,7 @@ class CalculateYearlyFlyingStarsProcessor(
 
         state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYear(year))
         if (!userInitiated) {
-            notifier.notify(ShowYearlyFlyingStarsNotifyResults.YearUpdated)
+            notifier.notify(ShowYearlyFlyingStarsNotifyResults.YearUpdated())
         }
 
         var group: YearlyFlyingStarGroup? = null
@@ -29,6 +29,6 @@ class CalculateYearlyFlyingStarsProcessor(
             group = YearlyFlyingStarGroupSet.determineYearSet(year).getFlyingStarsGroup()
         }
         state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup(group))
-        notifier.notify(ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated(group))
+        notifier.notify(ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated())
     }
 }

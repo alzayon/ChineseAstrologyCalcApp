@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
-import com.alexis.chineseastrology.databinding.converters.toDefaultFormat
+import com.alexis.chineseastrology.helpers.toDefaultFormat
 import com.alexis.chineseastrology.general.extensions.getViewModel
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayActions

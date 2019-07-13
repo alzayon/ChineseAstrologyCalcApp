@@ -30,7 +30,14 @@ class ShowMonthlyFlyingStarsState : BaseState(), IShowMonthlyFlyingStarsState {
         private set
 
     override fun reduce(mutateKey: IMutateKey) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        when (mutateKey) {
+            is IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthYear -> {
+                monthToCalculate = mutateKey.month
+                yearToCalculate = mutateKey.year
+            }
+            is IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthlyFlyingStarGroup -> monthlyFlyingStarGroup = mutateKey.flyingStarGroup
+            else -> throw IllegalArgumentException("Mutate key was not handled! " + mutateKey)
+        }
     }
 
     override fun reset() {

@@ -3,6 +3,7 @@ package com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.processors
 import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroup
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.IShowMonthlyFlyingStarsState
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsAction
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsNotifyResults
 import com.alexis.redux.action.IAction
 import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.processor.BaseProcessor
@@ -15,12 +16,14 @@ class CalculateMonthlyFlyingStarsProcessor(
 
     override fun process(action: IAction)  {
         val actionCasted = action as ShowMonthlyFlyingStarsAction.CalculateMonthlyFlyingStars
-        val year = actionCasted.year ?: Calendar.getInstance().get(Calendar.YEAR)
+        val calendar = Calendar.getInstance()
+        val year = actionCasted.year ?: calendar.get(Calendar.YEAR)
+        val month: Int = actionCasted.month ?: calendar.get(Calendar.MONTH)
         val userInitiated = actionCasted.userInitiated
 
-        //state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthYear(month, year))
+        state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthYear(month, year))
         if (!userInitiated) {
-            //notifier.notify(ShowMonthlyFlyingStarsNotifyResults.YearUpdated)
+            notifier.notify(ShowMonthlyFlyingStarsNotifyResults.MonthYearUpdated())
         }
 
         var group: MonthlyFlyingStarGroup? = null

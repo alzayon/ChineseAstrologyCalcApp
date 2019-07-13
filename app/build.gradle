@@ -47,6 +47,7 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
 
     implementation "com.wdullaer:materialdatetimepicker:$material_datetimepicker_version"
+    implementation 'com.whiteelephant:monthandyearpicker:1.3.0'
     implementation "com.jakewharton.timber:timber:$timber_version"
 
     // RxJava

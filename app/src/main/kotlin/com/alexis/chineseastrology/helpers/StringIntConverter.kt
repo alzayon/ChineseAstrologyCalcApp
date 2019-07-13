@@ -1,4 +1,4 @@
-package com.alexis.chineseastrology.databinding.converters
+package com.alexis.chineseastrology.helpers
 
 import android.databinding.InverseMethod
 

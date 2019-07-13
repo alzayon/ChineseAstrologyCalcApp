@@ -17,8 +17,8 @@
     <string name="animal_sign_label">Animal Sign:</string>
     <string name="element_sign_label">Element:</string>
 
-    <string name="enter_year">Enter the year</string>
-    <string name="enter_month">Enter the month</string>
+    <string name="enter_year">Enter year</string>
+    <string name="enter_month">Enter month</string>
 
     <string name="compass_direction_south_east">SE</string>
     <string name="compass_direction_south">S</string>

@@ -20,9 +20,19 @@
     <LinearLayout
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_weight="0.3"
+        android:layout_weight="0.1"
         android:layout_width="match_parent"
         android:layout_height="0dp">
+        <EditText
+            android:id="@+id/txtMonth"
+            android:inputType="number"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:hint="@string/enter_month"
+            android:imeOptions="actionDone"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/txtYear"
             android:inputType="number"
@@ -32,20 +42,24 @@
             android:imeOptions="actionDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/txtMonth"
-            android:inputType="number"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:hint="@string/enter_year"
-            android:imeOptions="actionDone"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_weight="0.1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button android:id="@+id/btnCalculate"
+            android:text="@string/btn_action_Calculate"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
     </LinearLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/flyingStarViewPager"
-        android:layout_weight="0.7"
+        android:layout_weight="0.8"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 </LinearLayout>

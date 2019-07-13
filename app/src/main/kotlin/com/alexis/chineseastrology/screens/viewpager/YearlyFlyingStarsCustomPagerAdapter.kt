@@ -51,9 +51,6 @@ class YearlyFlyingStarsCustomPagerAdapter(
         }
     }
 
-    // TODO
-    // giveAdvancedFlyingStarGroup and
-    // giveRewoundFlyingStarGroup should be in a processor...
     private fun createObserver(position: Int, view: FlyingStarCanvas):
             (flyingStarGroup: YearlyFlyingStarGroup?) -> Unit
     {
