@@ -18,7 +18,7 @@
     <string name="element_sign_label">Element:</string>
 
     <string name="enter_year">Enter year</string>
-    <string name="enter_month">Enter month</string>
+    <string name="enter_month_year">Enter month/month</string>
 
     <string name="compass_direction_south_east">SE</string>
     <string name="compass_direction_south">S</string>

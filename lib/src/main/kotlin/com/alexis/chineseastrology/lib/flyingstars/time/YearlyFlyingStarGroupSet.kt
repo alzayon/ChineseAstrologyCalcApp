@@ -7,7 +7,7 @@ import java.lang.RuntimeException
 
 class YearlyFlyingStarGroupSet {
 
-    enum class YearSet(val number: Int) {
+    enum class YEAR_SET(val number: Int) {
         YEARSET1(1),
         YEARSET2(2),
         YEARSET3(3),
@@ -35,7 +35,7 @@ class YearlyFlyingStarGroupSet {
 
     companion object {
 
-        fun determineYearSet(year: Int): YearSet {
+        fun determineYearSet(year: Int): YEAR_SET {
             if (year == 0) {
                 throw IllegalArgumentException("Year must be greater than zero.")
             }
@@ -63,11 +63,11 @@ class YearlyFlyingStarGroupSet {
             return findYearSetByNum(numberToUse)
         }
 
-        fun findYearSetByNum(number: Int): YearSet {
+        fun findYearSetByNum(number: Int): YEAR_SET {
             if (number > 9 || number < 1) {
                 throw RuntimeException(IllegalArgumentException("Specify only numbers 1 to 9, you gave: " + number))
             }
-            return YearSet.values().filter {
+            return YEAR_SET.values().filter {
                 it.number == number
             }.first()
         }

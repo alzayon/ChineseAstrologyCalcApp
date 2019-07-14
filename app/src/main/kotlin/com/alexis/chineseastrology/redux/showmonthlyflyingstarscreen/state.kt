@@ -5,11 +5,13 @@ import com.alexis.redux.state.BaseState
 import com.alexis.redux.state.IGetters
 import com.alexis.redux.state.IMutateKey
 import com.alexis.redux.state.IState
+import java.text.DateFormatSymbols
 
 interface IShowMonthlyFlyingStarsStateGetters : IGetters {
     val monthToCalculate: Int?
     val yearToCalculate: Int?
     val monthlyFlyingStarGroup: MonthlyFlyingStarGroup?
+    val monthYearAsString: String?
 }
 
 interface IShowMonthlyFlyingStarsState : IState, IShowMonthlyFlyingStarsStateGetters {
@@ -20,6 +22,8 @@ interface IShowMonthlyFlyingStarsState : IState, IShowMonthlyFlyingStarsStateGet
 }
 
 class ShowMonthlyFlyingStarsState : BaseState(), IShowMonthlyFlyingStarsState {
+
+
     override var monthToCalculate: Int? = null
         private set
 
@@ -28,6 +32,15 @@ class ShowMonthlyFlyingStarsState : BaseState(), IShowMonthlyFlyingStarsState {
 
     override var monthlyFlyingStarGroup: MonthlyFlyingStarGroup? = null
         private set
+
+    override var monthYearAsString: String? = null
+        get() {
+            if (monthToCalculate != null && yearToCalculate != null) {
+                val month = getMonthForInt(monthToCalculate!!)
+                return "${month} / ${yearToCalculate}"
+            }
+            return null
+        }
 
     override fun reduce(mutateKey: IMutateKey) {
         when (mutateKey) {
@@ -44,5 +57,15 @@ class ShowMonthlyFlyingStarsState : BaseState(), IShowMonthlyFlyingStarsState {
         monthToCalculate = null
         yearToCalculate = null
         monthlyFlyingStarGroup = null
+    }
+
+    private fun getMonthForInt(num: Int): String {
+        var month = "wrong"
+        val dfs = DateFormatSymbols()
+        val months = dfs.getMonths()
+        if (num >= 0 && num <= 11) {
+            month = months[num]
+        }
+        return month
     }
 }

@@ -27,6 +27,18 @@ class MonthlyFlyingStarGroupSet {
             return MONTH_SET.getByIndex(remainder)
         }
 
+        // TODO
+        // Unit test
+        fun getMonthlyFlyingStars(month: Int, year: Int): MonthlyFlyingStarGroup {
+            val monthSet = determineStartingMonthSet(year)
+            if (month == 1) {
+                return monthSet.giveFlyingStarsMonthSet()
+            } else {
+                val steps = month - 1
+                return monthSet.giveFlyingStarsMonthSet().giveAdvancedFlyingStarGroup(steps) as MonthlyFlyingStarGroup
+            }
+        }
+
         fun giveMonthlyFlyingStarGroupFirstMonthSet1(): MonthlyFlyingStarGroup {
             val northStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.NORTH, BurglaryStar()))
             val northEastStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.NORTHEAST, MisfortuneStar()))

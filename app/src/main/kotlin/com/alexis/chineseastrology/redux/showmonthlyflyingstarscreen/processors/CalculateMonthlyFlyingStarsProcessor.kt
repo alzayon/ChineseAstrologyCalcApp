@@ -1,6 +1,8 @@
 package com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.processors
 
+import com.alexis.chineseastrology.lib.flyingstars.time.IFlyingStarGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroup
+import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroupSet
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.IShowMonthlyFlyingStarsState
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsAction
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsNotifyResults
@@ -28,9 +30,9 @@ class CalculateMonthlyFlyingStarsProcessor(
 
         var group: MonthlyFlyingStarGroup? = null
         if (year > 0) {
-            //group = MonthlyFlyingStarGroupSet.determineYearSetForYear(year).getFlyingStarsGroup()
+            group = MonthlyFlyingStarGroupSet.getMonthlyFlyingStars(month, year)
         }
-        //state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup(group))
-        //notifier.notify(ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated(group))
+        state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthlyFlyingStarGroup(group))
+        notifier.notify(ShowMonthlyFlyingStarsNotifyResults.MonthlyFlyingStarGroupUpdated())
     }
 }

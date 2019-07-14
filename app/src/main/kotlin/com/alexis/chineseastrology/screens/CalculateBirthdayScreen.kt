@@ -8,8 +8,8 @@ import android.widget.LinearLayout
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
-import com.alexis.chineseastrology.helpers.toDefaultFormat
 import com.alexis.chineseastrology.general.extensions.getViewModel
+import com.alexis.chineseastrology.helpers.toDefaultFormat
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayActions
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayNotifyResults
@@ -19,6 +19,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.calculate_birthday_screen.view.*
 import timber.log.Timber
 import java.util.*
+
 
 class CalculateBirthdayScreen :
         LinearLayout,
@@ -58,16 +59,18 @@ class CalculateBirthdayScreen :
                         calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH)
                 )
+                setDateBoundaries(dpd)
                 val fragmentManager = it.fragmentManager
                 dpd.showYearPickerFirst(true)
 
-                dpd.show(fragmentManager, "Datepickerdialog")
                 dpd.setOnDateSetListener { dialog, year, month, day ->
                     calendar.set(year, month, day)
                     val date = calendar.time
                     viewModel.store.dispatch(CalculateBirthdayActions.SetBirthdate(date))
                     Timber.d("Date selected is " + date)
                 }
+
+                dpd.show(fragmentManager, "Datepickerdialog")
             }
         }
         btnCalculate.setOnClickListener {
@@ -110,5 +113,18 @@ class CalculateBirthdayScreen :
 
     private fun showCalculationResult(animalSign: IAnimalSign) {
         viewBirthdayResult.value = animalSign
+    }
+
+    private fun setDateBoundaries(dpd: DatePickerDialog) {
+        // TODO
+        // This is not working
+
+        val calendar1 = Calendar.getInstance()
+        calendar1.set(1, 1, 1)
+        dpd.minDate = calendar1
+
+        val calendar2 = Calendar.getInstance()
+        calendar2.set(9999, 12, 31)
+        dpd.maxDate = calendar2
     }
 }
