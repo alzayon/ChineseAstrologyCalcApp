@@ -1,6 +1,6 @@
 package com.alexis.chineseastrology
 
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import com.alexis.chineseastrology.general.ViewModelFactory
 
 interface IChastroActivity {

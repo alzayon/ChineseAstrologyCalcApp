@@ -1,7 +1,7 @@
 package com.alexis.chineseastrology.screens.viewpager
 
 import android.content.Context
-import android.support.v4.view.PagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.IFlyingStarGroup

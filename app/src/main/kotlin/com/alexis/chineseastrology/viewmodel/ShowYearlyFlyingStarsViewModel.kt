@@ -1,6 +1,6 @@
 package com.alexis.chineseastrology.viewmodel
 
-import android.arch.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleOwner
 import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.*
 import javax.inject.Inject
 

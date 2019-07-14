@@ -1,7 +1,7 @@
 package com.alexis.chineseastrology.dagger.modules
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.alexis.chineseastrology.dagger.general.ViewModelKey
 import com.alexis.chineseastrology.general.ViewModelFactory
 import com.alexis.chineseastrology.viewmodel.CalculateBirthdayViewModel

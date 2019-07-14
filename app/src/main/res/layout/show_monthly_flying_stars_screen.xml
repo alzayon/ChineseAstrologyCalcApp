@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
     </LinearLayout>
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/flyingStarViewPager"
         android:layout_weight="0.8"
         android:layout_width="match_parent"

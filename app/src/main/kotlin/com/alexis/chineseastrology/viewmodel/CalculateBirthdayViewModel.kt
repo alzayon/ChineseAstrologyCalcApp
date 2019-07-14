@@ -1,7 +1,7 @@
 package com.alexis.chineseastrology.viewmodel
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import com.alexis.chineseastrology.lib.IBdayCalculator
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayState
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayStore

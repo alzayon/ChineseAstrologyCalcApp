@@ -1,6 +1,6 @@
 package com.alexis.chineseastrology.helpers
 
-import android.databinding.InverseMethod
+import androidx.databinding.InverseMethod
 
 object StringIntConverter {
     @InverseMethod("stringToInt")

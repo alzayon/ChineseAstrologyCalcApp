@@ -1,7 +1,7 @@
 package com.alexis.chineseastrology.viewmodel
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
 import com.alexis.chineseastrology.redux.notifier.LiveDataNotifier
 
 open abstract class BaseViewModel : ViewModel() {

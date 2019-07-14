@@ -1,8 +1,8 @@
 package com.alexis.chineseastrology.redux.notifier
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.notifier.INotifyResult
 import com.alexis.redux.notifier.NotifyListener

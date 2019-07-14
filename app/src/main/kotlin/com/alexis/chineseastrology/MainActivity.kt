@@ -1,8 +1,8 @@
 package com.alexis.chineseastrology
 
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
-import android.support.v7.app.ActionBarDrawerToggle
+import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
 import com.alexis.chineseastrology.dagger.general.BaseDaggerActivity
