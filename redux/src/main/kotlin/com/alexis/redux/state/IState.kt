@@ -1,6 +1,5 @@
 package com.alexis.redux.state
 
-interface IState {
-    fun reduce(mutateKey: IMutateKey)
+interface IState : IReducer {
     fun reset()
 }

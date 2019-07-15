@@ -8,8 +8,8 @@ import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.processor.BaseProcessor
 
 class RewindYearlyFlyingStarGroupProcessor(
-        private val state: IShowYearlyFlyingStarsState,
-        private val notifier: INotifier
+    private val state: IShowYearlyFlyingStarsState,
+    private val notifier: INotifier
 ) : BaseProcessor<IFlyingStarGroup?>() {
     override fun process(action: IAction): IFlyingStarGroup? {
         val actionCasted = action as ShowYearlyFlyingStarsAction.RewindYearlyFlyingStar

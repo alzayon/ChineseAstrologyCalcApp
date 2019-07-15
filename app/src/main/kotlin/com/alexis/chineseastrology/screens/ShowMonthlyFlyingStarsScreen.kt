@@ -55,9 +55,9 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
                     val item = flyingStarViewPager.currentItem
                     if (item < 1) {
-                        viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.MoveYearToCalculate(-1))
+                        viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.MoveMonthToCalculate(-1))
                     } else {
-                        viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.MoveYearToCalculate(1))
+                        viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.MoveMonthToCalculate(1))
                     }
                     flyingStarViewPager.setCurrentItem(1, false)
                 }

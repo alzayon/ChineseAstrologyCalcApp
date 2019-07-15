@@ -16,8 +16,10 @@ class MoveYearToCalculateProcessor(
         state.yearToCalculate?.let {
             var yearComputed = 0
             if (direction == 1) {
+                // TODO use reduce()
                 yearComputed = it.inc()
             } else {
+                // TODO use reduce()
                 yearComputed = it.dec()
             }
             dispatcher.dispatch(ShowYearlyFlyingStarsAction.CalculateYearlyFlyingStars(yearComputed))

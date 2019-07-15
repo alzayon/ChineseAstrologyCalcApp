@@ -34,6 +34,8 @@ class YearlyFlyingStarsCustomPagerAdapter(
         if (!observers.containsKey(position)) {
             val observer = createObserver(position, view)
             observers[position] = observer
+
+            // Invoke the observer immediately
             observer(stateGetters.yearlyFlyingStarGroup)
         }
         container.addView(view)
@@ -47,7 +49,9 @@ class YearlyFlyingStarsCustomPagerAdapter(
 
     fun onFlyingStarGroupUpdated(yearlyFlyingStarGroup: YearlyFlyingStarGroup?) {
         observers.entries.forEach {
-            it.value(yearlyFlyingStarGroup)
+            // Invoke the observer
+            val observer= it.value
+            observer(yearlyFlyingStarGroup)
         }
     }
 

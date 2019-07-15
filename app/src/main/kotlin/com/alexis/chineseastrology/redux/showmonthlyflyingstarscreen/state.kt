@@ -22,8 +22,6 @@ interface IShowMonthlyFlyingStarsState : IState, IShowMonthlyFlyingStarsStateGet
 }
 
 class ShowMonthlyFlyingStarsState : BaseState(), IShowMonthlyFlyingStarsState {
-
-
     override var monthToCalculate: Int? = null
         private set
 

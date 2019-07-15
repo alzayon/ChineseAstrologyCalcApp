@@ -32,6 +32,8 @@ class MonthlyFlyingStarsCustomPagerAdapter(
         if (!observers.containsKey(position)) {
             val observer = createObserver(position, view)
             observers[position] = observer
+
+            // Invoke the observer immediately
             observer(stateGetters.monthlyFlyingStarGroup)
         }
         container.addView(view)
@@ -45,13 +47,12 @@ class MonthlyFlyingStarsCustomPagerAdapter(
 
     fun onFlyingStarGroupUpdated(monthlyFlyingStarGroup: MonthlyFlyingStarGroup?) {
         observers.entries.forEach {
-            it.value(monthlyFlyingStarGroup)
+            // Invoke the observer
+            val observer= it.value
+            observer(monthlyFlyingStarGroup)
         }
     }
 
-    // TODO
-    // giveAdvancedFlyingStarGroup and
-    // giveRewoundFlyingStarGroup should be in a processor...
     private fun createObserver(position: Int, view: FlyingStarCanvas):
             (flyingStarGroup: MonthlyFlyingStarGroup?) -> Unit
     {

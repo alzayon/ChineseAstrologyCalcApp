@@ -8,5 +8,7 @@ sealed class ShowMonthlyFlyingStarsAction : IAction {
         val year: Int? = null,
         val userInitiated: Boolean = false
     ) : ShowMonthlyFlyingStarsAction()
-    class MoveYearToCalculate(val movement: Int) : ShowMonthlyFlyingStarsAction()
+    class MoveMonthToCalculate(val movement: Int) : ShowMonthlyFlyingStarsAction()
+    class AdvanceMonthlyFlyingStar(val steps: Int = 1) : ShowMonthlyFlyingStarsAction()
+    class RewindMonthlyFlyingStar(val steps: Int = 1) : ShowMonthlyFlyingStarsAction()
 }

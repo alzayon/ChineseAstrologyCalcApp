@@ -21,10 +21,14 @@ class ShowYearlyFlyingStarsStore(
 {
     override fun resolveProcessor(action: IAction): IProcessor<Any> {
         return when (action) {
-            is ShowYearlyFlyingStarsAction.CalculateYearlyFlyingStars -> CalculateYearlyFlyingStarsProcessor(state, notifier)
-            is ShowYearlyFlyingStarsAction.MoveYearToCalculate -> MoveYearToCalculateProcessor(state, this)
-            is ShowYearlyFlyingStarsAction.AdvanceYearlyFlyingStar -> AdvanceYearlyFlyingStarGroupProcessor(state, notifier)
-            is ShowYearlyFlyingStarsAction.RewindYearlyFlyingStar -> RewindYearlyFlyingStarGroupProcessor(state, notifier)
+            is ShowYearlyFlyingStarsAction.CalculateYearlyFlyingStars ->
+                CalculateYearlyFlyingStarsProcessor(state, notifier)
+            is ShowYearlyFlyingStarsAction.MoveYearToCalculate ->
+                MoveYearToCalculateProcessor(state, this)
+            is ShowYearlyFlyingStarsAction.AdvanceYearlyFlyingStar ->
+                AdvanceYearlyFlyingStarGroupProcessor(state, notifier)
+            is ShowYearlyFlyingStarsAction.RewindYearlyFlyingStar ->
+                RewindYearlyFlyingStarGroupProcessor(state, notifier)
             else -> throw IllegalArgumentException("Action was not handled!")
         } as IProcessor<Any>
     }
