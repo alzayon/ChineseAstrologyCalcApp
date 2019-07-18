@@ -8,6 +8,4 @@ sealed class ShowYearlyFlyingStarsAction : IAction {
         val userInitiated: Boolean = false
     ) : ShowYearlyFlyingStarsAction()
     class MoveYearToCalculate(val movement: Int) : ShowYearlyFlyingStarsAction()
-    class AdvanceYearlyFlyingStar(val steps: Int = 1) : ShowYearlyFlyingStarsAction()
-    class RewindYearlyFlyingStar(val steps: Int = 1) : ShowYearlyFlyingStarsAction()
 }

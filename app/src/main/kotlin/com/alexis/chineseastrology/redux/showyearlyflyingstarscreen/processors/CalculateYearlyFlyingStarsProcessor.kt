@@ -27,8 +27,14 @@ class CalculateYearlyFlyingStarsProcessor(
         var group: YearlyFlyingStarGroup? = null
         if (year > 0) {
             group = YearlyFlyingStarGroupSet.determineYearSet(year).getFlyingStarsGroup()
+
+            val next = group.giveAdvancedFlyingStarGroup(1, (year + 1)) as YearlyFlyingStarGroup
+            val previous = group.giveRewoundFlyingStarGroup(1, (year - 1)) as YearlyFlyingStarGroup
+
+            state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup(group))
+            state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateNextAndPreviousYearlyFlyingStarGroup(next, previous))
         }
-        state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup(group))
+
         notifier.notify(ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated())
     }
 }

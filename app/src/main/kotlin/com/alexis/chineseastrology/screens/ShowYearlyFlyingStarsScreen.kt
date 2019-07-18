@@ -1,17 +1,16 @@
 package com.alexis.chineseastrology.screens
 
 import android.content.Context
-import androidx.viewpager.widget.ViewPager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
+import androidx.viewpager.widget.ViewPager
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
 import com.alexis.chineseastrology.general.extensions.getViewModel
-import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
 import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.IShowYearlyFlyingStarsStateGetters
 import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.ShowYearlyFlyingStarsAction
 import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.ShowYearlyFlyingStarsNotifyResults
@@ -110,7 +109,9 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
         viewModel.store.listen { result ->
             when (result) {
                 is ShowYearlyFlyingStarsNotifyResults.YearUpdated -> onYearUpdated()
-                is ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated -> onFlyingStarGroupUpdated()
+                is ShowYearlyFlyingStarsNotifyResults.YearlyFlyingStarGroupUpdated -> {
+                    onFlyingStarGroupUpdated()
+                }
                 else -> throw IllegalArgumentException("A notify result was not handled!")
             }
         }

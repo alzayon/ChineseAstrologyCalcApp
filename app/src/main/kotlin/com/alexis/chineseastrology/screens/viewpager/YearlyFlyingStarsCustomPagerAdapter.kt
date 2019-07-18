@@ -64,9 +64,9 @@ class YearlyFlyingStarsCustomPagerAdapter(
                     if (position == 1) {
                         view.flyingStarGroup = it
                     } else if (position == 2) {
-                        view.flyingStarGroup = dispatcher.dispatchSync(ShowYearlyFlyingStarsAction.AdvanceYearlyFlyingStar())
+                        view.flyingStarGroup = stateGetters.nextFlyingStarGroup
                     } else {
-                        view.flyingStarGroup = dispatcher.dispatchSync(ShowYearlyFlyingStarsAction.RewindYearlyFlyingStar())
+                        view.flyingStarGroup = stateGetters.previousFlyingStarGroup
                     }
                 }
             }
