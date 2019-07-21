@@ -20,11 +20,11 @@ class MoveYearToCalculateProcessor(
         var yearComputed = 0
 
         val group = state.yearlyFlyingStarGroup
-        state.yearToCalculate?.let {
+        state.yearToCalculate?.let { currentYear ->
             if (direction == 1) {
-                yearComputed = it + 1
+                yearComputed = currentYear + 1
                 if (state.nextFlyingStarGroup != null) {
-                    val next = state.nextFlyingStarGroup!!.giveAdvancedFlyingStarGroup(1, yearComputed) as YearlyFlyingStarGroup
+                    val next = state.nextFlyingStarGroup!!.giveAdvancedFlyingStarGroup(1) as YearlyFlyingStarGroup
                     val previous = group!! // The current becomes the previous
 
                     modifyState(
@@ -39,7 +39,7 @@ class MoveYearToCalculateProcessor(
                     dispatcher.dispatch(ShowYearlyFlyingStarsAction.CalculateYearlyFlyingStars(yearComputed))
                 }
             } else {
-                yearComputed = it - 1
+                yearComputed = currentYear - 1
                 if (state.previousFlyingStarGroup != null) {
                     val next = state.yearlyFlyingStarGroup!! // The current becomes the next
                     val previous = state.previousFlyingStarGroup!!.giveRewoundFlyingStarGroup(1, yearComputed) as YearlyFlyingStarGroup

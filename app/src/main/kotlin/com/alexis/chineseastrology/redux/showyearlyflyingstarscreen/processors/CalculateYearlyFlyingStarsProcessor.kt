@@ -28,8 +28,8 @@ class CalculateYearlyFlyingStarsProcessor(
         if (year > 0) {
             group = YearlyFlyingStarGroupSet.determineYearSet(year).getFlyingStarsGroup()
 
-            val next = group.giveAdvancedFlyingStarGroup(1, (year + 1)) as YearlyFlyingStarGroup
-            val previous = group.giveRewoundFlyingStarGroup(1, (year - 1)) as YearlyFlyingStarGroup
+            val next = group.giveAdvancedFlyingStarGroup(1) as YearlyFlyingStarGroup
+            val previous = group.giveRewoundFlyingStarGroup(1) as YearlyFlyingStarGroup
 
             state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup(group))
             state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateNextAndPreviousYearlyFlyingStarGroup(next, previous))

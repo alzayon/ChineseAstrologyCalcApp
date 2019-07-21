@@ -15,15 +15,25 @@ class YearlyFlyingStarGroup: BaseFlyingStarGroup {
         setupFlyingStars(yearlyFlyingStars.toList())
     }
 
-    fun giveAdvancedFlyingStarGroup(steps: Int, yearToUse: Int = year):
+    fun giveAdvancedFlyingStarGroup(steps: Int, yearPassed: Int? = null):
             IFlyingStarGroup {
-        val yearlyFlyingStars = advanceFlyingStarsBySteps(steps, yearToUse)
+        var yearToUse = yearPassed
+        if (yearPassed == null) {
+            year++
+            yearToUse = year
+        }
+        val yearlyFlyingStars = advanceFlyingStarsBySteps(steps, yearToUse!!)
         return YearlyFlyingStarGroup(yearlyFlyingStars)
     }
 
-    fun giveRewoundFlyingStarGroup(steps: Int, yearToUse: Int = year):
+    fun giveRewoundFlyingStarGroup(steps: Int, yearPassed: Int? = null):
             IFlyingStarGroup {
-        val yearlyFlyingStars = rewindFlyingStarsBySteps(steps, yearToUse)
+        var yearToUse = yearPassed
+        if (yearPassed == null) {
+            year--
+            yearToUse = year
+        }
+        val yearlyFlyingStars = rewindFlyingStarsBySteps(steps, yearToUse!!)
         return YearlyFlyingStarGroup(yearlyFlyingStars)
     }
 

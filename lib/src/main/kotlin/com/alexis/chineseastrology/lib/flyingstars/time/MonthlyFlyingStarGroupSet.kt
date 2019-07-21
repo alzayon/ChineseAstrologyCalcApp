@@ -30,12 +30,20 @@ class MonthlyFlyingStarGroupSet {
         // TODO
         // Unit test
         fun getMonthlyFlyingStars(month: Int, year: Int): MonthlyFlyingStarGroup {
+            // NOTE
+            // 1st month  = Feb
+            // 12th month = Jan
+            // If month is 12, use the month set for the previous year
             val monthSet = determineStartingMonthSet(year)
-            if (month == 1) {
-                return monthSet.giveFlyingStarsMonthSet()
+            var group = monthSet.giveFlyingStarsMonthSet()
+            group.year = year
+            if (month == 1) { // month 1 is February
+                return group
             } else {
                 val steps = month - 1
-                return monthSet.giveFlyingStarsMonthSet().giveAdvancedFlyingStarGroup(steps) as MonthlyFlyingStarGroup
+                group = monthSet.giveFlyingStarsMonthSet().giveAdvancedFlyingStarGroup(steps) as MonthlyFlyingStarGroup
+                group.year = year
+                return group
             }
         }
 

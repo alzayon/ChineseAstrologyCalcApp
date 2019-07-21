@@ -12,12 +12,18 @@ interface IShowMonthlyFlyingStarsStateGetters : IGetters {
     val yearToCalculate: Int?
     val monthlyFlyingStarGroup: MonthlyFlyingStarGroup?
     val monthYearAsString: String?
+    val previousFlyingStarGroup: MonthlyFlyingStarGroup?
+    val nextFlyingStarGroup: MonthlyFlyingStarGroup?
 }
 
 interface IShowMonthlyFlyingStarsState : IState, IShowMonthlyFlyingStarsStateGetters {
     sealed class MutateKeys : IMutateKey {
         class UpdateMonthYear(val month: Int?, val year: Int?) : MutateKeys()
         class UpdateMonthlyFlyingStarGroup(val flyingStarGroup: MonthlyFlyingStarGroup?) : MutateKeys()
+        class UpdateNextAndPreviousMonthlyFlyingStarGroup(
+            val next: MonthlyFlyingStarGroup,
+            val previous: MonthlyFlyingStarGroup
+        ) : MutateKeys()
     }
 }
 
@@ -29,6 +35,12 @@ class ShowMonthlyFlyingStarsState : BaseState(), IShowMonthlyFlyingStarsState {
         private set
 
     override var monthlyFlyingStarGroup: MonthlyFlyingStarGroup? = null
+        private set
+
+    override var previousFlyingStarGroup: MonthlyFlyingStarGroup? = null
+        private set
+
+    override var nextFlyingStarGroup: MonthlyFlyingStarGroup? = null
         private set
 
     override var monthYearAsString: String? = null
@@ -47,6 +59,10 @@ class ShowMonthlyFlyingStarsState : BaseState(), IShowMonthlyFlyingStarsState {
                 yearToCalculate = mutateKey.year
             }
             is IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthlyFlyingStarGroup -> monthlyFlyingStarGroup = mutateKey.flyingStarGroup
+            is IShowMonthlyFlyingStarsState.MutateKeys.UpdateNextAndPreviousMonthlyFlyingStarGroup -> {
+                nextFlyingStarGroup = mutateKey.next
+                previousFlyingStarGroup = mutateKey.previous
+            }
             else -> throw IllegalArgumentException("Mutate key was not handled! " + mutateKey)
         }
     }
