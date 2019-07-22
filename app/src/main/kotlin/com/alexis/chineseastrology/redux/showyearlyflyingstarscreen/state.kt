@@ -16,9 +16,9 @@ interface IShowYearlyFlyingStarsState : IState, IShowYearlyFlyingStarsStateGette
     sealed class MutateKeys : IMutateKey {
         class UpdateYear(val year: Int?) : MutateKeys()
         class UpdateYearlyFlyingStarGroup(val flyingStarGroup: YearlyFlyingStarGroup) : MutateKeys()
-        class UpdateNextAndPreviousYearlyFlyingStarGroup(
-            val next: YearlyFlyingStarGroup,
-            val previous: YearlyFlyingStarGroup
+        class UpdatePreviousAndNextYearlyFlyingStarGroup(
+            val previous: YearlyFlyingStarGroup,
+            val next: YearlyFlyingStarGroup
         ) : MutateKeys()
     }
 }
@@ -40,7 +40,7 @@ class ShowYearlyFlyingStarsState : IShowYearlyFlyingStarsState {
         when (mutateKey) {
             is IShowYearlyFlyingStarsState.MutateKeys.UpdateYear -> yearToCalculate = mutateKey.year
             is IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup -> yearlyFlyingStarGroup = mutateKey.flyingStarGroup
-            is IShowYearlyFlyingStarsState.MutateKeys.UpdateNextAndPreviousYearlyFlyingStarGroup -> {
+            is IShowYearlyFlyingStarsState.MutateKeys.UpdatePreviousAndNextYearlyFlyingStarGroup -> {
                 nextFlyingStarGroup = mutateKey.next
                 previousFlyingStarGroup = mutateKey.previous
             }

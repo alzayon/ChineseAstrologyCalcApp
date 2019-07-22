@@ -20,9 +20,9 @@ interface IShowMonthlyFlyingStarsState : IState, IShowMonthlyFlyingStarsStateGet
     sealed class MutateKeys : IMutateKey {
         class UpdateMonthYear(val month: Int?, val year: Int?) : MutateKeys()
         class UpdateMonthlyFlyingStarGroup(val flyingStarGroup: MonthlyFlyingStarGroup?) : MutateKeys()
-        class UpdateNextAndPreviousMonthlyFlyingStarGroup(
-            val next: MonthlyFlyingStarGroup,
-            val previous: MonthlyFlyingStarGroup
+        class UpdatePreviousAndNextMonthlyFlyingStarGroup(
+            val previous: MonthlyFlyingStarGroup,
+            val next: MonthlyFlyingStarGroup
         ) : MutateKeys()
     }
 }
@@ -59,7 +59,7 @@ class ShowMonthlyFlyingStarsState : BaseState(), IShowMonthlyFlyingStarsState {
                 yearToCalculate = mutateKey.year
             }
             is IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthlyFlyingStarGroup -> monthlyFlyingStarGroup = mutateKey.flyingStarGroup
-            is IShowMonthlyFlyingStarsState.MutateKeys.UpdateNextAndPreviousMonthlyFlyingStarGroup -> {
+            is IShowMonthlyFlyingStarsState.MutateKeys.UpdatePreviousAndNextMonthlyFlyingStarGroup -> {
                 nextFlyingStarGroup = mutateKey.next
                 previousFlyingStarGroup = mutateKey.previous
             }

@@ -24,14 +24,14 @@ class MoveYearToCalculateProcessor(
             if (direction == 1) {
                 yearComputed = currentYear + 1
                 if (state.nextFlyingStarGroup != null) {
-                    val next = state.nextFlyingStarGroup!!.giveAdvancedFlyingStarGroup(1) as YearlyFlyingStarGroup
                     val previous = group!! // The current becomes the previous
+                    val next = state.nextFlyingStarGroup!!.giveAdvancedFlyingStarGroup(1) as YearlyFlyingStarGroup
 
                     modifyState(
                         yearComputed,
                         state.nextFlyingStarGroup!!,
-                        next,
-                        previous
+                        previous,
+                        next
                     )
 
                     notifyUi()
@@ -41,14 +41,14 @@ class MoveYearToCalculateProcessor(
             } else {
                 yearComputed = currentYear - 1
                 if (state.previousFlyingStarGroup != null) {
-                    val next = state.yearlyFlyingStarGroup!! // The current becomes the next
                     val previous = state.previousFlyingStarGroup!!.giveRewoundFlyingStarGroup(1, yearComputed) as YearlyFlyingStarGroup
+                    val next = state.yearlyFlyingStarGroup!! // The current becomes the next
 
                     modifyState(
                         yearComputed,
                         state.previousFlyingStarGroup!!,
-                        next,
-                        previous
+                        previous,
+                        next
                     )
 
                     notifyUi()
@@ -63,13 +63,18 @@ class MoveYearToCalculateProcessor(
     private fun modifyState(
         currentYear: Int,
         currentFlyingStarGroup: YearlyFlyingStarGroup,
-        nextFlyingStarGroup: YearlyFlyingStarGroup,
-        previousYearlyFlyingStarGroup: YearlyFlyingStarGroup
+        previousYearlyFlyingStarGroup: YearlyFlyingStarGroup,
+        nextFlyingStarGroup: YearlyFlyingStarGroup
     ) {
         state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYear(currentYear))
         state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup(currentFlyingStarGroup))
-        state.reduce(IShowYearlyFlyingStarsState.MutateKeys.UpdateNextAndPreviousYearlyFlyingStarGroup(nextFlyingStarGroup, previousYearlyFlyingStarGroup))
-    }
+        state.reduce(
+            IShowYearlyFlyingStarsState.MutateKeys.UpdatePreviousAndNextYearlyFlyingStarGroup(
+                previousYearlyFlyingStarGroup,
+                nextFlyingStarGroup
+            )
+        )
+   }
 
     private fun notifyUi() {
         notifier.notify(ShowYearlyFlyingStarsNotifyResults.YearUpdated())

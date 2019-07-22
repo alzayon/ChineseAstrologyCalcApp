@@ -2,7 +2,6 @@ package com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.processors
 
 import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroupSet
-import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.IShowMonthlyFlyingStarsState
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsAction
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsNotifyResults
@@ -30,11 +29,11 @@ class CalculateMonthlyFlyingStarsProcessor(
         if (isValidParams(year, month)) {
             group = getMonthlyFlyingStarsAdaptMonth(month, year)
 
-            val next = group.giveAdvancedFlyingStarGroup(1) as MonthlyFlyingStarGroup
             val previous = group.giveRewoundFlyingStarGroup(1) as MonthlyFlyingStarGroup
+            val next = group.giveAdvancedFlyingStarGroup(1) as MonthlyFlyingStarGroup
 
             state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthlyFlyingStarGroup(group))
-            state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateNextAndPreviousMonthlyFlyingStarGroup(next, previous))
+            state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdatePreviousAndNextMonthlyFlyingStarGroup(previous, next))
 
         } else {
             // TODO

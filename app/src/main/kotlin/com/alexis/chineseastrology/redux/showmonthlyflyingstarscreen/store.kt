@@ -20,7 +20,7 @@ class ShowMonthlyFlyingStarsStore(
             is ShowMonthlyFlyingStarsAction.CalculateMonthlyFlyingStars ->
                 CalculateMonthlyFlyingStarsProcessor(state, notifier)
             is ShowMonthlyFlyingStarsAction.MoveMonthToCalculate ->
-                MoveMonthToCalculateProcessor(state, this)
+                MoveMonthToCalculateProcessor(state, this, notifier)
             else -> throw IllegalArgumentException("Action was not handled!")
         } as IProcessor<Any>
     }
