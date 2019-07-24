@@ -49,8 +49,7 @@ class ShowYearlyFlyingStarsScreen : LinearLayout, IViewWithActivity {
     private fun setupAdapter() {
         pagerAdapter = YearlyFlyingStarsCustomPagerAdapter(
             activity.fragmentActivity,
-            stateGetters,
-            viewModel.store
+            stateGetters
         )
         flyingStarViewPager.adapter = pagerAdapter
         flyingStarViewPager.setCurrentItem(1, false)

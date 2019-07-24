@@ -13,8 +13,7 @@ import com.alexis.redux.store.IDispatcher
 
 class YearlyFlyingStarsCustomPagerAdapter(
     private val context: Context,
-    private val stateGetters: IShowYearlyFlyingStarsStateGetters,
-    private val dispatcher: IDispatcher
+    private val stateGetters: IShowYearlyFlyingStarsStateGetters
 ) : PagerAdapter() {
 
     private val observers = mutableMapOf<Int, (YearlyFlyingStarGroup?) -> Unit>()

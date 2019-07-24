@@ -27,6 +27,9 @@ class MonthlyFlyingStarGroupTest {
         val monthlyFlyingStarGroupAdvanced =
                 monthlyFlyingStarGroup?.giveAdvancedFlyingStarGroup(steps)
 
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val expected = MonthlyFlyingStarGroup(
             setOf(
                 MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, PeachBlossomStar())),
@@ -68,6 +71,10 @@ class MonthlyFlyingStarGroupTest {
                 monthlyFlyingStarGroup?.giveRewoundFlyingStarGroup(steps)
 
         val monthExpected = 3
+
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val expected = MonthlyFlyingStarGroup(
                 setOf(
                     MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.NORTH, MisfortuneStar())),
@@ -93,6 +100,9 @@ class MonthlyFlyingStarGroupTest {
 
         val monthlyFlyingStarGroupAdvanced =
                 monthlyFlyingStarGroup?.giveAdvancedFlyingStarGroup(steps)
+
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
@@ -120,6 +130,8 @@ class MonthlyFlyingStarGroupTest {
         val monthlyFlyingStarGroupRewound =
                 monthlyFlyingStarGroup?.giveRewoundFlyingStarGroup(steps)
 
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
@@ -164,6 +176,9 @@ class MonthlyFlyingStarGroupTest {
         val monthExpected = 3
         val yearExpected = 2014
 
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearExpected)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val expected = MonthlyFlyingStarGroup(
                 setOf(
                     MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, IllnessStar())),
@@ -207,6 +222,9 @@ class MonthlyFlyingStarGroupTest {
         val monthExpected = 7
         val yearExpected = 2012
 
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearExpected)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val expected = MonthlyFlyingStarGroup(
                 setOf(
                     MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, PeachBlossomStar())),
@@ -233,6 +251,9 @@ class MonthlyFlyingStarGroupTest {
         val monthlyFlyingStarGroupAdvanced =
                 monthlyFlyingStarGroup?.giveAdvancedFlyingStarGroup(steps)
 
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val expected = MonthlyFlyingStarGroup(
                 setOf(
                     MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, HeavenStar())),
@@ -258,6 +279,9 @@ class MonthlyFlyingStarGroupTest {
 
         val monthlyFlyingStarGroupAdvanced =
                 monthlyFlyingStarGroup?.giveRewoundFlyingStarGroup(steps)
+
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
@@ -303,6 +327,9 @@ class MonthlyFlyingStarGroupTest {
         val monthExpected = 1
         val yearExpected = 2016
 
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearExpected)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val expected = MonthlyFlyingStarGroup(
                 setOf(
                     MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, BurglaryStar())),
@@ -346,6 +373,9 @@ class MonthlyFlyingStarGroupTest {
 
         val monthExpected = 11
         val yearExpected = 2010
+
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearExpected)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
@@ -391,6 +421,9 @@ class MonthlyFlyingStarGroupTest {
         val monthExpected = 5
         val yearExpected = 2015
 
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearExpected)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val expected = MonthlyFlyingStarGroup(
                 setOf(
                     MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, HeavenStar())),
@@ -434,6 +467,9 @@ class MonthlyFlyingStarGroupTest {
         val monthExpected = 10
         val yearExpected = 2011
 
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearExpected)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val expected = MonthlyFlyingStarGroup(
                 setOf(
                     MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, PeachBlossomStar())),
@@ -476,6 +512,9 @@ class MonthlyFlyingStarGroupTest {
 
         val yearExpected = 2015
 
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearExpected)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val expected = MonthlyFlyingStarGroup(
                 setOf(
                     MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTH, MisfortuneStar())),
@@ -517,6 +556,9 @@ class MonthlyFlyingStarGroupTest {
                 monthlyFlyingStarGroup?.giveRewoundFlyingStarGroup(steps)
 
         val yearExpected = 2007
+
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
@@ -643,7 +685,7 @@ class MonthlyFlyingStarGroupTest {
     fun `determine 5th month for 2019`() {
         val year = 2019
         val monthSet = MonthlyFlyingStarGroupSet.determineStartingMonthSet(year)
-        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet()
+        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet(year)
         val monthlyFlyingStarGroup5thMonth = monthlyFlyingStarGroup1stMonth.giveAdvancedFlyingStarGroup(4)
 
         assertEquals(MonthlyFlyingStarGroupSet.MONTH_SET.SET_1, monthSet)
@@ -665,7 +707,7 @@ class MonthlyFlyingStarGroupTest {
     fun `determine 6th month for 2016`() {
         val year = 2016
         val monthSet = MonthlyFlyingStarGroupSet.determineStartingMonthSet(year)
-        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet()
+        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet(year)
         val monthlyFlyingStarGroup6thMonth = monthlyFlyingStarGroup1stMonth.giveAdvancedFlyingStarGroup(5)
 
         assertEquals(MonthlyFlyingStarGroupSet.MONTH_SET.SET_1, monthSet)
@@ -687,7 +729,7 @@ class MonthlyFlyingStarGroupTest {
     fun `determine 11th month for 2017`() {
         val year = 2017
         val monthSet = MonthlyFlyingStarGroupSet.determineStartingMonthSet(year)
-        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet()
+        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet(year)
         val monthlyFlyingStarGroup11thMonth = monthlyFlyingStarGroup1stMonth.giveAdvancedFlyingStarGroup(10)
 
         assertEquals(MonthlyFlyingStarGroupSet.MONTH_SET.SET_2, monthSet)
@@ -709,7 +751,7 @@ class MonthlyFlyingStarGroupTest {
     fun `determine 4th month for 2017`() {
         val year = 2017
         val monthSet = MonthlyFlyingStarGroupSet.determineStartingMonthSet(year)
-        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet()
+        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet(year)
         val monthlyFlyingStarGroup4thMonth = monthlyFlyingStarGroup1stMonth.giveAdvancedFlyingStarGroup(3)
 
         assertEquals(MonthlyFlyingStarGroupSet.MONTH_SET.SET_2, monthSet)
@@ -731,7 +773,7 @@ class MonthlyFlyingStarGroupTest {
     fun `determine 2nd month for 2018`() {
         val year = 2018
         val monthSet = MonthlyFlyingStarGroupSet.determineStartingMonthSet(year)
-        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet()
+        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet(year)
         val monthlyFlyingStarGroup2ndMonth = monthlyFlyingStarGroup1stMonth.giveAdvancedFlyingStarGroup(1)
 
         assertEquals(MonthlyFlyingStarGroupSet.MONTH_SET.SET_3, monthSet)
@@ -753,7 +795,7 @@ class MonthlyFlyingStarGroupTest {
     fun `determine 8th month for 2018`() {
         val year = 2018
         val monthSet = MonthlyFlyingStarGroupSet.determineStartingMonthSet(year)
-        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet()
+        val monthlyFlyingStarGroup1stMonth = monthSet.giveFlyingStarsMonthSet(year)
         val monthlyFlyingStarGroup8thMonth = monthlyFlyingStarGroup1stMonth.giveAdvancedFlyingStarGroup(7)
 
         assertEquals(MonthlyFlyingStarGroupSet.MONTH_SET.SET_3, monthSet)

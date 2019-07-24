@@ -8,6 +8,10 @@ import com.alexis.chineseastrology.lib.flyingstars.time.ITimeFlyingStar
 class FlyingStarCanvasAdapter() :
         RecyclerView.Adapter<FlyingStarBoxViewHolder>() {
 
+    enum class MODE {
+        YEARLY, MONTHLY
+    }
+
     var flyingStars: List<ITimeFlyingStar>? = null
         get() = field
         set(value) {
@@ -15,8 +19,20 @@ class FlyingStarCanvasAdapter() :
             notifyDataSetChanged()
         }
 
+    var mode : MODE = MODE.YEARLY
+        set (value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlyingStarBoxViewHolder {
         val flyingStarBox = FlyingStarBox(parent.context)
+        if (mode == MODE.MONTHLY) {
+            flyingStarBox.monthlyDisplay = true
+        } else {
+            flyingStarBox.monthlyDisplay = false
+        }
+        flyingStarBox.setup()
         return FlyingStarBoxViewHolder(flyingStarBox)
     }
 

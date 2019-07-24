@@ -1,10 +1,10 @@
 package com.alexis.chineseastrology.screens
 
 import android.content.Context
-import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
+import androidx.viewpager.widget.ViewPager
 import com.alexis.chineseastrology.R
 import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
@@ -17,7 +17,6 @@ import com.alexis.chineseastrology.viewmodel.ShowMonthlyFlyingStarsViewModel
 import com.whiteelephant.monthpicker.MonthPickerDialog
 import kotlinx.android.synthetic.main.show_monthly_flying_stars_screen.view.*
 import timber.log.Timber
-import java.util.*
 
 class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
 {
@@ -29,7 +28,6 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
 
     private lateinit var viewModel: ShowMonthlyFlyingStarsViewModel
     private lateinit var pagerAdapter: MonthlyFlyingStarsCustomPagerAdapter
-    private lateinit var monthPickerDialog: MonthPickerDialog
 
     private val stateGetters by lazy {
         viewModel.store.getters() as IShowMonthlyFlyingStarsStateGetters
@@ -44,8 +42,7 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
     private fun setupAdapter() {
         pagerAdapter = MonthlyFlyingStarsCustomPagerAdapter(
             activity.fragmentActivity,
-            stateGetters,
-            viewModel.store
+            stateGetters
         )
         flyingStarViewPager.adapter = pagerAdapter
         flyingStarViewPager.setCurrentItem(1, false)

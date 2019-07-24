@@ -63,6 +63,8 @@ class YearlyFlyingStarGroupSet {
             return findYearSetByNum(numberToUse)
         }
 
+        // TODO
+        // This should be private
         fun findYearSetByNum(number: Int): YEAR_SET {
             if (number > 9 || number < 1) {
                 throw RuntimeException(IllegalArgumentException("Specify only numbers 1 to 9, you gave: " + number))

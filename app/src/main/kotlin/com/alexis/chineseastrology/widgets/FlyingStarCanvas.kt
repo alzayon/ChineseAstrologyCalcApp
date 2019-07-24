@@ -21,16 +21,16 @@ class FlyingStarCanvas : LinearLayout {
     companion object {
         fun arrangeStarsForView(flyingStarGroup: IFlyingStarGroup): List<ITimeFlyingStar> {
             return listOf(
-                        flyingStarGroup.giveSouthEastStar(),
-                        flyingStarGroup.giveSouthStar(),
-                        flyingStarGroup.giveSouthWestStar(),
-                        flyingStarGroup.giveEastStar(),
-                        flyingStarGroup.giveCenterStar(),
-                        flyingStarGroup.giveWestStar(),
-                        flyingStarGroup.giveNorthEastStar(),
-                        flyingStarGroup.giveNorthStar(),
-                        flyingStarGroup.giveNorthWestStar()
-                    )
+                flyingStarGroup.giveSouthEastStar(),
+                flyingStarGroup.giveSouthStar(),
+                flyingStarGroup.giveSouthWestStar(),
+                flyingStarGroup.giveEastStar(),
+                flyingStarGroup.giveCenterStar(),
+                flyingStarGroup.giveWestStar(),
+                flyingStarGroup.giveNorthEastStar(),
+                flyingStarGroup.giveNorthStar(),
+                flyingStarGroup.giveNorthWestStar()
+            )
         }
     }
 
@@ -42,6 +42,10 @@ class FlyingStarCanvas : LinearLayout {
             field = value
             populate()
         }
+
+    fun setMode(mode: FlyingStarCanvasAdapter.MODE) {
+        adapter.mode = mode
+    }
 
     private fun init() {
         View.inflate(context, R.layout.flying_stars_canvas, this)

@@ -35,66 +35,78 @@ class MonthlyFlyingStarGroupSet {
             // 12th month = Jan
             // If month is 12, use the month set for the previous year
             val monthSet = determineStartingMonthSet(year)
-            var group = monthSet.giveFlyingStarsMonthSet()
+            var group = monthSet.giveFlyingStarsMonthSet(year)
             group.year = year
             if (month == 1) { // month 1 is February
                 return group
             } else {
                 val steps = month - 1
-                group = monthSet.giveFlyingStarsMonthSet().giveAdvancedFlyingStarGroup(steps) as MonthlyFlyingStarGroup
+                group = monthSet.giveFlyingStarsMonthSet(year).giveAdvancedFlyingStarGroup(steps) as MonthlyFlyingStarGroup
                 group.year = year
                 return group
             }
         }
 
-        fun giveMonthlyFlyingStarGroupFirstMonthSet1(): MonthlyFlyingStarGroup {
-            val northStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.NORTH, BurglaryStar()))
-            val northEastStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.NORTHEAST, MisfortuneStar()))
-            val northWestStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.NORTHWEST, QuarrelsomeStar()))
+        fun giveMonthlyFlyingStarGroupFirstMonthSet1(year: Int = 2013): MonthlyFlyingStarGroup {
 
-            val southStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.SOUTH, HeavenStar()))
-            val southEastStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.SOUTHEAST, VictoryStar()))
-            val southWestStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.SOUTHWEST, WealthStar()))
+            val yearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+            val flyingStarGroup = yearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
-            val eastStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.EAST, FutureProsperityStar()))
-            val westStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.WEST, PeachBlossomStar()))
-            val centerStar = MonthlyFlyingStar(1, 2013, StarPosition(CompassDirection.CENTER, IllnessStar()))
+            val northStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.NORTH, BurglaryStar()), flyingStarGroup.giveNorthStar().giveStarPosition())
+            val northEastStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.NORTHEAST, MisfortuneStar()), flyingStarGroup.giveNorthEastStar().giveStarPosition())
+            val northWestStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.NORTHWEST, QuarrelsomeStar()), flyingStarGroup.giveNorthWestStar().giveStarPosition())
 
-            val list: Set<MonthlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
-                    southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
-            return MonthlyFlyingStarGroup(list)
-        }
+            val southStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.SOUTH, HeavenStar()), flyingStarGroup.giveSouthStar().giveStarPosition())
+            val southEastStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.SOUTHEAST, VictoryStar()), flyingStarGroup.giveSouthEastStar().giveStarPosition())
+            val southWestStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.SOUTHWEST, WealthStar()), flyingStarGroup.giveSouthWestStar().giveStarPosition())
 
-        fun giveMonthlyFlyingStarGroupFirstMonthSet2(): MonthlyFlyingStarGroup {
-            val northStar = MonthlyFlyingStar(1, 2014, StarPosition(CompassDirection.NORTH, PeachBlossomStar()))
-            val northEastStar = MonthlyFlyingStar(1, 2014, StarPosition(CompassDirection.NORTHEAST, IllnessStar()))
-            val northWestStar = MonthlyFlyingStar(1, 2014, StarPosition(CompassDirection.NORTHWEST, FutureProsperityStar()))
-
-            val southStar = MonthlyFlyingStar(1, 2014, StarPosition(CompassDirection.SOUTH, QuarrelsomeStar()))
-            val southEastStar = MonthlyFlyingStar(1, 2014, StarPosition(CompassDirection.SOUTHEAST, BurglaryStar()))
-            val southWestStar = MonthlyFlyingStar(1, 2014, StarPosition(CompassDirection.SOUTHWEST, MisfortuneStar()))
-
-            val eastStar = MonthlyFlyingStar(1, 2014, StarPosition(CompassDirection.EAST, HeavenStar()))
-            val westStar = MonthlyFlyingStar(1, 2014, StarPosition(CompassDirection.WEST, VictoryStar()))
-            val centerStar = MonthlyFlyingStar(1, 2014, StarPosition(CompassDirection.CENTER, WealthStar()))
+            val eastStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.EAST, FutureProsperityStar()), flyingStarGroup.giveEastStar().giveStarPosition())
+            val westStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.WEST, PeachBlossomStar()), flyingStarGroup.giveWestStar().giveStarPosition())
+            val centerStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.CENTER, IllnessStar()), flyingStarGroup.giveCenterStar().giveStarPosition())
 
             val list: Set<MonthlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
             return MonthlyFlyingStarGroup(list)
         }
 
-        fun giveMonthlyFlyingStarGroupFirstMonthSet3(): MonthlyFlyingStarGroup {
-            val northStar = MonthlyFlyingStar(1, 2015, StarPosition(CompassDirection.NORTH, VictoryStar()))
-            val northEastStar = MonthlyFlyingStar(1, 2015, StarPosition(CompassDirection.NORTHEAST, WealthStar()))
-            val northWestStar = MonthlyFlyingStar(1, 2015, StarPosition(CompassDirection.NORTHWEST, HeavenStar()))
+        fun giveMonthlyFlyingStarGroupFirstMonthSet2(year: Int = 2014): MonthlyFlyingStarGroup {
 
-            val southStar = MonthlyFlyingStar(1, 2015, StarPosition(CompassDirection.SOUTH, FutureProsperityStar()))
-            val southEastStar = MonthlyFlyingStar(1, 2015, StarPosition(CompassDirection.SOUTHEAST, PeachBlossomStar()))
-            val southWestStar = MonthlyFlyingStar(1, 2015, StarPosition(CompassDirection.SOUTHWEST, IllnessStar()))
+            val yearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+            val flyingStarGroup = yearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
-            val eastStar = MonthlyFlyingStar(1, 2015, StarPosition(CompassDirection.EAST, QuarrelsomeStar()))
-            val westStar = MonthlyFlyingStar(1, 2015, StarPosition(CompassDirection.WEST, BurglaryStar()))
-            val centerStar = MonthlyFlyingStar(1, 2015, StarPosition(CompassDirection.CENTER, MisfortuneStar()))
+            val northStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.NORTH, PeachBlossomStar()), flyingStarGroup.giveNorthStar().giveStarPosition())
+            val northEastStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.NORTHEAST, IllnessStar()), flyingStarGroup.giveNorthEastStar().giveStarPosition())
+            val northWestStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.NORTHWEST, FutureProsperityStar()), flyingStarGroup.giveNorthWestStar().giveStarPosition())
+
+            val southStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.SOUTH, QuarrelsomeStar()), flyingStarGroup.giveSouthStar().giveStarPosition())
+            val southEastStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.SOUTHEAST, BurglaryStar()), flyingStarGroup.giveSouthEastStar().giveStarPosition())
+            val southWestStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.SOUTHWEST, MisfortuneStar()), flyingStarGroup.giveSouthWestStar().giveStarPosition())
+
+            val eastStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.EAST, HeavenStar()), flyingStarGroup.giveEastStar().giveStarPosition())
+            val westStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.WEST, VictoryStar()), flyingStarGroup.giveWestStar().giveStarPosition())
+            val centerStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.CENTER, WealthStar()), flyingStarGroup.giveCenterStar().giveStarPosition())
+
+            val list: Set<MonthlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
+                    southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
+            return MonthlyFlyingStarGroup(list)
+        }
+
+        fun giveMonthlyFlyingStarGroupFirstMonthSet3(year: Int = 2015): MonthlyFlyingStarGroup {
+
+            val yearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+            val flyingStarGroup = yearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
+            val northStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.NORTH, VictoryStar()), flyingStarGroup.giveNorthStar().giveStarPosition())
+            val northEastStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.NORTHEAST, WealthStar()), flyingStarGroup.giveNorthEastStar().giveStarPosition())
+            val northWestStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.NORTHWEST, HeavenStar()), flyingStarGroup.giveNorthWestStar().giveStarPosition())
+
+            val southStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.SOUTH, FutureProsperityStar()), flyingStarGroup.giveSouthStar().giveStarPosition())
+            val southEastStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.SOUTHEAST, PeachBlossomStar()), flyingStarGroup.giveSouthEastStar().giveStarPosition())
+            val southWestStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.SOUTHWEST, IllnessStar()), flyingStarGroup.giveSouthWestStar().giveStarPosition())
+
+            val eastStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.EAST, QuarrelsomeStar()), flyingStarGroup.giveEastStar().giveStarPosition())
+            val westStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.WEST, BurglaryStar()), flyingStarGroup.giveWestStar().giveStarPosition())
+            val centerStar = MonthlyFlyingStar(1, year, StarPosition(CompassDirection.CENTER, MisfortuneStar()), flyingStarGroup.giveCenterStar().giveStarPosition())
 
             val list: Set<MonthlyFlyingStar> = setOf(northStar, northEastStar, northWestStar,
                     southStar, southEastStar, southWestStar, eastStar, westStar, centerStar)
@@ -115,11 +127,11 @@ class MonthlyFlyingStarGroupSet {
             }
         }
 
-        fun giveFlyingStarsMonthSet(): MonthlyFlyingStarGroup {
+        fun giveFlyingStarsMonthSet(year: Int): MonthlyFlyingStarGroup {
             return when (this) {
-                SET_1 -> giveMonthlyFlyingStarGroupFirstMonthSet1()
-                SET_2 -> giveMonthlyFlyingStarGroupFirstMonthSet2()
-                else -> giveMonthlyFlyingStarGroupFirstMonthSet3()
+                SET_1 -> giveMonthlyFlyingStarGroupFirstMonthSet1(year)
+                SET_2 -> giveMonthlyFlyingStarGroupFirstMonthSet2(year)
+                else -> giveMonthlyFlyingStarGroupFirstMonthSet3(year)
             }
         }
     }
