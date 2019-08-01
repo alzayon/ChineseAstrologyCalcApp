@@ -27,20 +27,20 @@ class MonthlyFlyingStarGroupTest {
         val monthlyFlyingStarGroupAdvanced =
                 monthlyFlyingStarGroup?.giveAdvancedFlyingStarGroup(steps)
 
-        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
-        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
             setOf(
-                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, PeachBlossomStar())),
-                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, IllnessStar())),
-                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, HeavenStar())),
-                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, BurglaryStar())),
-                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, QuarrelsomeStar())),
-                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, MisfortuneStar())),
-                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, VictoryStar())),
-                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, FutureProsperityStar())),
-                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, WealthStar()))
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, PeachBlossomStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, IllnessStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, HeavenStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, BurglaryStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, QuarrelsomeStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, MisfortuneStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, VictoryStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, FutureProsperityStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, WealthStar()), yearlyGroup.giveCenterStar().giveStarPosition())
             )
         )
         assertNotNull(monthlyFlyingStarGroupAdvanced)
@@ -53,18 +53,21 @@ class MonthlyFlyingStarGroupTest {
         val month = 5
         val year = 2013
 
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
+
         monthlyFlyingStarGroup = MonthlyFlyingStarGroup(
-                setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, BurglaryStar()))
-                )
+            setOf(
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, QuarrelsomeStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, VictoryStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, MisfortuneStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, HeavenStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, IllnessStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, FutureProsperityStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, WealthStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, BurglaryStar()), yearlyGroup.giveCenterStar().giveStarPosition())
+            )
         )
 
         val monthlyFlyingStarGroupRewound =
@@ -72,25 +75,23 @@ class MonthlyFlyingStarGroupTest {
 
         val monthExpected = 3
 
-        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
-        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
-
         val expected = MonthlyFlyingStarGroup(
-                setOf(
-                    MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.NORTH, MisfortuneStar())),
-                    MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.NORTHEAST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.EAST, BurglaryStar())),
-                    MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.SOUTHEAST, WealthStar())),
-                    MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.SOUTH, PeachBlossomStar())),
-                    MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.SOUTHWEST, HeavenStar())),
-                    MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.WEST, IllnessStar())),
-                    MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.NORTHWEST, VictoryStar())),
-                    MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.CENTER, FutureProsperityStar()))
-                )
+            setOf(
+                MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.NORTH, MisfortuneStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.NORTHEAST, QuarrelsomeStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.EAST, BurglaryStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.SOUTHEAST, WealthStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.SOUTH, PeachBlossomStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.SOUTHWEST, HeavenStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.WEST, IllnessStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.NORTHWEST, VictoryStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, year, StarPosition(CompassDirection.CENTER, FutureProsperityStar()), yearlyGroup.giveCenterStar().giveStarPosition())
+            )
         )
         assertNotNull(monthlyFlyingStarGroupRewound)
         assertEquals(expected, monthlyFlyingStarGroupRewound)
     }
+
 
     @Test
     fun `giveAdvancedFlyingStarGroup() start in first month, overflow of one year`() {
@@ -101,25 +102,26 @@ class MonthlyFlyingStarGroupTest {
         val monthlyFlyingStarGroupAdvanced =
                 monthlyFlyingStarGroup?.giveAdvancedFlyingStarGroup(steps)
 
-        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
-        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
-                setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, BurglaryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, QuarrelsomeStar()))
-                )
+            setOf(
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, WealthStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, HeavenStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, VictoryStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, IllnessStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, BurglaryStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, FutureProsperityStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, MisfortuneStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, PeachBlossomStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, QuarrelsomeStar()), yearlyGroup.giveCenterStar().giveStarPosition())
+            )
         )
         assertNotNull(monthlyFlyingStarGroupAdvanced)
         assertEquals(expected, monthlyFlyingStarGroupAdvanced)
     }
+
 
     @Test
     fun `giveRewoundFlyingStarGroup start in first month, backflow of one year`() {
@@ -130,25 +132,26 @@ class MonthlyFlyingStarGroupTest {
         val monthlyFlyingStarGroupRewound =
                 monthlyFlyingStarGroup?.giveRewoundFlyingStarGroup(steps)
 
-        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
-        val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
-                setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, BurglaryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, MisfortuneStar()))
-                )
+            setOf(
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, VictoryStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, WealthStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, QuarrelsomeStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, PeachBlossomStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, FutureProsperityStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, IllnessStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, BurglaryStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, HeavenStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, MisfortuneStar()), yearlyGroup.giveCenterStar().giveStarPosition())
+            )
         )
         assertNotNull(monthlyFlyingStarGroupRewound)
         assertEquals(expected, monthlyFlyingStarGroupRewound)
     }
+
 
     @Test
     fun `giveAdvancedFlyingStarGroup start in fifth month, overflow of one year`() {
@@ -156,21 +159,24 @@ class MonthlyFlyingStarGroupTest {
         val month = 5
         val year = 2013
 
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
+
         monthlyFlyingStarGroup = MonthlyFlyingStarGroup(
-                setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, BurglaryStar()))
-                )
+            setOf(
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, QuarrelsomeStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, VictoryStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, MisfortuneStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, HeavenStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, IllnessStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, FutureProsperityStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, WealthStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, BurglaryStar()), yearlyGroup.giveCenterStar().giveStarPosition())
+            )
         )
 
-        val monthlyFlyingStarGroupRewound =
+        val monthlyFlyingStarGroupAdvanced =
                 monthlyFlyingStarGroup?.giveAdvancedFlyingStarGroup(steps)
 
         val monthExpected = 3
@@ -180,21 +186,22 @@ class MonthlyFlyingStarGroupTest {
         val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
-                setOf(
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, IllnessStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, FutureProsperityStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, PeachBlossomStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, MisfortuneStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, VictoryStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, WealthStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, BurglaryStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, HeavenStar()))
-                )
+            setOf(
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, IllnessStar()), expectedFlyingStarGroup.giveNorthStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, FutureProsperityStar()), expectedFlyingStarGroup.giveNorthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, PeachBlossomStar()), expectedFlyingStarGroup.giveEastStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, MisfortuneStar()), expectedFlyingStarGroup.giveSouthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, VictoryStar()), expectedFlyingStarGroup.giveSouthStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, QuarrelsomeStar()), expectedFlyingStarGroup.giveSouthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, WealthStar()), expectedFlyingStarGroup.giveWestStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, BurglaryStar()), expectedFlyingStarGroup.giveNorthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, HeavenStar()), expectedFlyingStarGroup.giveCenterStar().giveStarPosition())
+            )
         )
-        assertNotNull(monthlyFlyingStarGroupRewound)
-        assertEquals(expected, monthlyFlyingStarGroupRewound)
+        assertNotNull(monthlyFlyingStarGroupAdvanced)
+        assertEquals(expected, monthlyFlyingStarGroupAdvanced)
     }
+
 
     @Test
     fun `giveRewoundFlyingStarGroup start in fifth month, backflow of one year`() {
@@ -202,18 +209,21 @@ class MonthlyFlyingStarGroupTest {
         val month = 5
         val year = 2013
 
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
+
         monthlyFlyingStarGroup = MonthlyFlyingStarGroup(
-                setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, BurglaryStar()))
-                )
+            setOf(
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, QuarrelsomeStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, VictoryStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, MisfortuneStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, HeavenStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, IllnessStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, FutureProsperityStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, WealthStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, BurglaryStar()), yearlyGroup.giveCenterStar().giveStarPosition())
+            )
         )
 
         val monthlyFlyingStarGroupRewound =
@@ -226,21 +236,22 @@ class MonthlyFlyingStarGroupTest {
         val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
-                setOf(
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, PeachBlossomStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, IllnessStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, HeavenStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, BurglaryStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, QuarrelsomeStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, MisfortuneStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, VictoryStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, FutureProsperityStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, WealthStar()))
-                )
+            setOf(
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, PeachBlossomStar()), expectedFlyingStarGroup.giveNorthStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, IllnessStar()), expectedFlyingStarGroup.giveNorthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, HeavenStar()), expectedFlyingStarGroup.giveEastStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, BurglaryStar()), expectedFlyingStarGroup.giveSouthEastStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, QuarrelsomeStar()), expectedFlyingStarGroup.giveSouthStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, MisfortuneStar()), expectedFlyingStarGroup.giveSouthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, VictoryStar()), expectedFlyingStarGroup.giveWestStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, FutureProsperityStar()), expectedFlyingStarGroup.giveNorthWestStar().giveStarPosition()),
+                MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, WealthStar()), expectedFlyingStarGroup.giveCenterStar().giveStarPosition())
+            )
         )
         assertNotNull(monthlyFlyingStarGroupRewound)
         assertEquals(expected, monthlyFlyingStarGroupRewound)
     }
+
 
     @Test
     fun `giveAdvancedFlyingStarGroup() start in first month overflow of two years`() {
@@ -248,25 +259,26 @@ class MonthlyFlyingStarGroupTest {
         val month = 5
         val year = 2015
 
-        val monthlyFlyingStarGroupAdvanced =
-                monthlyFlyingStarGroup?.giveAdvancedFlyingStarGroup(steps)
-
         val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
         val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, BurglaryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, VictoryStar()))
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, HeavenStar()), expectedFlyingStarGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, PeachBlossomStar()), expectedFlyingStarGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, WealthStar()), expectedFlyingStarGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, FutureProsperityStar()), expectedFlyingStarGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, MisfortuneStar()), expectedFlyingStarGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, BurglaryStar()), expectedFlyingStarGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, QuarrelsomeStar()), expectedFlyingStarGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, IllnessStar()), expectedFlyingStarGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, VictoryStar()), expectedFlyingStarGroup.giveCenterStar().giveStarPosition())
                 )
         )
+
+        val monthlyFlyingStarGroupAdvanced =
+                monthlyFlyingStarGroup?.giveAdvancedFlyingStarGroup(steps)
+
         assertNotNull(monthlyFlyingStarGroupAdvanced)
         assertEquals(expected, monthlyFlyingStarGroupAdvanced)
     }
@@ -285,20 +297,21 @@ class MonthlyFlyingStarGroupTest {
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, BurglaryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, QuarrelsomeStar()))
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, WealthStar()), expectedFlyingStarGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, HeavenStar()), expectedFlyingStarGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, VictoryStar()), expectedFlyingStarGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, IllnessStar()), expectedFlyingStarGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, BurglaryStar()), expectedFlyingStarGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, FutureProsperityStar()), expectedFlyingStarGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, MisfortuneStar()), expectedFlyingStarGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, PeachBlossomStar()), expectedFlyingStarGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, QuarrelsomeStar()), expectedFlyingStarGroup.giveCenterStar().giveStarPosition())
                 )
         )
         assertNotNull(monthlyFlyingStarGroupAdvanced)
         assertEquals(expected, monthlyFlyingStarGroupAdvanced)
     }
+
 
     @Test
     fun `giveAdvanceFlyingStars start in 6th month, overflow of 3 years`() {
@@ -306,17 +319,20 @@ class MonthlyFlyingStarGroupTest {
         val month = 6
         val year = 2013
 
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
+
         monthlyFlyingStarGroup = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, BurglaryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, HeavenStar()))
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, IllnessStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, FutureProsperityStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, PeachBlossomStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, MisfortuneStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, VictoryStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, QuarrelsomeStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, WealthStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, BurglaryStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, HeavenStar()), yearlyGroup.giveCenterStar().giveStarPosition())
                 )
         )
 
@@ -332,20 +348,21 @@ class MonthlyFlyingStarGroupTest {
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, BurglaryStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, MisfortuneStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, FutureProsperityStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, VictoryStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, HeavenStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, WealthStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, PeachBlossomStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, IllnessStar()))
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, BurglaryStar()), expectedFlyingStarGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, MisfortuneStar()), expectedFlyingStarGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, FutureProsperityStar()), expectedFlyingStarGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, VictoryStar()), expectedFlyingStarGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, HeavenStar()), expectedFlyingStarGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, WealthStar()), expectedFlyingStarGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, PeachBlossomStar()), expectedFlyingStarGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, QuarrelsomeStar()), expectedFlyingStarGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, IllnessStar()), expectedFlyingStarGroup.giveCenterStar().giveStarPosition())
                 )
         )
         assertNotNull(monthlyFlyingStarGroupRewound)
         assertEquals(expected, monthlyFlyingStarGroupRewound)
     }
+
 
     @Test
     fun `giveRewoundFlyingStarGroup start in the fifth month, backflow of three years`() {
@@ -353,17 +370,20 @@ class MonthlyFlyingStarGroupTest {
         val month = 5
         val year = 2013
 
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
+
         monthlyFlyingStarGroup = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, BurglaryStar()))
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, QuarrelsomeStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, VictoryStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, MisfortuneStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, HeavenStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, IllnessStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, FutureProsperityStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, WealthStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, BurglaryStar()), yearlyGroup.giveCenterStar().giveStarPosition())
                 )
         )
 
@@ -379,20 +399,21 @@ class MonthlyFlyingStarGroupTest {
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, HeavenStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, PeachBlossomStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, WealthStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, FutureProsperityStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, MisfortuneStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, BurglaryStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, IllnessStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, VictoryStar()))
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, HeavenStar()), expectedFlyingStarGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, PeachBlossomStar()), expectedFlyingStarGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, WealthStar()), expectedFlyingStarGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, FutureProsperityStar()), expectedFlyingStarGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, MisfortuneStar()), expectedFlyingStarGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, BurglaryStar()), expectedFlyingStarGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, QuarrelsomeStar()), expectedFlyingStarGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, IllnessStar()), expectedFlyingStarGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, VictoryStar()), expectedFlyingStarGroup.giveCenterStar().giveStarPosition())
                 )
         )
         assertNotNull(monthlyFlyingStarGroupRewound)
         assertEquals(expected, monthlyFlyingStarGroupRewound)
     }
+
 
     @Test
     fun `giveAdvanceFlyingStars start in 12th month, overflow of 2 years`() {
@@ -400,17 +421,20 @@ class MonthlyFlyingStarGroupTest {
         val month = 12
         val year = 2013
 
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
+
         monthlyFlyingStarGroup = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, BurglaryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, FutureProsperityStar()))
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, MisfortuneStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, QuarrelsomeStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, BurglaryStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, WealthStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, PeachBlossomStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, HeavenStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, IllnessStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, VictoryStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, FutureProsperityStar()), yearlyGroup.giveCenterStar().giveStarPosition())
                 )
         )
 
@@ -426,20 +450,21 @@ class MonthlyFlyingStarGroupTest {
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, HeavenStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, PeachBlossomStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, WealthStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, FutureProsperityStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, MisfortuneStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, BurglaryStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, IllnessStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, VictoryStar()))
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, HeavenStar()), expectedFlyingStarGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, PeachBlossomStar()), expectedFlyingStarGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, WealthStar()), expectedFlyingStarGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, FutureProsperityStar()), expectedFlyingStarGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, MisfortuneStar()), expectedFlyingStarGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, BurglaryStar()), expectedFlyingStarGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, QuarrelsomeStar()), expectedFlyingStarGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, IllnessStar()), expectedFlyingStarGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, VictoryStar()), expectedFlyingStarGroup.giveCenterStar().giveStarPosition())
                 )
         )
         assertNotNull(monthlyFlyingStarGroupRewound)
         assertEquals(expected, monthlyFlyingStarGroupRewound)
     }
+
 
     @Test
     fun `giveRewoundFlyingStars start in 12th month, backflow of 2 years`() {
@@ -447,17 +472,20 @@ class MonthlyFlyingStarGroupTest {
         val month = 12
         val year = 2013
 
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
+
         monthlyFlyingStarGroup = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, BurglaryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, FutureProsperityStar()))
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, MisfortuneStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, QuarrelsomeStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, BurglaryStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, WealthStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, PeachBlossomStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, HeavenStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, IllnessStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, VictoryStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, FutureProsperityStar()), yearlyGroup.giveCenterStar().giveStarPosition())
                 )
         )
 
@@ -472,20 +500,21 @@ class MonthlyFlyingStarGroupTest {
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, PeachBlossomStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, IllnessStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, HeavenStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, BurglaryStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, QuarrelsomeStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, MisfortuneStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, VictoryStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, FutureProsperityStar())),
-                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, WealthStar()))
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTH, PeachBlossomStar()), expectedFlyingStarGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHEAST, IllnessStar()), expectedFlyingStarGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.EAST, HeavenStar()), expectedFlyingStarGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHEAST, BurglaryStar()), expectedFlyingStarGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTH, QuarrelsomeStar()), expectedFlyingStarGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.SOUTHWEST, MisfortuneStar()), expectedFlyingStarGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.WEST, VictoryStar()), expectedFlyingStarGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.NORTHWEST, FutureProsperityStar()), expectedFlyingStarGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(monthExpected, yearExpected, StarPosition(CompassDirection.CENTER, WealthStar()), expectedFlyingStarGroup.giveCenterStar().giveStarPosition())
                 )
         )
         assertNotNull(monthlyFlyingStarGroupRewound)
         assertEquals(expected, monthlyFlyingStarGroupRewound)
     }
+
 
     @Test
     fun `giveAdvanceFlyingStars start in 6th month, overflow of 2 years, ending in same month`() {
@@ -493,17 +522,20 @@ class MonthlyFlyingStarGroupTest {
         val month = 6
         val year = 2013
 
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
+
         monthlyFlyingStarGroup = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, BurglaryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, HeavenStar()))
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, IllnessStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, FutureProsperityStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, PeachBlossomStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, MisfortuneStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, VictoryStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, QuarrelsomeStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, WealthStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, BurglaryStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, HeavenStar()), yearlyGroup.giveCenterStar().giveStarPosition())
                 )
         )
 
@@ -517,20 +549,21 @@ class MonthlyFlyingStarGroupTest {
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTH, MisfortuneStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTHEAST, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.EAST, BurglaryStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTHEAST, WealthStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTH, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTHWEST, HeavenStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.WEST, IllnessStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTHWEST, VictoryStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.CENTER, FutureProsperityStar()))
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTH, MisfortuneStar()), expectedFlyingStarGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTHEAST, QuarrelsomeStar()), expectedFlyingStarGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.EAST, BurglaryStar()), expectedFlyingStarGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTHEAST, WealthStar()), expectedFlyingStarGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTH, PeachBlossomStar()), expectedFlyingStarGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTHWEST, HeavenStar()), expectedFlyingStarGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.WEST, IllnessStar()), expectedFlyingStarGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTHWEST, VictoryStar()), expectedFlyingStarGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.CENTER, FutureProsperityStar()), expectedFlyingStarGroup.giveCenterStar().giveStarPosition())
                 )
         )
         assertNotNull(monthlyFlyingStarGroupRewound)
         assertEquals(expected, monthlyFlyingStarGroupRewound)
     }
+
 
     @Test
     fun `giveRewoundFlyingStarGroup start in the fifth month, backflow of three years, ending in the same month`() {
@@ -538,17 +571,20 @@ class MonthlyFlyingStarGroupTest {
         val month = 5
         val year = 2010
 
+        val yearlyGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val yearlyGroup = yearlyGroupSet.getFlyingStarsGroup()
+
         monthlyFlyingStarGroup = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, VictoryStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, MisfortuneStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, HeavenStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, IllnessStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, WealthStar())),
-                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, BurglaryStar()))
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTH, QuarrelsomeStar()), yearlyGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHEAST, VictoryStar()), yearlyGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.EAST, MisfortuneStar()), yearlyGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHEAST, HeavenStar()), yearlyGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTH, IllnessStar()), yearlyGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar()), yearlyGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.WEST, FutureProsperityStar()), yearlyGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.NORTHWEST, WealthStar()), yearlyGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, year, StarPosition(CompassDirection.CENTER, BurglaryStar()), yearlyGroup.giveCenterStar().giveStarPosition())
                 )
         )
 
@@ -557,20 +593,20 @@ class MonthlyFlyingStarGroupTest {
 
         val yearExpected = 2007
 
-        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(year)
+        val expectedYearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearExpected)
         val expectedFlyingStarGroup = expectedYearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
         val expected = MonthlyFlyingStarGroup(
                 setOf(
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTH, QuarrelsomeStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTHEAST, VictoryStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.EAST, MisfortuneStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTHEAST, HeavenStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTH, IllnessStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.WEST, FutureProsperityStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTHWEST, WealthStar())),
-                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.CENTER, BurglaryStar()))
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTH, QuarrelsomeStar()), expectedFlyingStarGroup.giveNorthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTHEAST, VictoryStar()), expectedFlyingStarGroup.giveNorthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.EAST, MisfortuneStar()), expectedFlyingStarGroup.giveEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTHEAST, HeavenStar()), expectedFlyingStarGroup.giveSouthEastStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTH, IllnessStar()), expectedFlyingStarGroup.giveSouthStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.SOUTHWEST, PeachBlossomStar()), expectedFlyingStarGroup.giveSouthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.WEST, FutureProsperityStar()), expectedFlyingStarGroup.giveWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.NORTHWEST, WealthStar()), expectedFlyingStarGroup.giveNorthWestStar().giveStarPosition()),
+                    MonthlyFlyingStar(month, yearExpected, StarPosition(CompassDirection.CENTER, BurglaryStar()), expectedFlyingStarGroup.giveCenterStar().giveStarPosition())
                 )
         )
         assertNotNull(monthlyFlyingStarGroupRewound)

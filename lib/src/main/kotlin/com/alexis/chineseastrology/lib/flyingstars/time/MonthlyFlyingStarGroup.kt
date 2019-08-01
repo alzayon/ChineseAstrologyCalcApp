@@ -70,28 +70,46 @@ data class MonthlyFlyingStarGroup(val monthlyFlyingStars: Set<MonthlyFlyingStar>
 
     private fun advanceFlyingStarsBySteps(steps: Int, monthToUse: Int,  yearToUse: Int):
             Set<MonthlyFlyingStar> {
+
+        val yearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearToUse)
+        val flyingStarGroup = yearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val setOfStars = setOfFlyingStars()
         val newSetOfStars = setOfStars.map {
             val newFlyingStar = IFlyingStar.advanceByPosition(steps, it.giveStarPosition().flyingStar)
             val newStarPosition = it.giveStarPosition().copy(flyingStar = newFlyingStar)
             val monthlyFlyingStar = it as MonthlyFlyingStar
-            return@map monthlyFlyingStar.copy(starPosition = newStarPosition,
-                    month = monthToUse,
-                    year = yearToUse)
+            return@map monthlyFlyingStar.copy(
+                starPosition = newStarPosition,
+                month = monthToUse,
+                year = yearToUse,
+                yearlyStarPosition = flyingStarGroup.setOfFlyingStars().filter {
+                    it.giveStarPosition().compassDirection == newStarPosition.compassDirection
+                }.first().giveStarPosition()
+            )
         }.toSet()
         return newSetOfStars
     }
 
     private fun rewindFlyingStarsBySteps(steps: Int, monthToUse: Int,  yearToUse: Int):
             Set<MonthlyFlyingStar> {
+
+        val yearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearToUse)
+        val flyingStarGroup = yearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
         val setOfStars = setOfFlyingStars()
         val newSetOfStars = setOfStars.map {
             val newFlyingStar = IFlyingStar.rewindByPosition(steps, it.giveStarPosition().flyingStar)
             val newStarPosition = it.giveStarPosition().copy(flyingStar = newFlyingStar)
             val monthlyFlyingStar = it as MonthlyFlyingStar
-            return@map monthlyFlyingStar.copy(starPosition = newStarPosition,
-                    month = monthToUse,
-                    year = yearToUse)
+            return@map monthlyFlyingStar.copy(
+                starPosition = newStarPosition,
+                month = monthToUse,
+                year = yearToUse,
+                yearlyStarPosition = flyingStarGroup.setOfFlyingStars().filter {
+                    it.giveStarPosition().compassDirection == newStarPosition.compassDirection
+                }.first().giveStarPosition()
+            )
         }.toSet()
         return newSetOfStars
     }
