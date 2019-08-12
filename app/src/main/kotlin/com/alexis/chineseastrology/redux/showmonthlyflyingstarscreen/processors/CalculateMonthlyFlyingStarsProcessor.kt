@@ -3,8 +3,9 @@ package com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.processors
 import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroupSet
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.IShowMonthlyFlyingStarsState
-import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsAction
-import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsNotifyResults
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.MutateKeys
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.Actions
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.NotifyResults
 import com.alexis.redux.action.IAction
 import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.processor.BaseProcessor
@@ -16,14 +17,17 @@ class CalculateMonthlyFlyingStarsProcessor(
 ) : BaseProcessor<Unit>() {
 
     override fun process(action: IAction)  {
-        val actionCasted = action as ShowMonthlyFlyingStarsAction.CalculateMonthlyFlyingStars
+        val actionCasted = action as Actions.CalculateMonthlyFlyingStars
         val calendar = Calendar.getInstance()
         val year = actionCasted.year ?: calendar.get(Calendar.YEAR)
         val month: Int = actionCasted.month ?: calendar.get(Calendar.MONTH)
+
+        // TODO
+        // Remove
         val userInitiated = actionCasted.userInitiated
 
-        state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthYear(month, year))
-        notifier.notify(ShowMonthlyFlyingStarsNotifyResults.MonthYearUpdated())
+        state.reduce(MutateKeys.UpdateMonthYear(month, year))
+        notifier.notify(NotifyResults.MonthYearUpdated())
 
         var group: MonthlyFlyingStarGroup? = null
         if (isValidParams(year, month)) {
@@ -32,15 +36,15 @@ class CalculateMonthlyFlyingStarsProcessor(
             val previous = group.giveRewoundFlyingStarGroup(1) as MonthlyFlyingStarGroup
             val next = group.giveAdvancedFlyingStarGroup(1) as MonthlyFlyingStarGroup
 
-            state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthlyFlyingStarGroup(group))
-            state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdatePreviousAndNextMonthlyFlyingStarGroup(previous, next))
+            state.reduce(MutateKeys.UpdateMonthlyFlyingStarGroup(group))
+            state.reduce(MutateKeys.UpdatePreviousAndNextMonthlyFlyingStarGroup(previous, next))
 
         } else {
             // TODO
             // Show an error
         }
 
-        notifier.notify(ShowMonthlyFlyingStarsNotifyResults.MonthlyFlyingStarGroupUpdated())
+        notifier.notify(NotifyResults.MonthlyFlyingStarGroupUpdated())
     }
 
     private fun isValidParams(year: Int, month: Int): Boolean {

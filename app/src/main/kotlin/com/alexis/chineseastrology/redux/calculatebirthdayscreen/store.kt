@@ -20,9 +20,9 @@ class CalculateBirthdayStore(
 {
     override fun resolveProcessor(action: IAction): IProcessor<Any> {
         return when (action) {
-            is CalculateBirthdayActions.SetBirthdate -> SetBirthdateProcessor(notifier, state)
-            is CalculateBirthdayActions.ResetState -> ResetStateProcessor()
-            is CalculateBirthdayActions.Calculate -> CalculateProcessor(notifier, state, bdayCalculator)
+            is Actions.SetBirthdate -> SetBirthdateProcessor(notifier, state)
+            is Actions.ResetState -> ResetStateProcessor()
+            is Actions.Calculate -> CalculateProcessor(notifier, state, bdayCalculator)
             else -> throw IllegalArgumentException("Action was not handled!")
         } as IProcessor<Any>
     }

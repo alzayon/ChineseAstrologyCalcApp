@@ -1,6 +1,7 @@
 package com.alexis.chineseastrology.redux.showyearlyflyingstarscreen
 
 import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
+import com.alexis.redux.state.BaseState
 import com.alexis.redux.state.IGetters
 import com.alexis.redux.state.IMutateKey
 import com.alexis.redux.state.IState
@@ -12,18 +13,18 @@ interface IShowYearlyFlyingStarsStateGetters : IGetters {
     val nextFlyingStarGroup: YearlyFlyingStarGroup?
 }
 
-interface IShowYearlyFlyingStarsState : IState, IShowYearlyFlyingStarsStateGetters  {
-    sealed class MutateKeys : IMutateKey {
-        class UpdateYear(val year: Int?) : MutateKeys()
-        class UpdateYearlyFlyingStarGroup(val flyingStarGroup: YearlyFlyingStarGroup) : MutateKeys()
-        class UpdatePreviousAndNextYearlyFlyingStarGroup(
+sealed class MutateKeys : IMutateKey {
+    class UpdateYear(val year: Int?) : MutateKeys()
+    class UpdateYearlyFlyingStarGroup(val flyingStarGroup: YearlyFlyingStarGroup) : MutateKeys()
+    class UpdatePreviousAndNextYearlyFlyingStarGroup(
             val previous: YearlyFlyingStarGroup,
             val next: YearlyFlyingStarGroup
-        ) : MutateKeys()
-    }
+    ) : MutateKeys()
 }
 
-class ShowYearlyFlyingStarsState : IShowYearlyFlyingStarsState {
+interface IShowYearlyFlyingStarsState : IState, IShowYearlyFlyingStarsStateGetters
+
+class ShowYearlyFlyingStarsState : BaseState(), IShowYearlyFlyingStarsState {
     override var yearToCalculate: Int? = null
         private set
 
@@ -38,9 +39,9 @@ class ShowYearlyFlyingStarsState : IShowYearlyFlyingStarsState {
 
     override fun reduce(mutateKey: IMutateKey) {
         when (mutateKey) {
-            is IShowYearlyFlyingStarsState.MutateKeys.UpdateYear -> yearToCalculate = mutateKey.year
-            is IShowYearlyFlyingStarsState.MutateKeys.UpdateYearlyFlyingStarGroup -> yearlyFlyingStarGroup = mutateKey.flyingStarGroup
-            is IShowYearlyFlyingStarsState.MutateKeys.UpdatePreviousAndNextYearlyFlyingStarGroup -> {
+            is MutateKeys.UpdateYear -> yearToCalculate = mutateKey.year
+            is MutateKeys.UpdateYearlyFlyingStarGroup -> yearlyFlyingStarGroup = mutateKey.flyingStarGroup
+            is MutateKeys.UpdatePreviousAndNextYearlyFlyingStarGroup -> {
                 nextFlyingStarGroup = mutateKey.next
                 previousFlyingStarGroup = mutateKey.previous
             }

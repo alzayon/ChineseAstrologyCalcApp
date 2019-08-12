@@ -11,8 +11,8 @@ import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
 import com.alexis.chineseastrology.general.extensions.getViewModel
 import com.alexis.chineseastrology.helpers.toDefaultFormat
 import com.alexis.chineseastrology.lib.animalsigns.IAnimalSign
-import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayActions
-import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayNotifyResults
+import com.alexis.chineseastrology.redux.calculatebirthdayscreen.Actions
+import com.alexis.chineseastrology.redux.calculatebirthdayscreen.NotifyResults
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.ICalculateBirthdayStateGetters
 import com.alexis.chineseastrology.viewmodel.CalculateBirthdayViewModel
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
@@ -66,7 +66,7 @@ class CalculateBirthdayScreen :
                 dpd.setOnDateSetListener { dialog, year, month, day ->
                     calendar.set(year, month, day)
                     val date = calendar.time
-                    viewModel.store.dispatch(CalculateBirthdayActions.SetBirthdate(date))
+                    viewModel.store.dispatch(Actions.SetBirthdate(date))
                     Timber.d("Date selected is " + date)
                 }
 
@@ -74,14 +74,14 @@ class CalculateBirthdayScreen :
             }
         }
         btnCalculate.setOnClickListener {
-            viewModel.store.dispatch(CalculateBirthdayActions.Calculate)
+            viewModel.store.dispatch(Actions.Calculate)
         }
     }
 
     override fun onDateSet(view: DatePickerDialog, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         val c = Calendar.getInstance()
         c.set(year, monthOfYear, dayOfMonth, 0, 0)
-        viewModel.store.dispatch(CalculateBirthdayActions.SetBirthdate(c.time))
+        viewModel.store.dispatch(Actions.SetBirthdate(c.time))
     }
 
     override fun onAttachedToWindow() {
@@ -98,8 +98,8 @@ class CalculateBirthdayScreen :
     private fun setupObservers() {
         viewModel.store.listen { result ->
             when (result) {
-                is CalculateBirthdayNotifyResults.UpdateSelectedDate -> updateSelectedDate ()
-                is CalculateBirthdayNotifyResults.CalculationResult -> showCalculationResult(result.animalSign)
+                is NotifyResults.UpdateSelectedDate -> updateSelectedDate ()
+                is NotifyResults.CalculationResult -> showCalculationResult(result.animalSign)
                 else -> throw IllegalArgumentException("A notify result was not handled!")
             }
         }

@@ -3,8 +3,9 @@ package com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.processors
 import com.alexis.chineseastrology.helpers.ifLet
 import com.alexis.chineseastrology.lib.flyingstars.time.MonthlyFlyingStarGroup
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.IShowMonthlyFlyingStarsState
-import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsAction
-import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsNotifyResults
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.MutateKeys
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.Actions
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.NotifyResults
 import com.alexis.redux.action.IAction
 import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.processor.BaseProcessor
@@ -16,7 +17,7 @@ class MoveMonthToCalculateProcessor(
     private val notifier: INotifier
 ) : BaseProcessor<Unit>() {
     override fun process(action: IAction) {
-        val actionCasted = action as ShowMonthlyFlyingStarsAction.MoveMonthToCalculate
+        val actionCasted = action as Actions.MoveMonthToCalculate
         val direction = actionCasted.movement
         val group = state.monthlyFlyingStarGroup
 
@@ -43,7 +44,7 @@ class MoveMonthToCalculateProcessor(
 
                     notifyUi()
                 } else {
-                    dispatcher.dispatch(ShowMonthlyFlyingStarsAction.CalculateMonthlyFlyingStars(monthComputed, yearComputed))
+                    dispatcher.dispatch(Actions.CalculateMonthlyFlyingStars(monthComputed, yearComputed))
                 }
             } else {
                 monthComputed = month - 1
@@ -65,7 +66,7 @@ class MoveMonthToCalculateProcessor(
 
                     notifyUi()
                 } else {
-                    dispatcher.dispatch(ShowMonthlyFlyingStarsAction.CalculateMonthlyFlyingStars(monthComputed, yearComputed))
+                    dispatcher.dispatch(Actions.CalculateMonthlyFlyingStars(monthComputed, yearComputed))
                 }
             }
         }
@@ -78,18 +79,18 @@ class MoveMonthToCalculateProcessor(
         previousFlyingStarGroup: MonthlyFlyingStarGroup,
         nextFlyingStarGroup: MonthlyFlyingStarGroup
     ) {
-        state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthYear(month, year))
-        state.reduce(IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthlyFlyingStarGroup(currentFlyingStarGroup))
+        state.reduce(MutateKeys.UpdateMonthYear(month, year))
+        state.reduce(MutateKeys.UpdateMonthlyFlyingStarGroup(currentFlyingStarGroup))
         state.reduce(
-            IShowMonthlyFlyingStarsState.MutateKeys.UpdatePreviousAndNextMonthlyFlyingStarGroup(
-                previousFlyingStarGroup,
-                nextFlyingStarGroup
+            MutateKeys.UpdatePreviousAndNextMonthlyFlyingStarGroup(
+                    previousFlyingStarGroup,
+                    nextFlyingStarGroup
             )
         )
     }
 
     private fun notifyUi() {
-        notifier.notify(ShowMonthlyFlyingStarsNotifyResults.MonthYearUpdated())
-        notifier.notify(ShowMonthlyFlyingStarsNotifyResults.MonthlyFlyingStarGroupUpdated())
+        notifier.notify(NotifyResults.MonthYearUpdated())
+        notifier.notify(NotifyResults.MonthlyFlyingStarGroupUpdated())
     }
 }

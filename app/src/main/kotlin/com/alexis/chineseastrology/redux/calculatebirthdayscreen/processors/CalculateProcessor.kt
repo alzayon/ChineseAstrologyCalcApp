@@ -1,7 +1,7 @@
 package com.alexis.chineseastrology.redux.calculatebirthdayscreen.processors
 
 import com.alexis.chineseastrology.lib.IBdayCalculator
-import com.alexis.chineseastrology.redux.calculatebirthdayscreen.CalculateBirthdayNotifyResults
+import com.alexis.chineseastrology.redux.calculatebirthdayscreen.NotifyResults
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.ICalculateBirthdayState
 import com.alexis.redux.action.IAction
 import com.alexis.redux.notifier.INotifier
@@ -17,7 +17,7 @@ class CalculateProcessor(
         state.birthdate?.let {
             val animalSign = bdayCalculator.calculate(it)
             Timber.d("Calcuate BaseNotifyResult %s", animalSign)
-            notifier.notify(CalculateBirthdayNotifyResults.CalculationResult(animalSign))
+            notifier.notify(NotifyResults.CalculationResult(animalSign))
         }
     }
 }

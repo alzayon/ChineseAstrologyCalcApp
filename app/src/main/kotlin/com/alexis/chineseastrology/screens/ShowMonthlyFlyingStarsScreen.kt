@@ -10,8 +10,8 @@ import com.alexis.chineseastrology.dagger.general.viewinjector.IViewWithActivity
 import com.alexis.chineseastrology.dagger.general.viewinjector.ViewInjection
 import com.alexis.chineseastrology.general.extensions.getViewModel
 import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.IShowMonthlyFlyingStarsStateGetters
-import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsAction
-import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.ShowMonthlyFlyingStarsNotifyResults
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.Actions
+import com.alexis.chineseastrology.redux.showmonthlyflyingstarscreen.NotifyResults
 import com.alexis.chineseastrology.screens.viewpager.MonthlyFlyingStarsCustomPagerAdapter
 import com.alexis.chineseastrology.viewmodel.ShowMonthlyFlyingStarsViewModel
 import com.whiteelephant.monthpicker.MonthPickerDialog
@@ -52,9 +52,9 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
                     val item = flyingStarViewPager.currentItem
                     if (item < 1) {
-                        viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.MoveMonthToCalculate(-1))
+                        viewModel.store.dispatch(Actions.MoveMonthToCalculate(-1))
                     } else {
-                        viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.MoveMonthToCalculate(1))
+                        viewModel.store.dispatch(Actions.MoveMonthToCalculate(1))
                     }
                     flyingStarViewPager.setCurrentItem(1, false)
                 }
@@ -72,7 +72,7 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
     }
 
     private fun recalculateAfterTyping(month: Int, year: Int) {
-        viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.CalculateMonthlyFlyingStars(
+        viewModel.store.dispatch(Actions.CalculateMonthlyFlyingStars(
                 month,
                 year,
                 true
@@ -83,8 +83,8 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
     private fun setupObservers() {
         viewModel.store.listen { result ->
             when (result) {
-                is ShowMonthlyFlyingStarsNotifyResults.MonthYearUpdated -> onMonthYearUpdated()
-                is ShowMonthlyFlyingStarsNotifyResults.MonthlyFlyingStarGroupUpdated -> onFlyingStarGroupUpdated()
+                is NotifyResults.MonthYearUpdated -> onMonthYearUpdated()
+                is NotifyResults.MonthlyFlyingStarGroupUpdated -> onFlyingStarGroupUpdated()
                 else -> throw IllegalArgumentException("A notify result was not handled!")
             }
         }
@@ -125,7 +125,7 @@ class ShowMonthlyFlyingStarsScreen : LinearLayout, IViewWithActivity
         viewModel.setup(this.activity.fragmentActivity)
         setupObservers()
         setupAdapter()
-        viewModel.store.dispatch(ShowMonthlyFlyingStarsAction.CalculateMonthlyFlyingStars())
+        viewModel.store.dispatch(Actions.CalculateMonthlyFlyingStars())
         setupMonthSelector()
     }
 

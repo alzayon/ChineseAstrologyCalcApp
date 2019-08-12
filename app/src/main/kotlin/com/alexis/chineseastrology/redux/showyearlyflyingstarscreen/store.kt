@@ -18,9 +18,9 @@ class ShowYearlyFlyingStarsStore(
 {
     override fun resolveProcessor(action: IAction): IProcessor<Any> {
         return when (action) {
-            is ShowYearlyFlyingStarsAction.CalculateYearlyFlyingStars ->
+            is Actions.CalculateYearlyFlyingStars ->
                 CalculateYearlyFlyingStarsProcessor(state, notifier)
-            is ShowYearlyFlyingStarsAction.MoveYearToCalculate ->
+            is Actions.MoveYearToCalculate ->
                 MoveYearToCalculateProcessor(state, this, notifier)
             else -> throw IllegalArgumentException("Action was not handled!")
         } as IProcessor<Any>

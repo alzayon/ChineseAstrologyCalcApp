@@ -16,16 +16,16 @@ interface IShowMonthlyFlyingStarsStateGetters : IGetters {
     val nextFlyingStarGroup: MonthlyFlyingStarGroup?
 }
 
-interface IShowMonthlyFlyingStarsState : IState, IShowMonthlyFlyingStarsStateGetters {
-    sealed class MutateKeys : IMutateKey {
-        class UpdateMonthYear(val month: Int?, val year: Int?) : MutateKeys()
-        class UpdateMonthlyFlyingStarGroup(val flyingStarGroup: MonthlyFlyingStarGroup?) : MutateKeys()
-        class UpdatePreviousAndNextMonthlyFlyingStarGroup(
+sealed class MutateKeys : IMutateKey {
+    class UpdateMonthYear(val month: Int?, val year: Int?) : MutateKeys()
+    class UpdateMonthlyFlyingStarGroup(val flyingStarGroup: MonthlyFlyingStarGroup?) : MutateKeys()
+    class UpdatePreviousAndNextMonthlyFlyingStarGroup(
             val previous: MonthlyFlyingStarGroup,
             val next: MonthlyFlyingStarGroup
-        ) : MutateKeys()
-    }
+    ) : MutateKeys()
 }
+
+interface IShowMonthlyFlyingStarsState : IState, IShowMonthlyFlyingStarsStateGetters
 
 class ShowMonthlyFlyingStarsState : BaseState(), IShowMonthlyFlyingStarsState {
     override var monthToCalculate: Int? = null
@@ -54,12 +54,12 @@ class ShowMonthlyFlyingStarsState : BaseState(), IShowMonthlyFlyingStarsState {
 
     override fun reduce(mutateKey: IMutateKey) {
         when (mutateKey) {
-            is IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthYear -> {
+            is MutateKeys.UpdateMonthYear -> {
                 monthToCalculate = mutateKey.month
                 yearToCalculate = mutateKey.year
             }
-            is IShowMonthlyFlyingStarsState.MutateKeys.UpdateMonthlyFlyingStarGroup -> monthlyFlyingStarGroup = mutateKey.flyingStarGroup
-            is IShowMonthlyFlyingStarsState.MutateKeys.UpdatePreviousAndNextMonthlyFlyingStarGroup -> {
+            is MutateKeys.UpdateMonthlyFlyingStarGroup -> monthlyFlyingStarGroup = mutateKey.flyingStarGroup
+            is MutateKeys.UpdatePreviousAndNextMonthlyFlyingStarGroup -> {
                 nextFlyingStarGroup = mutateKey.next
                 previousFlyingStarGroup = mutateKey.previous
             }

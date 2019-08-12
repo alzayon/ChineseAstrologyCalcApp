@@ -37,6 +37,20 @@ class YearlyFlyingStarGroup: BaseFlyingStarGroup {
         return YearlyFlyingStarGroup(yearlyFlyingStars)
     }
 
+    fun giveStartBoundary(year: Int): BoundaryYear {
+        val boundary = MonthlyBoundary.BOUNDARY1
+        val startMonth = boundary.month
+        val startDay = boundary.day
+        return BoundaryYear(year, startMonth, startDay)
+    }
+
+    fun giveEndBoundary(year: Int): BoundaryYear {
+        val boundary = MonthlyBoundary.BOUNDARY12
+        val endMonth = boundary.monthEnd
+        val endDay = boundary.dayEnd
+        return BoundaryYear(year + 1, endMonth, endDay)
+    }
+
     private fun advanceFlyingStarsBySteps(steps: Int, yearToUse: Int = year):
             Set<YearlyFlyingStar> {
         val setOfStars = setOfFlyingStars()
@@ -60,4 +74,6 @@ class YearlyFlyingStarGroup: BaseFlyingStarGroup {
         }.toSet()
         return newSetOfStars
     }
+
+    class BoundaryYear(val year: Int, val month: Int, val day: Int)
 }

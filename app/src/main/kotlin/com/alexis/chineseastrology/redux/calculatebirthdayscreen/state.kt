@@ -12,12 +12,12 @@ interface ICalculateBirthdayStateGetters : IGetters {
     val animalSign: IAnimalSign?
 }
 
-interface ICalculateBirthdayState : IState, ICalculateBirthdayStateGetters {
-    sealed class MutateKeys : IMutateKey {
-        class SetBirthdate(val date: Date?) : MutateKeys()
-        class SetAnimalSign(val animalSign: IAnimalSign?) : MutateKeys()
-    }
+sealed class MutateKeys : IMutateKey {
+    class SetBirthdate(val date: Date?) : MutateKeys()
+    class SetAnimalSign(val animalSign: IAnimalSign?) : MutateKeys()
 }
+
+interface ICalculateBirthdayState : IState, ICalculateBirthdayStateGetters
 
 class CalculateBirthdayState : BaseState(), ICalculateBirthdayState {
     override var birthdate: Date? = null
@@ -27,8 +27,8 @@ class CalculateBirthdayState : BaseState(), ICalculateBirthdayState {
 
     override fun reduce(mutateKey: IMutateKey) {
         when (mutateKey) {
-            is ICalculateBirthdayState.MutateKeys.SetBirthdate -> { this.birthdate = mutateKey.date }
-            is ICalculateBirthdayState.MutateKeys.SetAnimalSign -> { this.animalSign = mutateKey.animalSign }
+            is MutateKeys.SetBirthdate -> { this.birthdate = mutateKey.date }
+            is MutateKeys.SetAnimalSign -> { this.animalSign = mutateKey.animalSign }
             else -> throw IllegalArgumentException("Mutate key was not handled! " + mutateKey)
         }
     }

@@ -4,12 +4,9 @@ import android.content.Context
 import androidx.viewpager.widget.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
-import com.alexis.chineseastrology.lib.flyingstars.time.IFlyingStarGroup
 import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
 import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.IShowYearlyFlyingStarsStateGetters
-import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.ShowYearlyFlyingStarsAction
 import com.alexis.chineseastrology.widgets.FlyingStarCanvas
-import com.alexis.redux.store.IDispatcher
 
 class YearlyFlyingStarsCustomPagerAdapter(
     private val context: Context,

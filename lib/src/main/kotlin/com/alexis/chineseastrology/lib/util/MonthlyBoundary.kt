@@ -8,7 +8,7 @@ import java.util.*
 sealed class MonthlyBoundary(public val start: Pair<Int, Int>,
                              public val end: Pair<Int, Int>) {
     companion object {
-        public fun convertToDate(year: Int, monthlyBoundary: MonthlyBoundary): Pair<Date, Date> {
+        fun convertToDate(year: Int, monthlyBoundary: MonthlyBoundary): Pair<Date, Date> {
             val month1 = monthlyBoundary.start.first
             val day1 = monthlyBoundary.start.second
             val startDate = DateUtil.getDateFromComponents(year, month1, day1)

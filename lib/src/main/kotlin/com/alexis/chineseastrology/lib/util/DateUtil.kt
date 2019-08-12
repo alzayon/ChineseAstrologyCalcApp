@@ -17,7 +17,7 @@ final class DateUtil {
             return calendar.get(Calendar.YEAR)
         }
 
-        public fun stringToDate(dateInString: String): Optional<Date> {
+        fun stringToDate(dateInString: String): Optional<Date> {
             val formatter = SimpleDateFormat("yyyy-MM-dd");
             try {
                 val date = formatter.parse(dateInString);
@@ -25,6 +25,11 @@ final class DateUtil {
             } catch (ex: IllegalArgumentException) {
                 return Optional()
             }
+        }
+
+        fun dateToString(date: Date): String {
+            val formatter = SimpleDateFormat("MMMM dd, yyyy");
+            return formatter.format(date)
         }
 
         public fun getDateFromComponents(year: Int, month: Int, day: Int): Date {
