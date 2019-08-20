@@ -11,7 +11,7 @@ abstract class BaseStore<T: IState>(
     protected val state: T
 ) : IStore, INotifier by notifier
 {
-    protected val processors: MutableMap<Class<out IAction>, IProcessor<Any>> = mutableMapOf()
+    protected val processors: MutableMap<Class<out IAction>, IProcessor<Any, IAction>> = mutableMapOf()
 
     override fun dispatch(action: IAction) {
         return dispatchSync<Unit>(action)
@@ -25,7 +25,7 @@ abstract class BaseStore<T: IState>(
             }
         }
         val processor = resolveProcessor(action)
-        return processor?.let { p ->
+        return processor?.let { p: IProcessor<Any, IAction> ->
             if (processor !is ITransient) {
                 processors.put(action::class.java, p)
             }

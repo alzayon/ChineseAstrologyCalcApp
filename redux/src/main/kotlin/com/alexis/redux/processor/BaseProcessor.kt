@@ -1,3 +1,5 @@
 package com.alexis.redux.processor
 
-abstract class BaseProcessor<Any> : IProcessor<Any>
+import com.alexis.redux.action.IAction
+
+abstract class BaseProcessor<T, W : IAction> : IProcessor<T, W>

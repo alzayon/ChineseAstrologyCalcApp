@@ -2,11 +2,12 @@ package com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.processors
 
 import com.alexis.chineseastrology.lib.flyingstars.time.YearlyFlyingStarGroup
 import com.alexis.chineseastrology.redux.showyearlyflyingstarscreen.NotifyResults
+import com.alexis.redux.action.IAction
 import com.alexis.redux.notifier.INotifier
 import com.alexis.redux.processor.BaseProcessor
 import java.util.*
 
-abstract class BaseYearlyProcessor<T> : BaseProcessor<T>() {
+abstract class BaseYearlyProcessor<T, W : IAction> : BaseProcessor<T, W>() {
     protected fun notifyChangedBoundaries(
         notifier: INotifier,
         yearlyFlyingStarGroup: YearlyFlyingStarGroup

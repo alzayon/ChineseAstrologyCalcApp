@@ -2,7 +2,6 @@ package com.alexis.chineseastrology.redux.calculatebirthdayscreen
 
 import com.alexis.chineseastrology.lib.IBdayCalculator
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.processors.CalculateProcessor
-import com.alexis.chineseastrology.redux.calculatebirthdayscreen.processors.ResetStateProcessor
 import com.alexis.chineseastrology.redux.calculatebirthdayscreen.processors.SetBirthdateProcessor
 import com.alexis.redux.action.IAction
 import com.alexis.redux.notifier.INotifier
@@ -18,13 +17,12 @@ class CalculateBirthdayStore(
     private val bdayCalculator: IBdayCalculator
 ) : BaseStore<ICalculateBirthdayState>(notifier, state), ICalculateBirthdayStore
 {
-    override fun resolveProcessor(action: IAction): IProcessor<Any> {
+    override fun resolveProcessor(action: IAction): IProcessor<Any, IAction> {
         return when (action) {
             is Actions.SetBirthdate -> SetBirthdateProcessor(notifier, state)
-            is Actions.ResetState -> ResetStateProcessor()
             is Actions.Calculate -> CalculateProcessor(notifier, state, bdayCalculator)
             else -> throw IllegalArgumentException("Action was not handled!")
-        } as IProcessor<Any>
+        } as IProcessor<Any, IAction>
     }
 
     override fun getters(): ICalculateBirthdayStateGetters {

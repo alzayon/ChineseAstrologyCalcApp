@@ -4,7 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import com.alexis.chineseastrology.redux.notifier.LiveDataNotifier
 
-open abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
     protected lateinit var notifier: LiveDataNotifier
         private set
 

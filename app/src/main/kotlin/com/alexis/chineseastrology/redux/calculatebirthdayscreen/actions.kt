@@ -5,6 +5,5 @@ import java.util.*
 
 sealed class Actions : IAction {
     class SetBirthdate(val birthdate: Date?) : Actions()
-    object ResetState : Actions()
     object Calculate  : Actions()
 }

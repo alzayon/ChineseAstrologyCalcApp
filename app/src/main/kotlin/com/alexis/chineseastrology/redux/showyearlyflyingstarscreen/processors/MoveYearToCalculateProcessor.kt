@@ -13,10 +13,9 @@ class MoveYearToCalculateProcessor(
         private val state: IShowYearlyFlyingStarsState,
         private val dispatcher: IDispatcher,
         private val notifier: INotifier
-) : BaseYearlyProcessor<Unit>() {
-    override fun process(action: IAction) {
-        val actionCasted = action as Actions.MoveYearToCalculate
-        val direction = actionCasted.movement
+) : BaseYearlyProcessor<Unit, Actions.MoveYearToCalculate>() {
+    override fun process(action: Actions.MoveYearToCalculate) {
+        val direction = action.movement
         var yearComputed = 0
 
         val group = state.yearlyFlyingStarGroup

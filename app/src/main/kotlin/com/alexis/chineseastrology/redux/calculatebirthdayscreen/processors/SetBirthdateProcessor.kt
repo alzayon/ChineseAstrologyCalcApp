@@ -11,10 +11,9 @@ import com.alexis.redux.processor.BaseProcessor
 class SetBirthdateProcessor(
     private val notifier: INotifier,
     private val state: ICalculateBirthdayState
-) : BaseProcessor<Unit>() {
-    override fun process(action: IAction) {
-        val actionCasted = action as Actions.SetBirthdate
-        state.reduce(MutateKeys.SetBirthdate(actionCasted.birthdate))
+) : BaseProcessor<Unit, Actions.SetBirthdate>() {
+    override fun process(action: Actions.SetBirthdate) {
+        state.reduce(MutateKeys.SetBirthdate(action.birthdate))
         notifier.notify(NotifyResults.UpdateSelectedDate())
     }
 }

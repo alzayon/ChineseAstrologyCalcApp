@@ -14,11 +14,10 @@ import java.util.*
 class CalculateYearlyFlyingStarsProcessor(
     private val state: IShowYearlyFlyingStarsState,
     private val notifier: INotifier
-) : BaseYearlyProcessor<Unit>() {
-    override fun process(action: IAction) {
-        val actionCasted = action as Actions.CalculateYearlyFlyingStars
-        val year = actionCasted.year ?: Calendar.getInstance().get(Calendar.YEAR)
-        val userInitiated = actionCasted.userInitiated
+) : BaseYearlyProcessor<Unit, Actions.CalculateYearlyFlyingStars>() {
+    override fun process(action: Actions.CalculateYearlyFlyingStars) {
+        val year = action.year ?: Calendar.getInstance().get(Calendar.YEAR)
+        val userInitiated = action.userInitiated
 
         state.reduce(MutateKeys.UpdateYear(year))
         if (!userInitiated) {

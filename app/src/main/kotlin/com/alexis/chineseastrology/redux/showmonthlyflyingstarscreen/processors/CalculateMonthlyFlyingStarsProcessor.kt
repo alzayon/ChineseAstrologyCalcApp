@@ -14,17 +14,16 @@ import java.util.*
 class CalculateMonthlyFlyingStarsProcessor(
     private val state: IShowMonthlyFlyingStarsState,
     private val notifier: INotifier
-) : BaseProcessor<Unit>() {
+) : BaseProcessor<Unit, Actions.CalculateMonthlyFlyingStars>() {
 
-    override fun process(action: IAction)  {
-        val actionCasted = action as Actions.CalculateMonthlyFlyingStars
+    override fun process(action: Actions.CalculateMonthlyFlyingStars)  {
         val calendar = Calendar.getInstance()
-        val year = actionCasted.year ?: calendar.get(Calendar.YEAR)
-        val month: Int = actionCasted.month ?: calendar.get(Calendar.MONTH)
+        val year = action.year ?: calendar.get(Calendar.YEAR)
+        val month: Int = action.month ?: calendar.get(Calendar.MONTH)
 
         // TODO
         // Remove
-        val userInitiated = actionCasted.userInitiated
+        val userInitiated = action.userInitiated
 
         state.reduce(MutateKeys.UpdateMonthYear(month, year))
         notifier.notify(NotifyResults.MonthYearUpdated())

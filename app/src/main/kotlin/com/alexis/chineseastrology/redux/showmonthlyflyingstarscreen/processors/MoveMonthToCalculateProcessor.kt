@@ -15,10 +15,9 @@ class MoveMonthToCalculateProcessor(
     private val state: IShowMonthlyFlyingStarsState,
     private val dispatcher: IDispatcher,
     private val notifier: INotifier
-) : BaseProcessor<Unit>() {
-    override fun process(action: IAction) {
-        val actionCasted = action as Actions.MoveMonthToCalculate
-        val direction = actionCasted.movement
+) : BaseProcessor<Unit, Actions.MoveMonthToCalculate>() {
+    override fun process(action: Actions.MoveMonthToCalculate) {
+        val direction = action.movement
         val group = state.monthlyFlyingStarGroup
 
         ifLet (state.monthToCalculate, state.yearToCalculate) { (month, year) ->

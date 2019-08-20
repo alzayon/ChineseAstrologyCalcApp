@@ -15,14 +15,14 @@ class ShowMonthlyFlyingStarsStore(
     notifier: INotifier,
     state: IShowMonthlyFlyingStarsState
 ) : BaseStore<IShowMonthlyFlyingStarsState>(notifier, state), IShowMonthlyFlyingStarsStore {
-    override fun resolveProcessor(action: IAction): IProcessor<Any> {
+    override fun resolveProcessor(action: IAction): IProcessor<Any, IAction> {
         return when (action) {
             is Actions.CalculateMonthlyFlyingStars ->
                 CalculateMonthlyFlyingStarsProcessor(state, notifier)
             is Actions.MoveMonthToCalculate ->
                 MoveMonthToCalculateProcessor(state, this, notifier)
             else -> throw IllegalArgumentException("Action was not handled!")
-        } as IProcessor<Any>
+        } as IProcessor<Any, IAction>
     }
 
     override fun getters(): IGetters {
