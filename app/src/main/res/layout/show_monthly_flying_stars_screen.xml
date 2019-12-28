@@ -22,7 +22,7 @@
         android:orientation="horizontal"
         android:layout_weight="0.1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="100dp">
         <TextView
             android:text="@string/enter_month_year"
             android:layout_weight="0.2"
