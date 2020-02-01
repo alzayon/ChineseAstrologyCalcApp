@@ -22,17 +22,21 @@
             android:text="1"
             android:textSize="40sp"
             android:textStyle="bold"
+            android:paddingEnd="@dimen/flying_star_box_month_default_end_padding"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:background="@drawable/border_thicker_right_bottom_orange"
             android:id="@+id/txtMonthlyNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:paddingTop="@dimen/flying_star_box_month_default_padding"
+            android:paddingRight="@dimen/flying_star_box_month_default_end_padding"
+            android:paddingBottom="@dimen/flying_star_box_month_default_padding"
+            android:paddingLeft="@dimen/flying_star_box_month_default_padding"
             android:text="9"
             android:textSize="24sp"
             card_view:layout_constraintBottom_toBottomOf="parent"

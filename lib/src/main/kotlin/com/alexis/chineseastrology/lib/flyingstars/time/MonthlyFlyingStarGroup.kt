@@ -23,56 +23,64 @@ data class MonthlyFlyingStarGroup(val monthlyFlyingStars: Set<MonthlyFlyingStar>
         if (steps == 0) {
             return MonthlyFlyingStarGroup(monthlyFlyingStars)
         }
-        var monthToUse = month + steps
-        var yearToUse = year
-        if (monthToUse > 12) {
-            monthToUse = (monthToUse % 12).toInt()
+        var monthAlreadyAdvanced = month + steps
+        var yearAlreadyAdvanced = year
+        if (monthAlreadyAdvanced > 12) {
+            monthAlreadyAdvanced = (monthAlreadyAdvanced % 12).toInt()
         }
 
         val yearsMore: Int = (month + steps) / 12
-        yearToUse += yearsMore
+        yearAlreadyAdvanced += yearsMore
 
-        val monthlyFlyingStars = advanceFlyingStarsBySteps(steps, monthToUse, yearToUse)
+        val monthlyFlyingStars = advanceFlyingStarsBySteps(steps, monthAlreadyAdvanced, yearAlreadyAdvanced)
         return MonthlyFlyingStarGroup(monthlyFlyingStars)
     }
 
     fun giveRewoundFlyingStarGroup(steps: Int):
             IFlyingStarGroup {
-        var monthToUse = month - steps //month is within the same year
-        var yearToUse = year
+        if (steps == 0) {
+            return MonthlyFlyingStarGroup(monthlyFlyingStars)
+        }
 
-        //Month is in the previous years, how many?
-        //Let's calculate
-        if (monthToUse < 0) {
+        var monthAlreadyRewound = month - steps //month is within the same year **
+        var yearAlreadyRewound = year // **
+
+
+        // Month is in the previous years, how many?
+        // Let's calculate
+
+        if (monthAlreadyRewound <= 0) {
             val remainder = steps % 12
             if (remainder == 0) {
-                monthToUse = month
-                yearToUse = year - Math.ceil(steps.toDouble() / 12).toInt()
-            } else if (monthToUse < -12) {
+                monthAlreadyRewound = month
+                yearAlreadyRewound = year - Math.ceil(steps.toDouble() / 12).toInt()
+            } else if (monthAlreadyRewound < -12) {
                 val excessOfTwelve = steps % 12
-                monthToUse = 12 - excessOfTwelve
+                monthAlreadyRewound = 12 - excessOfTwelve
                 if (month != 12) {
-                    monthToUse += month
-                    yearToUse = year - Math.ceil(steps.toDouble() / 12).toInt()
+                    monthAlreadyRewound += month
+                    yearAlreadyRewound = year - Math.ceil(steps.toDouble() / 12).toInt()
                 } else {
-                    yearToUse = year - (steps / 12)
+                    yearAlreadyRewound = year - (steps / 12)
                 }
 
-            } else if (monthToUse < 0) { //The month is within the previous year only
-                monthToUse = (12 - Math.abs(monthToUse))
-                yearToUse--
+            } else if (monthAlreadyRewound <= 0) { //The month is within the previous year only
+                monthAlreadyRewound = (12 - Math.abs(monthAlreadyRewound))
+                yearAlreadyRewound--
             }
         }
 
-        val monthlyFlyingStars = rewindFlyingStarsBySteps(steps, monthToUse, yearToUse)
+
+        val monthlyFlyingStars = rewindFlyingStarsBySteps(steps, monthAlreadyRewound, yearAlreadyRewound)
         return MonthlyFlyingStarGroup(monthlyFlyingStars)
     }
 
-    private fun advanceFlyingStarsBySteps(steps: Int, monthToUse: Int,  yearToUse: Int):
+    private fun advanceFlyingStarsBySteps(steps: Int, monthAlreadyAdvanced: Int, yearAlreadyAdvanced: Int):
             Set<MonthlyFlyingStar> {
 
-        val yearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearToUse)
+        val yearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearAlreadyAdvanced)
         val flyingStarGroup = yearlyFlyingStarGroupSet.getFlyingStarsGroup()
+
 
         val setOfStars = setOfFlyingStars()
         val newSetOfStars = setOfStars.map {
@@ -81,8 +89,8 @@ data class MonthlyFlyingStarGroup(val monthlyFlyingStars: Set<MonthlyFlyingStar>
             val monthlyFlyingStar = it as MonthlyFlyingStar
             return@map monthlyFlyingStar.copy(
                 starPosition = newStarPosition,
-                month = monthToUse,
-                year = yearToUse,
+                month = monthAlreadyAdvanced,
+                year = yearAlreadyAdvanced,
                 yearlyStarPosition = flyingStarGroup.setOfFlyingStars().filter {
                     it.giveStarPosition().compassDirection == newStarPosition.compassDirection
                 }.first().giveStarPosition()
@@ -91,10 +99,11 @@ data class MonthlyFlyingStarGroup(val monthlyFlyingStars: Set<MonthlyFlyingStar>
         return newSetOfStars
     }
 
-    private fun rewindFlyingStarsBySteps(steps: Int, monthToUse: Int,  yearToUse: Int):
+    private fun rewindFlyingStarsBySteps(steps: Int, monthAlreadyRewound: Int, yearAlreadyRewound: Int):
             Set<MonthlyFlyingStar> {
 
-        val yearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearToUse)
+
+        val yearlyFlyingStarGroupSet = YearlyFlyingStarGroupSet.determineYearSet(yearAlreadyRewound)
         val flyingStarGroup = yearlyFlyingStarGroupSet.getFlyingStarsGroup()
 
         val setOfStars = setOfFlyingStars()
@@ -104,8 +113,8 @@ data class MonthlyFlyingStarGroup(val monthlyFlyingStars: Set<MonthlyFlyingStar>
             val monthlyFlyingStar = it as MonthlyFlyingStar
             return@map monthlyFlyingStar.copy(
                 starPosition = newStarPosition,
-                month = monthToUse,
-                year = yearToUse,
+                month = monthAlreadyRewound,
+                year = yearAlreadyRewound,
                 yearlyStarPosition = flyingStarGroup.setOfFlyingStars().filter {
                     it.giveStarPosition().compassDirection == newStarPosition.compassDirection
                 }.first().giveStarPosition()

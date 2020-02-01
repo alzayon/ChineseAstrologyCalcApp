@@ -20,8 +20,8 @@ interface IAnimalSign {
 
     fun getPreviousAnimalSign(): IAnimalSign {
         var targetPosition = this.position - 1
-        if (this.position == 1) {
-            targetPosition == 12
+        if (targetPosition == 0) {
+            targetPosition = 12
         }
         val list = AnimalSignBaseYear.getAllBaseYears()
         val found = list.filter {

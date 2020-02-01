@@ -49,7 +49,7 @@ class MonthlyFlyingStarsCustomPagerAdapter(
     fun onFlyingStarGroupUpdated(monthlyFlyingStarGroup: MonthlyFlyingStarGroup?) {
         observers.entries.forEach {
             // Invoke the observer
-            val observer= it.value
+            val observer = it.value
             observer(monthlyFlyingStarGroup)
         }
     }
@@ -63,9 +63,16 @@ class MonthlyFlyingStarsCustomPagerAdapter(
                     if (position == 1) {
                         view.flyingStarGroup = it
                     } else if (position == 2) {
-                        view.flyingStarGroup = it.giveAdvancedFlyingStarGroup(1)
+                        // TODO
+                        // Use the value from the state...
+                        // view.flyingStarGroup = it.giveAdvancedFlyingStarGroup(1)
+                        view.flyingStarGroup = stateGetters.nextFlyingStarGroup
+
                     } else {
-                        view.flyingStarGroup = it.giveRewoundFlyingStarGroup(1)
+                        // TODO
+                        // Use the value from the state
+                        // view.flyingStarGroup = it.giveRewoundFlyingStarGroup(1)
+                        view.flyingStarGroup = stateGetters.previousFlyingStarGroup
                     }
                 }
             }

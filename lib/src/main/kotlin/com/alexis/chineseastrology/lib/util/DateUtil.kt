@@ -28,11 +28,11 @@ final class DateUtil {
         }
 
         fun dateToString(date: Date): String {
-            val formatter = SimpleDateFormat("MMMM dd, yyyy");
+            val formatter = SimpleDateFormat("MMM dd, yyyy");
             return formatter.format(date)
         }
 
-        public fun getDateFromComponents(year: Int, month: Int, day: Int): Date {
+        fun getDateFromComponents(year: Int, month: Int, day: Int): Date {
             val cal = Calendar.getInstance()
             cal.set(year, month, day)
             return cal.time

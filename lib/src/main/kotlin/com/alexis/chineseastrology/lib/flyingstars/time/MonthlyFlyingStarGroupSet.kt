@@ -4,6 +4,9 @@ import com.alexis.chineseastrology.lib.flyingstars.StarPosition
 import com.alexis.chineseastrology.lib.flyingstars.stars.*
 import com.alexis.chineseastrology.lib.general.CompassDirection
 
+// TODO
+// Maybe make it a sealed class
+// We only have three sets
 class MonthlyFlyingStarGroupSet {
 
     // The 1st month of each year falls under one of three sets
@@ -28,21 +31,22 @@ class MonthlyFlyingStarGroupSet {
         }
 
         // TODO
+        // When the month is 12th, meaning January
+        // Use the flying stars from the previous year
         // Unit test
         fun getMonthlyFlyingStars(month: Int, year: Int): MonthlyFlyingStarGroup {
+
             // NOTE
             // 1st month  = Feb
             // 12th month = Jan
             // If month is 12, use the month set for the previous year
             val monthSet = determineStartingMonthSet(year)
             var group = monthSet.giveFlyingStarsMonthSet(year)
-            group.year = year
             if (month == 1) { // month 1 is February
                 return group
             } else {
-                val steps = month - 1
+                val steps = (month - 1)
                 group = monthSet.giveFlyingStarsMonthSet(year).giveAdvancedFlyingStarGroup(steps) as MonthlyFlyingStarGroup
-                group.year = year
                 return group
             }
         }
